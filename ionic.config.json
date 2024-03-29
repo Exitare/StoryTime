@@ -1,0 +1,7 @@
+{
+  "name": "StoryTime",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
