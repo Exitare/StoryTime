@@ -25,7 +25,17 @@ export class Tab2Page implements OnInit, OnDestroy {
     userCategories: string[] = [];
 
     constructor(private sentenceService: SentencesService, private settingsService: SettingsService) {
+        this.subscriptions$.push(this.settingsService.selectedCategoriesChanged$.subscribe(async () => {
+            console.log('Categories changed');
+            this.sentenceForCategory = [];
+            this.loadData();
+        }));
 
+        this.subscriptions$.push(this.settingsService.enteredAgeChanged$.subscribe(async () => {
+            console.log('Age changed');
+            this.sentenceForCategory = [];
+            this.loadData();
+        }));
     }
 
     ngOnInit() {
@@ -37,9 +47,6 @@ export class Tab2Page implements OnInit, OnDestroy {
         }
     }
 
-    ionViewWillLeave() {
-        //this.sentenceForCategory = [];
-    }
 
     async loadData() {
         this.userAge = await this.settingsService.getAge();

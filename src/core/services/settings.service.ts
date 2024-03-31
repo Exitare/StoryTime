@@ -1,18 +1,21 @@
 import {Injectable} from "@angular/core";
 import {Preferences} from '@capacitor/preferences';
+import {Subject} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SettingsService {
 
-
+    selectedCategoriesChanged$: Subject<string[]> = new Subject<string[]>();
+    enteredAgeChanged$: Subject<number> = new Subject<number>();
 
     constructor() {
 
     }
 
     async saveAge(age: number) {
+        this.enteredAgeChanged$.next(age);
         await this.set('age', age);
     }
 
@@ -23,6 +26,7 @@ export class SettingsService {
     }
 
     async saveCategories(categories: string[]) {
+        this.selectedCategoriesChanged$.next(categories);
         await this.set('categories', JSON.stringify(categories));
     }
 

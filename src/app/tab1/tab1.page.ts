@@ -1,22 +1,33 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SentencesService} from "../../core/services/sentence.service";
 import {Age, Sentence} from "../../core/models";
 import {SettingsService} from "../../core/services/settings.service";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-tab1',
     templateUrl: 'tab1.page.html',
     styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
-
+export class Tab1Page implements OnInit, OnDestroy {
+    subscriptions$: Subscription[] = [];
     selectedSentence: Sentence = null!;
     userAge: number = 0;
     categories: string[] = [];
     userCategories: string[] = [];
 
     constructor(private sentenceService: SentencesService, private settingsService: SettingsService) {
+        this.subscriptions$.push(this.settingsService.selectedCategoriesChanged$.subscribe(async (selectedCategories: string[]) => {
+            console.log('Categories changed');
+            this.userCategories = selectedCategories;
+            this.selectNewSentence();
+        }));
 
+        this.subscriptions$.push(this.settingsService.enteredAgeChanged$.subscribe(async (age: number) => {
+            console.log('Age changed');
+            this.userAge = age;
+            this.selectNewSentence();
+        }));
     }
 
     async ngOnInit() {
@@ -24,6 +35,10 @@ export class Tab1Page implements OnInit {
         this.sentenceService.loadAvailableCategories().subscribe((categories) => {
             this.categories = categories;
         });
+    }
+
+    ngOnDestroy() {
+        this.subscriptions$.forEach((subscription) => subscription.unsubscribe());
     }
 
     async loadSettings() {
