@@ -15,7 +15,19 @@ export class SentencesService {
 
     private sentencesUrl = '../assets/sentences/sentences.json';
 
+
+    loadAvailableCategories(): Observable<string[]> {
+        return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
+            map(sentences => {
+                const categories = sentences.map(sentence => sentence.category);
+                return [...new Set(categories)];
+            })
+        );
+    }
+
     getRandomSentence(targetAgeRange: Age, categories?: string[]): Observable<Sentence> {
+        console.log(categories);
+        console.log(targetAgeRange)
         return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 let filteredSentences = sentences;
@@ -34,7 +46,7 @@ export class SentencesService {
                 // Return null if no sentences match the criteria
                 if (filteredSentences.length === 0) {
                     return {
-                        sentence: '',
+                        sentence: 'Oops, no sentence found!',
                         category: "Fallback",
                         age: {
                             min: 0,

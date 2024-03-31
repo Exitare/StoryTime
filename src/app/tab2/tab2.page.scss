@@ -1,0 +1,47 @@
+.animal-card {
+  ion-card {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    overflow: hidden; // Hide overflow content
+
+    ion-card-header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .animal-image {
+        width: 30px; // Reduced size by 50%
+        height: 30px; // Reduced size by 50%
+        margin-right: 8px; // Adjust the margin as needed
+        border-radius: 50%; // Keep it circular
+      }
+
+      ion-card-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        flex-grow: 1;
+      }
+    }
+
+    ion-card-content {
+      width: 100%;
+      p {
+        clear: both;
+        margin-top: 8px;
+      }
+    }
+  }
+}
+
+
+
+
+@media (prefers-color-scheme: dark) {
+
+  .animal-card {
+    p {
+      color: white;
+    }
+  }
+}

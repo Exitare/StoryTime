@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SentencesService} from "../../core/services/sentence.service";
 import {Age, Sentence} from "../../core/models";
+import {SettingsService} from "../../core/services/settings.service";
 
 @Component({
     selector: 'app-tab1',
@@ -10,17 +11,43 @@ import {Age, Sentence} from "../../core/models";
 export class Tab1Page implements OnInit {
 
     selectedSentence: Sentence = null!;
+    userAge: number = 0;
+    categories: string[] = [];
+    userCategories: string[] = [];
 
-    constructor(private sentenceService: SentencesService) {
-        this.sentenceService.getRandomSentence({min: 1, max: 3} as Age).subscribe((sentence: Sentence) => {
-            console.log(sentence);
-            this.selectedSentence = sentence;
-        });
+    constructor(private sentenceService: SentencesService, private settingsService: SettingsService) {
 
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        await this.loadSettings();
+        this.sentenceService.loadAvailableCategories().subscribe((categories) => {
+            this.categories = categories;
+        });
+    }
 
+    async loadSettings() {
+        this.userAge = await this.settingsService.getAge();
+        this.userCategories = await this.settingsService.getCategories();
+        this.selectNewSentence();
+    }
+
+    selectNewSentence() {
+        const targetAge: Age = {
+            min: this.userAge - 1,
+            max: this.userAge + 1
+        }
+        if (this.userAge == 0) {
+            targetAge.min = 0;
+            targetAge.max = 99;
+        } else {
+            targetAge.min = this.userAge - 1;
+            targetAge.max = this.userAge + 1;
+        }
+
+        this.sentenceService.getRandomSentence(targetAge, this.userCategories).subscribe((sentence: Sentence) => {
+            this.selectedSentence = sentence;
+        });
     }
 
 }

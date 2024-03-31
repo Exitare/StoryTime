@@ -1,0 +1,18 @@
+.custom-card {
+  // Style your card
+  max-width: 500px; // Adjust the card width as necessary
+  margin: auto; // This centers the card in the column
+
+  .card-image-top {
+    width: 100%; // This ensures the image covers the card width
+    object-fit: cover; // This makes the image cover the area, you can adjust it to 'contain' if you don't want it to be cropped
+  }
+}
+
+.dice-image {
+  display: block; // This makes the image a block-level element
+  margin: 20px auto; // This centers the image horizontally with a margin top and bottom
+  width: 100px; // Set this to the width you desire
+  height: auto; // This maintains the aspect ratio of the dice image
+  max-width: 100%; // Ensures the image is responsive and doesn't overflow the screen width
+}

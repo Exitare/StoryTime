@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Tab 1
+            Your story of the day
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -9,16 +9,30 @@
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Tab 1</ion-title>
+            <ion-title size="large">Your story of the day</ion-title>
         </ion-toolbar>
     </ion-header>
-    <ion-grid>
+
+
+    <ion-grid *ngIf="selectedSentence">
         <ion-row>
-            <ion-col>
-                <p *ngIf="selectedSentence && selectedSentence.sentence">{{ selectedSentence.sentence }}</p>
-                <p>Hi</p>
+            <ion-col size="12" class="ion-text-center">
+                <!-- Card with image and text -->
+                <ion-card class="custom-card">
+                    <img src="{{selectedSentence.category | transformCategoryToImage}}" alt="Category Image" class="card-image-top"/>
+                    <ion-card-header>
+                        <ion-card-title>{{selectedSentence.category}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p>{{selectedSentence.sentence}}</p>
+                    </ion-card-content>
+                </ion-card>
+
+                <!-- Dice image centered below the card -->
+                <img src="path-to-your-dice-image.png" alt="Dice Image" class="dice-image" (click)="selectNewSentence()"/>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <app-explore-container name="Tab 1 page"></app-explore-container>
+
+
 </ion-content>
