@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
@@ -21,7 +21,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     userSelectedCategories: string[] = [];
     availableCategories: string[] = [];
 
-    constructor(private settingsService: SettingsService, private sentenceService: SentencesService) {
+    constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -72,9 +72,26 @@ export class Tab3Page implements OnInit, OnDestroy {
         }));
     }
 
-    async handleCategoryChange(event: CustomEvent) {
-        // create a string list from event data
-        this.userSelectedCategories = Array.from(event.detail.value);
+    async resetCategories() {
+        this.userSelectedCategories = this.availableCategories;
         await this.settingsService.saveCategories(this.userSelectedCategories);
+    }
+
+    async selectCategory(category: string) {
+        console.log('selectCategory');
+        // add category to the list
+        this.userSelectedCategories.push(category);
+        await this.settingsService.saveCategories(this.userSelectedCategories);
+        console.log(this.userSelectedCategories)
+        this.changeDetector.detectChanges();
+    }
+
+    async deselectCategory(category: string) {
+        console.log('deselectCategory');
+        // remove category from the list
+        this.userSelectedCategories = this.userSelectedCategories.filter((c) => c !== category);
+        await this.settingsService.saveCategories(this.userSelectedCategories);
+        console.log(this.userSelectedCategories)
+        this.changeDetector.detectChanges();
     }
 }

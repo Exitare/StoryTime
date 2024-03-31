@@ -44,29 +44,51 @@
                 </form>
             </ion-col>
         </ion-row>
-        <ion-row *ngIf="userSelectedCategories">
+
+        <ion-row>
             <ion-col size="12" size-md="8" offset-md="2">
-                <ion-list>
+                <ion-list lines="inset">
+                    <ion-list-header>
+                        <ion-label>Age</ion-label>
+
+                    </ion-list-header>
                     <ion-item>
-                        <ion-select aria-label="Fruit" placeholder="Select all categories of your choice"
-                                    [multiple]="true" (ionChange)="handleCategoryChange($event)"
-                                    [value]="userSelectedCategories">
-                            <ion-select-option *ngFor="let category of availableCategories"
-                                               value="{{category}}">{{ category }}
-                            </ion-select-option>
-                        </ion-select>
+                        <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
+                            <ion-input type="number" formControlName="age" label-placement="stacked"
+                                       label=""
+                                       placeholder="Enter 0 to remove age restrictions"></ion-input>
+
+                            <!-- Error messages -->
+                            <ion-text color="danger"
+                                      *ngIf="age?.invalid && (age?.dirty || age?.touched)">
+                                <p class="ion-padding-start">
+                                    <small *ngIf="age?.errors?.['required']"> Age is
+                                        required.</small>
+                                    <small *ngIf="age?.errors?.['min']">The minimum age
+                                        is 1.</small>
+                                    <small *ngIf="age?.errors?.['max']">The maximum age
+                                        is 99.</small>
+                                </p>
+                            </ion-text>
+
+                        </form>
+                    </ion-item>
+
+                    <ion-list-header>
+                        <ion-label>Categories</ion-label>
+                        <ion-button (click)="resetCategories()">Reset</ion-button>
+                    </ion-list-header>
+                    <ion-item *ngFor="let category of availableCategories"
+                              (click)="!userSelectedCategories.includes(category) ? selectCategory(category) : deselectCategory(category)">
+                        <ion-label>{{ category }}</ion-label>
+                        <ion-icon slot="end" *ngIf="userSelectedCategories.includes(category)"
+                                  name='checkmark'></ion-icon>
+                        <ion-icon slot="end" *ngIf="!userSelectedCategories.includes(category)"
+                                  name=''></ion-icon>
                     </ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>
-        <!-- <ion-row>
-             <ion-col size="12" size-md="8" offset-md="2">
-                 <ion-item>
-                     <ion-checkbox labelPlacement="stacked">Generate new sentences when page is switched</ion-checkbox>
-                 </ion-item>
-
-             </ion-col>
-         </ion-row> -->
     </ion-grid>
 
 </ion-content>

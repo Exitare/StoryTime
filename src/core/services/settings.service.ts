@@ -14,6 +14,15 @@ export class SettingsService {
 
     }
 
+    async isFirstStart(): Promise<boolean> {
+        const result = await this.get('firstStart');
+        return result.value === null;
+    }
+
+    async setFirstStart() {
+        await this.set('firstStart', 'false');
+    }
+
     async saveAge(age: number) {
         await this.set('age', age);
         this.enteredAgeChanged$.next(age);
