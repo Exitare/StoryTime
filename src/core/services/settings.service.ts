@@ -15,8 +15,8 @@ export class SettingsService {
     }
 
     async saveAge(age: number) {
-        this.enteredAgeChanged$.next(age);
         await this.set('age', age);
+        this.enteredAgeChanged$.next(age);
     }
 
     async getAge() {
@@ -26,8 +26,8 @@ export class SettingsService {
     }
 
     async saveCategories(categories: string[]) {
-        this.selectedCategoriesChanged$.next(categories);
         await this.set('categories', JSON.stringify(categories));
+        this.selectedCategoriesChanged$.next(categories);
     }
 
     async getCategories(): Promise<string[]> {
