@@ -21,13 +21,16 @@ export class Tab2Page implements OnInit, OnDestroy {
     availableCategories: string[] = [];
     sentenceForCategory: ISentenceForCategory[] = [];
     colors: string[] = []
-    userAge: number = 0;
-    userCategories: string[] = [];
 
     constructor(private sentenceService: SentencesService, private settingsService: SettingsService) {
+        this.subscriptions$.push(this.settingsService.enteredAgeChanged$.subscribe(async () => {
+            await this.loadData();
+        }));
+        this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe((categories) => this.availableCategories = categories));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        await this.loadData();
     }
 
     async ionViewDidEnter() {
@@ -38,17 +41,16 @@ export class Tab2Page implements OnInit, OnDestroy {
 
 
     async loadData() {
-        this.userAge = await this.settingsService.getAge();
-        this.userCategories = await this.settingsService.getCategories();
+        const userAge = await this.settingsService.getAge();
 
-        this.colors = this.userCategories.map(() => this.getRandomColor());
+        this.colors = this.availableCategories.map(() => this.getRandomColor());
         // load a sentence for each category
-        this.userCategories.forEach((category) => {
+        this.availableCategories.forEach((category) => {
             let age: Age = {
-                min: this.userAge - 1,
-                max: this.userAge + 1
+                min: userAge - 1,
+                max: userAge + 1
             }
-            if (this.userAge == 0) {
+            if (userAge == 0) {
                 age = {
                     min: 0,
                     max: 99
