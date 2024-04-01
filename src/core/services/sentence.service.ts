@@ -26,8 +26,6 @@ export class SentencesService {
     }
 
     getRandomSentence(targetAgeRange: Age, categories?: string[]): Observable<Sentence> {
-        console.log(categories);
-        console.log(targetAgeRange)
         return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 let filteredSentences = sentences;
