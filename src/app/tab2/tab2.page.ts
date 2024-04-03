@@ -114,7 +114,10 @@ export class Tab2Page implements OnInit, OnDestroy {
 
     async createRecommenderModel(){
 
-        const data = []
+        const data: { inputs: number[], labels: number[]} = {
+            inputs: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        }
         // Assuming tf is already imported as TensorFlow.js library
         const model = tf.sequential();
 
