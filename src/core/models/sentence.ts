@@ -1,11 +1,11 @@
-export interface Sentence {
+export interface ISentence {
     category: string;
     sentence: string;
     age: number;
 }
 
 
-export interface Age {
+export interface IAge {
     min: number;
     max: number;
 }

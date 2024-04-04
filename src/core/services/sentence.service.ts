@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {Age, Sentence} from "../models";
+import {IAge, ISentence} from "../models";
 import {TranslateService} from "@ngx-translate/core";
 
 
@@ -21,7 +21,7 @@ export class SentencesService {
 
 
     loadAvailableCategories(): Observable<string[]> {
-        return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
+        return this.http.get<ISentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 const categories = sentences.map(sentence => sentence.category);
                 return [...new Set(categories)];
@@ -29,8 +29,15 @@ export class SentencesService {
         );
     }
 
-    getRandomSentence(targetAgeRange: Age, categories?: string[]): Observable<Sentence> {
-        return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
+
+    getSentencesByCategory(category: string): Observable<ISentence[]> {
+        return this.http.get<ISentence[]>(this.sentencesUrl).pipe(
+            map(sentences => sentences.filter(sentence => sentence.category === category))
+        );
+    }
+
+    getRandomSentence(targetAgeRange: IAge, categories?: string[]): Observable<ISentence> {
+        return this.http.get<ISentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 let filteredSentences = sentences;
 
@@ -51,7 +58,7 @@ export class SentencesService {
                         sentence: 'Oops, no sentence found!',
                         category: "Fallback",
                         age: 0
-                    } as Sentence;
+                    } as ISentence;
                 }
 
                 // Select a random sentence from the filtered list

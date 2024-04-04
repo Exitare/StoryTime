@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from "@angular/core";
+import {isDevMode, Pipe, PipeTransform} from "@angular/core";
 
 
 @Pipe({
@@ -7,8 +7,9 @@ import {Pipe, PipeTransform} from "@angular/core";
 })
 export class ImagePipe implements PipeTransform {
     transform(category: string): string {
+        console.log(category);
         switch (category) {
-            case 'FairyTale':
+            case 'Fairytale':
                 return 'assets/categories/fairytale.jpeg';
             case 'Adventure':
                 return 'assets/categories/fairytale.jpeg';
@@ -16,6 +17,8 @@ export class ImagePipe implements PipeTransform {
                 return 'assets/categories/fairytale.jpeg';
 
             default:
+                if(isDevMode())
+                    console.log('No image found for category: ' + category);
                 return 'assets/categories/fallback.jpeg';
         }
     }
