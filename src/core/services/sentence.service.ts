@@ -33,16 +33,16 @@ export class SentencesService {
         return this.http.get<Sentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 let filteredSentences = sentences;
+
                 if (categories) {
                     // Filter by category
                     filteredSentences = sentences.filter(sentence =>
                         categories.length === 0 || categories.includes(sentence.category));
                 }
 
-
+                // filter by age using the target age range
                 filteredSentences = filteredSentences.filter(sentence =>
-                    sentence.age.max >= targetAgeRange.min && sentence.age.min <= targetAgeRange.max
-                );
+                    sentence.age >= targetAgeRange.min && sentence.age <= targetAgeRange.max);
 
 
                 // Return null if no sentences match the criteria
@@ -50,10 +50,7 @@ export class SentencesService {
                     return {
                         sentence: 'Oops, no sentence found!',
                         category: "Fallback",
-                        age: {
-                            min: 0,
-                            max: 99,
-                        }
+                        age: 0
                     } as Sentence;
                 }
 

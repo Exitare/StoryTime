@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, isDevMode, OnDestroy, OnInit} from '@angular/core';
 import {SentencesService} from "../../core/services/sentence.service";
 import {Age, Sentence} from "../../core/models";
 import {SettingsService} from "../../core/services/settings.service";
@@ -18,13 +18,11 @@ export class Tab1Page implements OnInit, OnDestroy {
 
     constructor(private sentenceService: SentencesService, private settingsService: SettingsService) {
         this.subscriptions$.push(this.settingsService.selectedCategoriesChanged$.subscribe(async (selectedCategories: string[]) => {
-            console.log('Categories changed');
             this.userCategories = selectedCategories;
             this.selectNewSentence();
         }));
 
         this.subscriptions$.push(this.settingsService.enteredAgeChanged$.subscribe(async (age: number) => {
-            console.log('Age changed');
             this.userAge = age;
             this.selectNewSentence();
         }));
@@ -60,7 +58,14 @@ export class Tab1Page implements OnInit, OnDestroy {
             targetAge.max = this.userAge + 1;
         }
 
+        if (isDevMode()) {
+            console.log("Selected age", targetAge);
+            console.log("Selected categories", this.userCategories);
+        }
+
         this.sentenceService.getRandomSentence(targetAge, this.userCategories).subscribe((sentence: Sentence) => {
+            if (isDevMode())
+                console.log("Selected sentence", sentence);
             this.selectedSentence = sentence;
         });
     }

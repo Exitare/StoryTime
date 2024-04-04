@@ -1,11 +1,11 @@
 export interface Sentence {
     category: string;
     sentence: string;
-    age: Age;
+    age: number;
 }
 
 
-export interface Age{
+export interface Age {
     min: number;
     max: number;
 }
