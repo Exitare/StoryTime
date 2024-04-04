@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
 import {Subscription} from "rxjs";
+import {TranslateService} from "@ngx-translate/core";
 
 
 interface IAgeForm {
@@ -23,7 +24,8 @@ export class Tab3Page implements OnInit, OnDestroy {
     availableLanguages: string[] = ['en', 'de', 'gr'];
     userSelectedLanguage: string = 'en';
 
-    constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef) {
+    constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
+                private translateService: TranslateService) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -102,5 +104,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     async userLanguageChanged(language: string) {
         await this.settingsService.saveLanguage(language);
         this.userSelectedLanguage = language;
+        this.translateService.use(language);
+        console.log(language);
     }
 }

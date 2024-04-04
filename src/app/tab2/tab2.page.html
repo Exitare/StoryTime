@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Stories
+            {{ 'Stories' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Stories</ion-title>
+            <ion-title size="large">{{ 'Stories' | translate }}</ion-title>
         </ion-toolbar>
     </ion-header>
 
@@ -21,7 +21,7 @@
                     <ion-card class="animal-card" [ngStyle]="{'background-color': colors[i]}">
                         <img src="{{sentence.category | transformCategoryToImage}}" class="animal-image"  alt="{{sentence.category}}-category-image"/>
                         <ion-card-header>
-                            <ion-card-title>{{sentence.category}}</ion-card-title>
+                            <ion-card-title>{{ 'CATEGORIES.' + sentence.category | uppercase | replaceCharacter : ' ' | translate }}</ion-card-title>
                         </ion-card-header>
                         <ion-card-content>
                             <p>{{sentence.sentence.sentence}}</p>

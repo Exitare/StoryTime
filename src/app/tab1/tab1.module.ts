@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
-import {ImagePipe} from "../../core/pipes";
+import {TranslateModule} from "@ngx-translate/core";
+import {PipeModule} from "../../core/pipes/pipe.module";
 
 @NgModule({
     imports: [
@@ -12,7 +13,8 @@ import {ImagePipe} from "../../core/pipes";
         CommonModule,
         FormsModule,
         Tab1PageRoutingModule,
-        ImagePipe
+        TranslateModule,
+        PipeModule,
     ],
   declarations: [Tab1Page]
 })

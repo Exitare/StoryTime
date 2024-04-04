@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Your story of the day
+            {{ 'SOTD' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Your story of the day</ion-title>
+            <ion-title size="large"> {{ 'SOTD' | translate }}</ion-title>
         </ion-toolbar>
     </ion-header>
 
@@ -21,7 +21,7 @@
                 <ion-card class="custom-card">
                     <img src="{{selectedSentence.category | transformCategoryToImage}}" alt="Category Image" class="card-image-top"/>
                     <ion-card-header>
-                        <ion-card-title>{{selectedSentence.category}}</ion-card-title>
+                        <ion-card-title>{{ 'CATEGORIES.' + selectedSentence.category | uppercase | replaceCharacter : ' ' | translate }}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
                         <p>{{selectedSentence.sentence}}</p>

@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {Tab2Page} from './tab2.page';
 import {Tab2PageRoutingModule} from './tab2-routing.module';
 import {PipeModule} from "../../core/pipes/pipe.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
     imports: [
@@ -13,6 +14,7 @@ import {PipeModule} from "../../core/pipes/pipe.module";
         FormsModule,
         Tab2PageRoutingModule,
         PipeModule,
+        TranslateModule,
     ],
     declarations: [Tab2Page]
 })

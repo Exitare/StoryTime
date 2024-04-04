@@ -1,19 +1,23 @@
 // File: sentences.service.ts
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Age, Sentence} from "../models";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Injectable({
     providedIn: 'root',
 })
 export class SentencesService {
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private translateService: TranslateService) {
+        this.translateService.onLangChange.subscribe((langEvent) => {
+            this.sentencesUrl = `../assets/sentences/${langEvent.lang}.json`;
+        });
     }
 
-    private sentencesUrl = '../assets/sentences/sentences.json';
+    private sentencesUrl = '../assets/sentences/en.json';
 
 
     loadAvailableCategories(): Observable<string[]> {

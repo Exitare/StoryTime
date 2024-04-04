@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-title>
-            Settings
+            {{ 'SETTINGS' | translate }}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
     <ion-header collapse="condense">
         <ion-toolbar>
-            <ion-title size="large">Settings</ion-title>
+            <ion-title size="large">{{ 'SETTINGS' | translate }}</ion-title>
         </ion-toolbar>
     </ion-header>
 
@@ -18,7 +18,7 @@
             <ion-col size="12" size-md="8" offset-md="2">
                 <ion-list lines="inset">
                     <ion-list-header>
-                        <ion-label>Age</ion-label>
+                        <ion-label>{{ 'AGE' | translate }}</ion-label>
 
                     </ion-list-header>
                     <ion-item>
@@ -44,7 +44,7 @@
                     </ion-item>
 
                     <ion-list-header>
-                        <ion-label>Language</ion-label>
+                        <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
                     </ion-list-header>
                     <ion-item *ngFor="let language of availableLanguages" (click)="userLanguageChanged(language)">
                         <ion-label>{{ language }}</ion-label>
@@ -56,12 +56,12 @@
                     </ion-item>
 
                     <ion-list-header>
-                        <ion-label>Categories</ion-label>
+                        <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
                         <ion-button (click)="resetCategories()">Reset</ion-button>
                     </ion-list-header>
                     <ion-item *ngFor="let category of availableCategories"
                               (click)="!userSelectedCategories.includes(category) ? selectCategory(category) : deselectCategory(category)">
-                        <ion-label>{{ category }}</ion-label>
+                        <ion-label>{{ 'CATEGORIES.' + category | uppercase | replaceCharacter : ' ' | translate }}</ion-label>
                         <ion-icon slot="end" *ngIf="userSelectedCategories.includes(category)"
                                   name='checkmark'></ion-icon>
                         <ion-icon slot="end" *ngIf="!userSelectedCategories.includes(category)"

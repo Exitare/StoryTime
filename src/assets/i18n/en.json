@@ -1,0 +1,18 @@
+{
+  "AGE": "Age",
+  "SOTD": "Story of the Day",
+  "STORIES": "Stories",
+  "SETTINGS": "Settings",
+  "LANGUAGE": "Language",
+  "LANGUAGES": {
+    "BASE": "Languages",
+    "EN": "English",
+    "DE": "German",
+    "GR": "Greek"
+  },
+  "CATEGORY": "Category",
+  "CATEGORIES": {
+    "BASE": "Categories",
+    "FAIRYTALE": "Dairy Tale"
+  }
+}

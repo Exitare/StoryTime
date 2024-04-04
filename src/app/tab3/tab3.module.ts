@@ -5,6 +5,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Tab3Page} from './tab3.page';
 
 import {Tab3PageRoutingModule} from './tab3-routing.module';
+import {TranslateModule} from "@ngx-translate/core";
+import {PipeModule} from "../../core/pipes/pipe.module";
 
 @NgModule({
     imports: [
@@ -13,6 +15,8 @@ import {Tab3PageRoutingModule} from './tab3-routing.module';
         FormsModule,
         Tab3PageRoutingModule,
         ReactiveFormsModule,
+        TranslateModule,
+        PipeModule
     ],
     declarations: [Tab3Page]
 })
