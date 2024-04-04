@@ -20,6 +20,8 @@ export class Tab3Page implements OnInit, OnDestroy {
     ageForm: FormGroup<IAgeForm> = null!;
     userSelectedCategories: string[] = [];
     availableCategories: string[] = [];
+    availableLanguages: string[] = ['en', 'de', 'gr'];
+    userSelectedLanguage: string = 'en';
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef) {
         this.createForm().then((form) => {
@@ -36,11 +38,13 @@ export class Tab3Page implements OnInit, OnDestroy {
 
     async ngOnInit() {
         await this.loadUserCategories();
+        await this.loadUserLanguage();
     }
 
     ionViewDidEnter() {
 
     }
+
     ngOnDestroy() {
         this.subscriptions$.forEach((subscription) => subscription.unsubscribe());
     }
@@ -63,7 +67,10 @@ export class Tab3Page implements OnInit, OnDestroy {
 
     async loadUserCategories() {
         this.userSelectedCategories = await this.settingsService.getCategories();
-        console.log(this.userSelectedCategories);
+    }
+
+    async loadUserLanguage() {
+        this.userSelectedLanguage = await this.settingsService.getLanguage();
     }
 
     loadAvailableCategories() {
@@ -78,7 +85,6 @@ export class Tab3Page implements OnInit, OnDestroy {
     }
 
     async selectCategory(category: string) {
-        console.log('selectCategory');
         // add category to the list
         this.userSelectedCategories.push(category);
         await this.settingsService.saveCategories(this.userSelectedCategories);
@@ -87,11 +93,14 @@ export class Tab3Page implements OnInit, OnDestroy {
     }
 
     async deselectCategory(category: string) {
-        console.log('deselectCategory');
         // remove category from the list
         this.userSelectedCategories = this.userSelectedCategories.filter((c) => c !== category);
         await this.settingsService.saveCategories(this.userSelectedCategories);
-        console.log(this.userSelectedCategories)
         this.changeDetector.detectChanges();
+    }
+
+    async userLanguageChanged(language: string) {
+        await this.settingsService.saveLanguage(language);
+        this.userSelectedLanguage = language;
     }
 }

@@ -14,6 +14,16 @@ export class SettingsService {
 
     }
 
+    async saveLanguage(language: string) {
+        await this.set('language', language);
+    }
+
+    async getLanguage() {
+        return await this.get('language').then((language) => {
+            return language.value ?? 'en';
+        });
+    }
+
     async isFirstStart(): Promise<boolean> {
         const result = await this.get('firstStart');
         return result.value === null;

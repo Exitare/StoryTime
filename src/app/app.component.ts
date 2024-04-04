@@ -17,9 +17,10 @@ export class AppComponent implements OnDestroy, OnInit {
 
     async ngOnInit() {
         if (await this.settingsService.isFirstStart()) {
-            this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe((categories) => {
-                this.settingsService.saveCategories(categories);
-                this.settingsService.setFirstStart();
+            await this.settingsService.saveLanguage('en');
+            this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe(async (categories) => {
+                await this.settingsService.saveCategories(categories);
+                await this.settingsService.setFirstStart();
             }));
         }
 
