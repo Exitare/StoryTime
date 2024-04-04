@@ -14,6 +14,16 @@ export class SettingsService {
 
     }
 
+    async saveNoAgeRestriction(value: boolean) {
+        await this.set('noAgeRestriction', value);
+    }
+
+    async getNoAgeRestriction() {
+        return await this.get('noAgeRestriction').then((noAgeRestriction) => {
+            return noAgeRestriction.value === 'true';
+        });
+    }
+
     async saveLanguage(language: string) {
         await this.set('language', language);
     }

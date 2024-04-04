@@ -23,6 +23,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     availableCategories: string[] = [];
     availableLanguages: string[] = ['en', 'de', 'gr'];
     userSelectedLanguage: string = 'en';
+    ageRestrictionCheckbox = false;
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
                 private translateService: TranslateService) {
@@ -41,6 +42,11 @@ export class Tab3Page implements OnInit, OnDestroy {
     async ngOnInit() {
         await this.loadUserCategories();
         await this.loadUserLanguage();
+        this.ageRestrictionCheckbox = await this.settingsService.getNoAgeRestriction();
+        if (this.ageRestrictionCheckbox) {
+            this.age.disable();
+        }
+
     }
 
     ionViewDidEnter() {
@@ -105,6 +111,16 @@ export class Tab3Page implements OnInit, OnDestroy {
         await this.settingsService.saveLanguage(language);
         this.userSelectedLanguage = language;
         this.translateService.use(language);
-        console.log(language);
+    }
+
+    async noAgeRestriction(event: any) {
+        if (event.detail.checked) {
+            this.age.disable();
+            await this.settingsService.saveNoAgeRestriction(true);
+            return;
+        }
+
+        await this.settingsService.saveNoAgeRestriction(false);
+        this.age.enable();
     }
 }
