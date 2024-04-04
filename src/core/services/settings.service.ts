@@ -15,12 +15,15 @@ export class SettingsService {
     }
 
     async saveNoAgeRestriction(value: boolean) {
-        await this.set('noAgeRestriction', value);
+        await this.set('noAgeRestriction', JSON.stringify(value));
     }
 
     async getNoAgeRestriction() {
         return await this.get('noAgeRestriction').then((noAgeRestriction) => {
-            return noAgeRestriction.value === 'true';
+            if (noAgeRestriction.value) {
+                return JSON.parse(noAgeRestriction.value);
+            }
+            return false;
         });
     }
 

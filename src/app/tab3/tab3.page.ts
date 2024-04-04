@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
@@ -25,8 +25,9 @@ export class Tab3Page implements OnInit, OnDestroy {
     userSelectedLanguage: string = 'en';
     ageRestrictionCheckbox = false;
 
+
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
-                private translateService: TranslateService) {
+                private translateService: TranslateService, private ngZone: NgZone) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -36,22 +37,14 @@ export class Tab3Page implements OnInit, OnDestroy {
 
         this.loadAvailableCategories();
 
-
     }
 
     async ngOnInit() {
         await this.loadUserCategories();
         await this.loadUserLanguage();
-        this.ageRestrictionCheckbox = await this.settingsService.getNoAgeRestriction();
-        if (this.ageRestrictionCheckbox) {
-            this.age.disable();
-        }
-
+        await this.loadUserAgeRestriction();
     }
 
-    ionViewDidEnter() {
-
-    }
 
     ngOnDestroy() {
         this.subscriptions$.forEach((subscription) => subscription.unsubscribe());
@@ -70,7 +63,9 @@ export class Tab3Page implements OnInit, OnDestroy {
     }
 
     get age(): FormControl<number> {
-        return this.ageForm.get('age') as FormControl<number>;
+        if (!this.ageRestrictionCheckbox)
+            return this.ageForm.get('age') as FormControl<number>;
+        return new FormControl<number>(0) as FormControl<number>;
     }
 
     async loadUserCategories() {
@@ -79,6 +74,10 @@ export class Tab3Page implements OnInit, OnDestroy {
 
     async loadUserLanguage() {
         this.userSelectedLanguage = await this.settingsService.getLanguage();
+    }
+
+    async loadUserAgeRestriction() {
+        this.ageRestrictionCheckbox = await this.settingsService.getNoAgeRestriction();
     }
 
     loadAvailableCategories() {
@@ -116,10 +115,12 @@ export class Tab3Page implements OnInit, OnDestroy {
     async noAgeRestriction(event: any) {
         if (event.detail.checked) {
             this.age.disable();
+            this.ageRestrictionCheckbox = true;
             await this.settingsService.saveNoAgeRestriction(true);
             return;
         }
 
+        this.ageRestrictionCheckbox = false;
         await this.settingsService.saveNoAgeRestriction(false);
         this.age.enable();
     }

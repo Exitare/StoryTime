@@ -22,9 +22,9 @@
 
                     </ion-list-header>
                     <ion-item>
-                        <ion-checkbox [(ngModel)]="ageRestrictionCheckbox"  (ionChange)="noAgeRestriction($event)" labelPlacement="end">{{'NO_AGE_RESTRICTION' | translate}} </ion-checkbox>
+                        <ion-checkbox [checked]="ageRestrictionCheckbox"  (ionChange)="noAgeRestriction($event)" labelPlacement="end">{{'NO_AGE_RESTRICTION' | translate}} </ion-checkbox>
                     </ion-item>
-                    <ion-item>
+                    <ion-item *ngIf="!ageRestrictionCheckbox">
 
                         <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
                             <ion-input type="number" formControlName="age" label-placement="stacked"
