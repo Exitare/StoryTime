@@ -15,7 +15,9 @@
     <ion-grid>
         <ion-row>
             <ion-col size="12" size-md="8" offset-md="2">
-                <ion-item *ngFor="let category of availableCategories; let i = index" (click)="openCategory(category)"> {{category}}</ion-item>
+                <ion-item *ngFor="let category of availableCategories; let i = index"
+                          (click)="openCategory(category)"> {{ 'CATEGORIES.' + category | uppercase | replaceCharacter : ' ' | translate }}
+                </ion-item>
             </ion-col>
 
         </ion-row>
