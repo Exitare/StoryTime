@@ -1,19 +1,32 @@
 {
-  "AGE": "Age",
-  "EXPLORE": "",
-  "SOTD": "Story of the Day",
-  "STORIES": "Stories",
-  "SETTINGS": "Settings",
-  "LANGUAGE": "Language",
+  "AGE": "Ηλικία",
+  "EXPLORE": "Εξερευνώ",
+  "SOTD": "Ιστορία της ημέρας",
+  "STORIES": "Ιστορίες",
+  "SETTINGS": "Ρυθμίσεις",
+  "LANGUAGE": "Γλώσσα",
   "LANGUAGES": {
-    "BASE": "Languages",
+    "BASE": "Γλώσσες",
     "EN": "English",
-    "DE": "German",
-    "GR": "Greek"
+    "DE": "Deutsch",
+    "GR": "Ελληνικά"
   },
-  "CATEGORY": "Category",
+  "CATEGORY": "Κατηγορία",
   "CATEGORIES": {
-    "BASE": "Categories",
-    "FAIRYTALE": "Dairy Tale"
+    "BASE": "Κατηγορίες",
+    "FAIRYTALE": "παραμύθι",
+    "HISTORICAL_FICTION": "ιστορική μυθοπλασία",
+    "SCIENCE": "επιστήμη",
+    "WOMEN_IN_SCIENCE": "γυναίκες στην επιστήμη",
+    "DEEP_SEA_LIFE": "ζωή στο βυθό",
+    "NATURE": "φύση",
+    "ADVENTURE": "περιπέτεια",
+    "OUTER_SPACE": "διάστημα",
+    "MYTHOLOGY": "μυθολογία"
+  },
+  "AGE_FORM": {
+    "MIN_ERROR": "Das Mindestalter ist 1",
+    "MAX_ERROR": "Das Höchstalter ist 99",
+    "REQUIRED_ERROR": "Alter ist erforderlich"
   }
 }
