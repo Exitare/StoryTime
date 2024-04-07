@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
@@ -31,15 +31,23 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
+                if (this.ageForm.invalid){
+                    return;
+                }
+
                 await this.settingsService.saveAge(value.age!);
             });
         });
 
-        this.loadAvailableCategories();
+        this.translateService.onLangChange.subscribe((event) => {
+            this.loadAvailableCategories();
+        });
+
 
     }
 
     async ngOnInit() {
+        await this.loadAvailableCategories();
         await this.loadUserCategories();
         await this.loadUserLanguage();
         await this.loadUserAgeRestriction();
@@ -56,7 +64,7 @@ export class Tab3Page implements OnInit, OnDestroy {
             age: new FormControl<number>(age,
                 [
                     Validators.required,
-                    Validators.min(0),
+                    Validators.min(1),
                     Validators.max(99)
                 ])
         });
@@ -80,7 +88,7 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.ageRestrictionCheckbox = await this.settingsService.getNoAgeRestriction();
     }
 
-    loadAvailableCategories() {
+    async loadAvailableCategories() {
         this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe((categories) => {
             this.availableCategories = categories;
         }));

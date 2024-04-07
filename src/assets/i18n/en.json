@@ -14,6 +14,19 @@
   "CATEGORY": "Category",
   "CATEGORIES": {
     "BASE": "Categories",
-    "FAIRYTALE": "Dairy Tale"
+    "FAIRYTALE": "Fantasy",
+    "HISTORICAL_FICTION": "Historical Fiction",
+    "SCIENCE": "Science",
+    "WOMEN_IN_SCIENCE": "Women in Science",
+    "DEEP_SEA_LIFE": "Deep Sea Life",
+    "NATURE": "Nature",
+    "ADVENTURE": "Adventure",
+    "OUTER_SPACE": "Outer Space",
+    "MYTHOLOGY": "Mythology"
+  },
+  "AGE_FORM": {
+    "MIN_ERROR": "Das Mindestalter ist 1",
+    "MAX_ERROR": "Das Höchstalter ist 99",
+    "REQUIRED_ERROR": "Alter ist erforderlich"
   }
 }

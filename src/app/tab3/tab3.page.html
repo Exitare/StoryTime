@@ -22,25 +22,24 @@
 
                     </ion-list-header>
                     <ion-item>
-                        <ion-checkbox [checked]="ageRestrictionCheckbox"  (ionChange)="noAgeRestriction($event)" labelPlacement="end">{{'NO_AGE_RESTRICTION' | translate}} </ion-checkbox>
+                        <ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
+                                      labelPlacement="end">{{ 'NO_AGE_RESTRICTION' | translate }}
+                        </ion-checkbox>
                     </ion-item>
                     <ion-item *ngIf="!ageRestrictionCheckbox">
 
                         <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
                             <ion-input type="number" formControlName="age" label-placement="stacked"
                                        label=""
-                                       placeholder="Age"></ion-input>
+                                       placeholder="{{'AGE' | translate}}"></ion-input>
 
                             <!-- Error messages -->
                             <ion-text color="danger"
                                       *ngIf="age?.invalid && (age?.dirty || age?.touched)">
                                 <p class="ion-padding-start">
-                                    <small *ngIf="age?.errors?.['required']"> Age is
-                                        required.</small>
-                                    <small *ngIf="age?.errors?.['min']">The minimum age
-                                        is 1.</small>
-                                    <small *ngIf="age?.errors?.['max']">The maximum age
-                                        is 99.</small>
+                                    <small *ngIf="age?.errors?.['required']"> {{ 'AGE_FORM.REQUIRED_ERROR' | translate }} </small>
+                                    <small *ngIf="age?.errors?.['min']">{{'AGE_FORM.MIN_ERROR' | translate}} </small>
+                                    <small *ngIf="age?.errors?.['max']"> {{'AGE_FORM.MAX_ERROR' | translate}} </small>
                                 </p>
                             </ion-text>
 
@@ -51,7 +50,7 @@
                         <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
                     </ion-list-header>
                     <ion-item *ngFor="let language of availableLanguages" (click)="userLanguageChanged(language)">
-                        <ion-label>{{ language }}</ion-label>
+                        <ion-label>{{ 'LANGUAGES.' + language | uppercase | translate }}</ion-label>
                         <ion-icon slot="end" *ngIf="userSelectedLanguage.includes(language)"
                                   name='checkmark'></ion-icon>
                         <ion-icon slot="end" *ngIf="!userSelectedLanguage.includes(language)"

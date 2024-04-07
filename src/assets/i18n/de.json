@@ -1,12 +1,12 @@
 {
   "AGE": "Alter",
-  "EXPLORE": "Entdecken",
+  "EXPLORE": "Entdecke",
   "SOTD": "Geschichte des Tages",
   "STORIES": "Geschichten",
   "SETTINGS": "Einstellungen",
   "LANGUAGE": "Sprache",
   "LANGUAGES": {
-    "BASE": "Languages",
+    "BASE": "Sprachen",
     "EN": "English",
     "DE": "Deutsch",
     "GR": "Griechisch"
@@ -14,6 +14,19 @@
   "CATEGORY": "Kategorie",
   "CATEGORIES": {
     "BASE": "Kategorien",
-    "FAIRYTALE": "Fantasie"
+    "FAIRYTALE": "Fantasie",
+    "HISTORICAL_FICTION": "Historische Fiktion",
+    "SCIENCE": "Wissenschaft",
+    "WOMEN_IN_SCIENCE": "Frauen in der Wissenschaft",
+    "DEEP_SEA_LIFE": "Tiefseeleben",
+    "NATURE": "Natur",
+    "ADVENTURE": "Abenteuer",
+    "OUTER_SPACE": "Weltraum",
+    "MYTHOLOGY": "Mythologie"
+  },
+  "AGE_FORM": {
+    "MIN_ERROR": "Das Mindestalter ist 1",
+    "MAX_ERROR": "Das Höchstalter ist 99",
+    "REQUIRED_ERROR": "Alter ist erforderlich"
   }
 }
