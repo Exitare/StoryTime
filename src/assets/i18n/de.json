@@ -28,5 +28,6 @@
     "MIN_ERROR": "Das Mindestalter ist 1",
     "MAX_ERROR": "Das Höchstalter ist 99",
     "REQUIRED_ERROR": "Alter ist erforderlich"
-  }
+  },
+  "NO_AGE_RESTRICTION": "Keine Altersbeschränkung"
 }
