@@ -22,12 +22,14 @@
     "NATURE": "Nature",
     "ADVENTURE": "Adventure",
     "OUTER_SPACE": "Outer Space",
-    "MYTHOLOGY": "Mythology"
+    "MYTHOLOGY": "Mythology",
+    "BLACK_HISTORY": "Schwarze Geschichte",
+    "FANTASY": "Fantasy"
   },
   "AGE_FORM": {
-    "MIN_ERROR": "Das Mindestalter ist 1",
-    "MAX_ERROR": "Das Höchstalter ist 99",
-    "REQUIRED_ERROR": "Alter ist erforderlich"
+    "MIN_ERROR": "The minimum age is 0",
+    "MAX_ERROR": "The maximum age is 100",
+    "REQUIRED_ERROR": "Age is required"
   },
   "NO_AGE_RESTRICTION": "No Age Restriction"
 }

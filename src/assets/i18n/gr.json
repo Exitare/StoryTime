@@ -22,7 +22,9 @@
     "NATURE": "φύση",
     "ADVENTURE": "περιπέτεια",
     "OUTER_SPACE": "διάστημα",
-    "MYTHOLOGY": "μυθολογία"
+    "MYTHOLOGY": "μυθολογία",
+    "BLACK_HISTORY": "Schwarze Geschichte",
+    "FANTASY": "φαντασία"
   },
   "AGE_FORM": {
     "MIN_ERROR": "Das Mindestalter ist 1",

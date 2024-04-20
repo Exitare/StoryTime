@@ -22,7 +22,9 @@
     "NATURE": "Natur",
     "ADVENTURE": "Abenteuer",
     "OUTER_SPACE": "Weltraum",
-    "MYTHOLOGY": "Mythologie"
+    "MYTHOLOGY": "Mythologie",
+    "BLACK_HISTORY": "Schwarze Geschichte",
+    "FANTASY": "Fantasie"
   },
   "AGE_FORM": {
     "MIN_ERROR": "Das Mindestalter ist 1",
