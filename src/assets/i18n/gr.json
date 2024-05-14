@@ -1,14 +1,14 @@
 {
   "AGE": "Ηλικία",
-  "EXPLORE": "Εξερευνώ",
+  "EXPLORE": "Εξερεύνηση",
   "SOTD": "Ιστορία της ημέρας",
   "STORIES": "Ιστορίες",
   "SETTINGS": "Ρυθμίσεις",
   "LANGUAGE": "Γλώσσα",
   "LANGUAGES": {
     "BASE": "Γλώσσες",
-    "EN": "English",
-    "DE": "Deutsch",
+    "EN": "Αγγλικἀ",
+    "DE": "Γερμανικἀ",
     "GR": "Ελληνικά"
   },
   "CATEGORY": "Κατηγορία",
@@ -23,13 +23,13 @@
     "ADVENTURE": "περιπέτεια",
     "OUTER_SPACE": "διάστημα",
     "MYTHOLOGY": "μυθολογία",
-    "BLACK_HISTORY": "Schwarze Geschichte",
+    "BLACK_HISTORY": "Αφροαμερικἀνικη Ιστορία",
     "FANTASY": "φαντασία"
   },
   "AGE_FORM": {
-    "MIN_ERROR": "Das Mindestalter ist 1",
-    "MAX_ERROR": "Das Höchstalter ist 99",
-    "REQUIRED_ERROR": "Alter ist erforderlich"
+    "MIN_ERROR": "Η ελἀχιστη Ηλικία εἰναι 1",
+    "MAX_ERROR": "Η μἐγιστη Ηλικἰα είναι 99",
+    "REQUIRED_ERROR": "Πρἐπει να δηλώσετε την Ηλικἰα του παιδιοὐ σας"
   },
-  "NO_AGE_RESTRICTION": "No age restriction"
+  "NO_AGE_RESTRICTION": "Δεν υπἀρχει περιορισμός Ηλικίας"
 }
