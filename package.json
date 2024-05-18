@@ -1,8 +1,8 @@
 {
-  "name": "StoryTime",
+  "name": "storytime",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "InventiRayaStudios LLC",
+  "homepage": "https://www.inventirayastudios.com",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
