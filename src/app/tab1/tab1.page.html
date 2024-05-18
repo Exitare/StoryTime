@@ -14,12 +14,12 @@
     </ion-header>
 
 
-    <ion-grid *ngIf="selectedSentence">
+    <ion-grid *ngIf="selectedSentence" (click)="selectNewSentence()">
         <ion-row>
             <ion-col size="12" class="ion-text-center">
                 <!-- Card with image and text -->
                 <ion-card class="custom-card">
-                    <img src="{{selectedSentence.category | transformCategoryToImage}}" alt="Category Image" class="card-image-top"/>
+                    <img src="{{selectedSentence.category | transformCategoryToImage}}" alt="Category Image" class="card-image-top" (click)="selectNewSentence()" />
                     <ion-card-header>
                         <ion-card-title>{{ 'CATEGORIES.' + selectedSentence.category | uppercase | replaceCharacter : ' ' | translate }}</ion-card-title>
                     </ion-card-header>
@@ -29,7 +29,7 @@
                 </ion-card>
 
                 <!-- Dice image centered below the card -->
-                <img src="assets/dice.png" alt="Dice Image" class="dice-image" (click)="selectNewSentence()"/>
+               <!-- <img src="assets/dice.png" alt="Dice Image" class="dice-image" (click)="selectNewSentence()"/> -->
             </ion-col>
         </ion-row>
     </ion-grid>
