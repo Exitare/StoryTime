@@ -6,11 +6,6 @@ import {Subscription} from "rxjs";
 import {SentencesService} from "../../../core/services/sentence.service";
 
 
-interface IColoredSentence {
-    sentence: ISentence;
-    color: string;
-
-}
 
 
 @Component({
@@ -20,9 +15,10 @@ interface IColoredSentence {
 })
 export class ExploreCategoryComponent implements OnInit {
     subscriptions$: Subscription[] = [];
-    coloredSentences: IColoredSentence[] = [];
+    sentences: ISentence[] = [];
     colors: string[] = [];
     category: string;
+    sentencesGroupedByAge: { age: number, sentences: ISentence[] }[] = [];
 
 
     constructor(private route: ActivatedRoute, private navCtrl: NavController, private sentenceService: SentencesService) {
@@ -33,31 +29,39 @@ export class ExploreCategoryComponent implements OnInit {
             return;
         }
 
-        this.loadData();
+
 
     }
 
-    ngOnInit() {
+    async ngOnInit() {
+        await this.loadData();
+        await this.groupByAge();
+        console.log(this.sentencesGroupedByAge);
     }
 
     async loadData() {
-        this.subscriptions$.push(this.sentenceService.getSentencesByCategory(this.category).subscribe((sentence) => {
-
-            this.coloredSentences = sentence.map((sentence) => {
-                return {sentence: sentence, color: this.getRandomColor()};
-            });
-        }));
+        return new Promise<void>((resolve, reject) => {
+            this.subscriptions$.push(this.sentenceService.getSentencesByCategory(this.category).subscribe((sentences) => {
+                this.sentences = sentences;
+                resolve();
+            }));
+        });
     }
 
 
-    getRandomColor() {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        // only accept darker colors
-        for (let i = 0; i < 3; i++) {
-            color += letters[Math.floor(Math.random() * 10)];
+    async groupByAge(): Promise<void> {
+        this.sentencesGroupedByAge = [];
+        for (const sentence of this.sentences) {
+            const age = sentence.age;
+            const index = this.sentencesGroupedByAge.findIndex((group) => group.age === age);
+            if (index === -1) {
+                this.sentencesGroupedByAge.push({ age: age, sentences: [sentence] });
+            } else {
+                this.sentencesGroupedByAge[index].sentences.push(sentence);
+            }
         }
-        return color;
+        // sort ascending
+        this.sentencesGroupedByAge.sort((a, b) => a.age - b.age);
     }
 
 }
