@@ -36,7 +36,6 @@ export class ExploreCategoryComponent implements OnInit {
     async ngOnInit() {
         await this.loadData();
         await this.groupByAge();
-        console.log(this.sentencesGroupedByAge);
     }
 
     async loadData() {
