@@ -15,7 +15,7 @@
         <ion-row>
 
             <ion-col size="12" size-md="8" offset-md="2">
-                <ion-list *ngFor="let group of sentencesGroupedByAge">
+                <ion-list *ngFor="let group of sentencesGroupedByAge" lines="none">
                     <!-- Iterate over all sentences but group them by age -->
                     <ion-list-header>
                         <ion-label><h1>{{ 'AGE' | translate }}: {{ group.age }}</h1></ion-label>
