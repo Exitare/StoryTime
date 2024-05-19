@@ -19,6 +19,9 @@
                     <!-- Iterate over all sentences but group them by age -->
                     <ion-list-header>
                         <ion-label><h1>{{ 'AGE' | translate }}: {{ group.age }}</h1></ion-label>
+                        <!-- Show total amount of sentences in category at end of the item-->
+                        <ion-note class="ion-padding-end">{{ group.sentences.length }}</ion-note>
+
                     </ion-list-header>
                     <ion-item *ngFor="let cSentence of group.sentences; let i = index">
                         <ion-card>
