@@ -17,6 +17,8 @@
             <ion-col size="12" size-md="8" offset-md="2">
                 <ion-item *ngFor="let category of availableCategories; let i = index"
                           (click)="openCategory(category)"> {{ 'CATEGORIES.' + category | uppercase | replaceCharacter : ' ' | translate }}
+                    <!-- Show total amount of sentences in category at end of the item-->
+                    <ion-note slot="end">{{ sentenceCountByCategory[category] }}</ion-note>
                 </ion-item>
             </ion-col>
 
