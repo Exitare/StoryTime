@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
@@ -31,7 +31,7 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
-                if (this.ageForm.invalid){
+                if (this.ageForm.invalid) {
                     return;
                 }
 
@@ -40,7 +40,10 @@ export class Tab3Page implements OnInit, OnDestroy {
         });
 
         this.translateService.onLangChange.subscribe((event) => {
-            this.loadAvailableCategories();
+            if (isDevMode())
+                console.log("Changed language to: " + event.lang);
+            this.ngOnInit();
+
         });
 
 
@@ -57,6 +60,7 @@ export class Tab3Page implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscriptions$.forEach((subscription) => subscription.unsubscribe());
     }
+
 
     async createForm(): Promise<FormGroup<IAgeForm>> {
         const age = await this.settingsService.getAge();
@@ -78,6 +82,7 @@ export class Tab3Page implements OnInit, OnDestroy {
 
     async loadUserCategories() {
         this.userSelectedCategories = await this.settingsService.getCategories();
+        console.log(this.userSelectedCategories);
     }
 
     async loadUserLanguage() {
@@ -91,6 +96,8 @@ export class Tab3Page implements OnInit, OnDestroy {
     async loadAvailableCategories() {
         this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe((categories) => {
             this.availableCategories = categories;
+            // sort the categories alphabetically
+            this.availableCategories.sort();
         }));
     }
 
@@ -103,7 +110,8 @@ export class Tab3Page implements OnInit, OnDestroy {
         // add category to the list
         this.userSelectedCategories.push(category);
         await this.settingsService.saveCategories(this.userSelectedCategories);
-        console.log(this.userSelectedCategories)
+        if (isDevMode())
+            console.log(this.userSelectedCategories)
         this.changeDetector.detectChanges();
     }
 
