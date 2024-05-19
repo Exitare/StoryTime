@@ -6,6 +6,18 @@ import {map} from 'rxjs/operators';
 import {IAge, ISentence} from "../models";
 import {TranslateService} from "@ngx-translate/core";
 
+const categoryMappings = {
+    "Women In Science": ["Women in Science", "Women In Science"],
+    "Historical Fiction": ["Historical Fiction", "HistoricalFiction"],
+    "Deep Sea Life": ["Deep Sea Life", "DeepSeaLife"],
+    "Black History": ["Black History", "BlackHistory"],
+    "Outer Space": ["Outer Space", "OuterSpace"],
+    "Fairytale": ["Fairytale"],
+    "Adventure": ["Adventure"],
+    "Science": ["Science"],
+    "Nature": ["Nature"],
+    "Mythology": ["Mythology"]
+};
 
 @Injectable({
     providedIn: 'root',
@@ -21,12 +33,21 @@ export class SentencesService {
 
 
     loadAvailableCategories(): Observable<string[]> {
+        // Load the sentences from the file url and map them to the correct category mappings
         return this.http.get<ISentence[]>(this.sentencesUrl).pipe(
             map(sentences => {
                 const categories = sentences.map(sentence => sentence.category);
-                return [...new Set(categories)];
-            })
-        );
+                return categories.map(category => {
+                    for (const [key, value] of Object.entries(categoryMappings)) {
+                        if (value.includes(category)) {
+                            return key;
+                        }
+                    }
+                    return category;
+                });
+            }),
+            map(categories => Array.from(new Set(categories))
+            ));
     }
 
 

@@ -14,7 +14,7 @@
   "CATEGORY": "Category",
   "CATEGORIES": {
     "BASE": "Categories",
-    "FAIRYTALE": "Fantasy",
+    "FAIRYTALE": "Fairytale",
     "HISTORICAL_FICTION": "Historical Fiction",
     "SCIENCE": "Science",
     "WOMEN_IN_SCIENCE": "Women in Science",
@@ -23,7 +23,7 @@
     "ADVENTURE": "Adventure",
     "OUTER_SPACE": "Outer Space",
     "MYTHOLOGY": "Mythology",
-    "BLACK_HISTORY": "Schwarze Geschichte",
+    "BLACK_HISTORY": "Black History",
     "FANTASY": "Fantasy"
   },
   "AGE_FORM": {
