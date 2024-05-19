@@ -1088,5 +1088,505 @@
   "sentence": "Fiona erstellte ein Schulprojekt über die Struktur von Atomen und lernte dabei über Lise Meitner, die an der Entdeckung der Kernspaltung beteiligt war.",
   "category": "Women In Science",
   "age": 8
+},
+{
+  "sentence": "In einem verborgenen Winkel des Parks entdeckte Paul ein sprechendes Kaninchen, das ihn zu einem geheimen Eingang in eine Welt voller Abenteuer führte.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Sophie fand hinter ihrem Haus einen magischen Wald, in dem die Bäume singen konnten und die Blumen ihr Geschichten erzählten.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Am ersten Schultag in der Akademie für junge Zauberer lernte Max, wie man mit einem Zauberstab die Farbe von Dingen ändert.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Lena stolperte über eine verborgene Falltür in der Bibliothek, die sie direkt in eine unterirdische Schule für Hexen führte.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Auf einem Spaziergang durch den Wald entdeckte Tim eine geheime Höhle, bewacht von einem alten, weisen Drachen, der Rätsel liebte.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "Mia entdeckte eine alte Flöte im Dachboden, die, wenn gespielt, wilde Tiere dazu brachte, friedlich neben ihr zu sitzen und zuzuhören.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "In einem alten Märchenbuch fand Lucas eine Karte, die ihn zu einem versteckten Portal führte, das einmal im Jahr zu einer Versammlung aller Märchenfiguren öffnete.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Während eines nächtlichen Campingausflugs entdeckte Emma eine Gruppe von Feen, die ihr zeigten, wie man Sternenlicht in Gläser einfängt.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Julian baute ein kleines Boot und ließ es auf dem lokalen Teich segeln, aber es wurde von Wassergeistern entführt, die ihn auf eine Reise zu ihrem Kristallpalast mitnahmen.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "In einem alten Turm am Ende der Stadt fand Clara ein geheimnisvolles Buch, das die Geschichte jedes Lesers veränderte und neue Kapitel schrieb, während sie las.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "Am Strand fand Marie eine Schatulle, die sie zu einer Unterwasserwelt führte, wo Meerjungfrauen und Delfine zusammen Schule besuchten.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "In seinem Garten entdeckte Oliver einen alten Brunnen, der ihn nicht nur Wasser, sondern auch Geschichten aus vergangenen Zeiten flüsterte.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Anna fand auf dem Dachboden eine alte Spieluhr, die, wenn sie geöffnet wurde, den Raum mit Schneeflocken füllte, die nicht schmolzen.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Beim Spielen im Wald fand Niklas einen verzauberten Stein, der ihm erlaubte, mit den Vögeln am Himmel zu fliegen.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Hannah rettete eine alte Eule aus einer Falle und als Dank wurde sie zu einem geheimen Fest der Waldtiere eingeladen, das nur einmal alle hundert Jahre stattfindet.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "Unter ihrem Kissen fand Lara einen Zauberschlüssel, der jede Tür in ein Tor zu einem anderen Märchenland verwandelte.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Beim Klettern auf einen alten Baum entdeckte Erik eine versteckte Baumhöhle, die ein Portal zu einer Welt war, in der Tiere regierten und Menschen selten waren.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Lukas stieß in einer verlassenen Burg auf ein magisches Schwert, das sprach, sobald man es aus seinem Stein zog.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Auf dem Weg zur Schule fand Zoe einen Regenmantel, der sie unsichtbar machen konnte, wenn sie ihn trug.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Im Garten entdeckte Finn ein verzaubertes Tagebuch, das alles, was er hineinschrieb, in der Wirklichkeit erscheinen ließ.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "In einem verzauberten Wald fand Lina ein sprechendes Eichhörnchen, das sie zu einem verborgenen Feenkreis führte.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Hoch oben in den Wolken entdeckte Max ein fliegendes Schiff, das von einem freundlichen Drachen gesteuert wurde.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Unter ihrem Bett fand Emma eine magische Karte, die einen Weg in ein Land zeigte, wo Tiere sprechen konnten.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "In einem alten, geheimnisvollen Buchladen stieß Felix auf ein Buch, das ihn jedes Mal in die Geschichte hineinzog, wenn er es öffnete.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Am Ufer eines kristallklaren Sees traf Sophie eine Meerjungfrau, die ihr die Geheimnisse des Wassers erzählte.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "In einer stürmischen Nacht entdeckte Noah eine geheimnisvolle Truhe im Dachboden, die voller alter Zaubersprüche und Tränke war.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Beim Spielen im Park fand Mia eine versteckte Tür, die zu einem Garten führte, wo Pflanzen und Blumen mit ihr sprachen.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "In einem tiefen, dunklen Wald entdeckte Jonas ein verzaubertes Schwert, das von einem alten Rittergeist bewacht wurde.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Hinter dem alten Schulgebäude fand Lara einen kleinen Drachen, der gerade aus einem goldenen Ei geschlüpft war.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Im Keller ihres Hauses entdeckte Sara eine alte Lampe, aus der ein freundlicher Geist erschien, der ihr drei Wünsche versprach.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "Auf einer Lichtung im Wald traf Tim einen alten Zauberer, der ihm ein magisches Amulett schenkte, das die Zeit zurückdrehen konnte.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Beim Durchblättern eines alten Familienfotobuchs fand Clara ein Bild, das sie in die Vergangenheit zog, wo sie ihre Urgroßmutter traf.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "In einem verborgenen Tal entdeckte Emily eine Gruppe von Elfen, die eine geheime Zeremonie abhielten, um den Frühling willkommen zu heißen.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Während einer Wanderung auf einem Bergpfad fand Leon einen versteinerten Drachen, der zum Leben erwachte, als er ihn berührte.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "In einer verlassenen Burg entdeckte Anna ein verstecktes Zimmer, das eine Bibliothek voller verzauberter Bücher enthielt, die sie in andere Welten brachten.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "Im Garten unter einem alten Baum fand Eric eine verborgene Treppe, die zu einer Zwergenstadt unter der Erde führte.",
+  "category": "Fantasy",
+  "age": 4
+},
+{
+  "sentence": "Auf einem Ausflug zum Meer fand Luisa eine Flasche mit einer Schatzkarte, die sie zu einer Insel führte, auf der ein Piratengeist lebte.",
+  "category": "Fantasy",
+  "age": 5
+},
+{
+  "sentence": "Bei einem Besuch bei ihrer Großmutter im alten Bauernhaus fand Nora einen Zaubergarten, in dem die Jahreszeiten sich auf magische Weise änderten.",
+  "category": "Fantasy",
+  "age": 6
+},
+{
+  "sentence": "Im Stadtpark entdeckte Kevin ein geheimes Portal, das ihn in eine Welt brachte, in der er fliegen konnte wie ein Vogel.",
+  "category": "Fantasy",
+  "age": 7
+},
+{
+  "sentence": "Nach einem starken Regen fand Julia bunte Steine in einer Pfütze, die sich als Tore zu Miniaturwelten herausstellten, in denen Feen lebten.",
+  "category": "Fantasy",
+  "age": 8
+},
+{
+  "sentence": "In einem magischen Wald fand der kleine Timmy einen tanzenden Pilz, der lachte und kicherte, wenn man ihm nahe kam.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Jedes Mal, wenn Lisa ihre Zaubertrommel schlug, erschienen bunte Vögel, die süße Lieder sangen und um sie herumtanzten.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "Der kleine Max fand einen Regenschirm, der ihn hoch in den Himmel trug, wo er auf den Wolken hüpfen konnte.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "Anna fand im Garten einen kleinen Kieselstein, der leise Geschichten aus alten Zeiten flüsterte, wenn man ihn ans Ohr hielt.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Im Park traf Emma eine kleine Maus, die einen winzigen Rucksack trug und Emma zu einem Picknick einlud.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "Unter einem alten Baum fand Leo einen leuchtenden Blumentopf, der in allen Regenbogenfarben schimmerte.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "In ihrem Zimmer entdeckte Sophie eine magische Lampe, aus der jedes Mal Musiknoten flogen, wenn sie daran rieb.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Auf einem Spaziergang fand Jonas einen bunten Ball, der ihn jedes Mal in eine andere Welt brachte, wenn er ihn in die Luft warf.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "Beim Spielen im Sandkasten grub Nora eine kleine Schatzkiste aus, aus der jedes Mal Seifenblasen aufstiegen, wenn sie geöffnet wurde.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "Im Wald fand Mia eine Blume, die singen konnte, wenn man sie gießt und mit ihr sprach.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Paul entdeckte einen kleinen grünen Frosch, der sprechen konnte und ihm von fernen, zauberhaften Teichen erzählte.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "In einer versteckten Ecke des Gartens fand Ella eine magische Laterne, die sanft glühte und die Nacht zum Funkeln brachte.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "Lukas entdeckte in seinem Zimmer eine Zaubermütze, die ihn in einen Schmetterling verwandelte, wann immer er sie trug.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Beim Spielen am Bach fand Clara ein glitzerndes Netz, das Wünsche fangen konnte, wenn man sie laut aussprach.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "Im Kindergarten fand Ben einen sprechenden Teddybär, der Geschichten aus dem Zauberwald erzählen konnte.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "Die kleine Lina fand eine glitzernde Feder, die sie auf magische Flüge über die Stadt mitnahm, wenn sie sie in die Hand nahm.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Unter der alten Eiche fand Mila eine kleine Türe, die zu einem geheimen Ort führte, wo Tiere sprechen und lachen konnten.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "Im Schuppen fand Felix eine alte Tröte, die Regenbögen blies, wenn man sanft hinein hauchte.",
+  "category": "Fantasy",
+  "age": 3
+},
+{
+  "sentence": "Am Flussrand entdeckte Sara eine Wunderblume, die ihr Geschichten vom Wind und den Wellen flüsterte.",
+  "category": "Fantasy",
+  "age": 1
+},
+{
+  "sentence": "Beim Wandern im Wald fand Erik einen Zauberstab, der Blätter in Schmetterlinge verwandeln konnte.",
+  "category": "Fantasy",
+  "age": 2
+},
+{
+  "sentence": "In einem bunten Garten entdeckte die kleine Mia eine Pflanze, die wie Marie Curie aussah, und lernte, dass Marie die erste Frau war, die den Nobelpreis gewann.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Die kleine Sophie baute mit Bauklötzen und lernte, dass eine Architektin namens Zaha Hadid wunderschöne Gebäude entworfen hat, die wie Wellen und Berge aussehen.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Beim Betrachten der Sterne im Teleskop erzählte Papa der kleinen Emma von Cecilia Payne, die herausfand, aus was Sterne gemacht sind.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Im Park fand Lisa kleine Käfer und lernte, dass die Entomologin Maria Sibylla Merian vor langer Zeit viele Insekten gemalt hat, um sie zu studieren.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Im Museum sah die kleine Anna ein Bild von einem Dinosaurier und lernte über Mary Anning, die als erstes Mädchen Dinosaurierknochen entdeckte.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Beim Besuch im Botanischen Garten erzählte Oma von Wangari Maathai, die viele Bäume pflanzte und den Friedensnobelpreis gewann.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Die kleine Nora spielte mit ihrem neuen Chemiebaukasten und lernte, dass Rosalind Franklin entscheidende Bilder von DNA gemacht hat, die halfen, ihre Struktur zu verstehen.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Die kleine Julie fand einen schönen Stein und lernte, dass die Geologin Florence Bascom als erste Frau in den USA ihren Doktortitel in Geologie erhielt.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Beim Betrachten von Vögeln durch ihr Fernglas hörte die kleine Emily Geschichten über Rachel Carson, die ein Buch schrieb, um Vögel zu schützen.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Die kleine Sarah zeichnete Sterne und lernte, dass eine Astronomin namens Vera Rubin half, zu entdecken, dass es dunkle Materie im Universum gibt.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Die kleine Zoe experimentierte mit Wassermischungen und lernte über Ellen Ochoa, die erste hispanoamerikanische Astronautin, die ins Weltall flog.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Während sie Blumen im Garten pflanzte, erzählte Mama der kleinen Lily von Barbara McClintock, die entdeckte, wie Gene sich bewegen können.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Beim Besuch eines Labors sah die kleine Ella bunte Lösungen und lernte über Dorothy Hodgkin, die mithilfe von Röntgenstrahlen die Struktur wichtiger Moleküle aufklärte.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Die kleine Heidi sah, wie eine Biene von Blume zu Blume flog, und lernte über Hedy Lamarr, die eine Erfindung machte, die dabei hilft, dass Handys und Computer kommunizieren können.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Beim Spielen mit Magneten lernte die kleine Lucy von Lise Meitner, die half zu entdecken, wie man Atome spaltet, was zur Entwicklung der Atomenergie führte.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Im Wald sammelte die kleine Greta Blätter und lernte über Wang Zhenyi, die in China lebte und viel über Astronomie und Mathematik schrieb.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Die kleine Hannah benutzte ihr Mikroskop, um Blätter anzusehen, und lernte über Alice Ball, die eine Behandlung für eine Krankheit namens Lepra entwickelte.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Beim Malen von Planetenbilder hörte die kleine Luna von Valentina Tereshkova, der ersten Frau, die ins All flog und die Erde aus dem Weltraum sah.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Die kleine Ivy baute mit Blöcken eine Stadt und lernte von Jane Jacobs, die lehrte, wie wichtige gute Nachbarschaften für glückliche Gemeinschaften sind.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Die kleine Ruby zeichnete Regenbögen und lernte über Patricia Bath, eine Ärztin, die eine neue Methode erfand, um Augenkrankheiten zu heilen.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "In ihrem geheimen Garten fand die kleine Mia einen leuchtenden Stein, der die Geschichte der berühmten Astronomin Annie Jump Cannon erzählte, die die Sterne klassifizierte.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Die kleine Sophie entdeckte in ihrem Zimmer eine mysteriöse Schatulle, die einst der Mathematikerin Ada Lovelace gehörte und voller ungelöster Rätsel war.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Beim Spielen im Wald stieß Nora auf ein seltsames Gerät, das von der Ingenieurin und Erfinderin Shirley Jackson stammte, und begann, dessen Geheimnisse zu lüften.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Der kleine Max fand im Garten ein verstecktes Tagebuch, das über die Pflanzenforscherin Janaki Ammal berichtete und seltsame, unbekannte Samen enthielt.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Emma zog eine alte Landkarte aus ihrem Bücherregal, die einst der Geologin Marie Tharp gehörte und die geheime Pfade zu verborgenen Schätzen zeigte.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "Während eines Spaziergangs fand Leo einen magischen Kompass, der von der Polarforscherin Ann Bancroft stammte und ihn auf eine eisige Entdeckungsreise führte.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "In einem alten Baumhaus entdeckte Hannah eine Kiste mit Experimenten, die von der Chemikerin Marie Curie zurückgelassen wurden und noch nicht abgeschlossen waren.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Lucas fand am Strand eine Flaschenpost, die von der Meeresbiologin Sylvia Earle stammte und Rätsel über das Ozeanleben enthielt.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Im Park stolperte Zoe über einen seltsamen metallischen Gegenstand, der von der Luft- und Raumfahrtingenieurin Mary Jackson entwickelt wurde und begann zu erforschen, wie es funktioniert.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "In einem verborgenen Raum ihrer Schule entdeckte Emily ein altes Teleskop, das einst der Astronomin Vera Rubin gehörte und begann, die Geheimnisse des Universums zu entschlüsseln.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Beim Spielen im Sandkasten fand Sarah ein vergrabenenes Notizbuch, das Rezepte für seltsame und wunderbare Erfindungen von Hedy Lamarr enthielt.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Im Keller ihres Hauses fand Lily eine alte Kiste mit Wissenschaftsausrüstung, die einst der Physikerin Chien-Shiung Wu gehörte, und begann, ihre eigenen Experimente zu machen.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Auf dem Dachboden entdeckte Mia eine alte Wetterstation, die von der Meteorologin Joanne Simpson benutzt wurde, und versuchte, das Wetter zu prognostizieren.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "In der Bibliothek fand Ben ein geheimnisvolles Buch über Kräuter, das der Botanikerin Elizabeth Coleman gehörte und begann, die Pflanzen um sein Haus zu untersuchen.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Hinter einem alten Gemälde in der Schule entdeckte Oliver eine versteckte Nachricht von der Mathematikerin Katherine Johnson und begann, die Zahlen zu entschlüsseln.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Auf einem alten Dachboden fand Elsa ein Mikroskop, das von der Mikrobiologin Rita Colwell benutzt wurde, und begann, alles um sich herum zu untersuchen.",
+  "category": "Women in Science",
+  "age": 2
+},
+{
+  "sentence": "Unter einer alten Eiche fand Jason eine versteckte Schatztruhe, die Karten und Notizen von der Entdeckerin Gertrude Bell enthielt und machte sich auf eine imaginäre Reise.",
+  "category": "Women in Science",
+  "age": 3
+},
+{
+  "sentence": "In einem verlassenen Labor fand Sophie eine seltsame Maschine, die von der Erfinderin Stephanie Kwolek entwickelt wurde, und versuchte herauszufinden, was sie macht.",
+  "category": "Women in Science",
+  "age": 4
+},
+{
+  "sentence": "Im Garten entdeckte Lucas eine seltsame Pflanze, die nie zuvor jemand gesehen hatte, und benutzte die Forschungsnotizen der Biologin Lynn Margulis, um mehr darüber zu lernen.",
+  "category": "Women in Science",
+  "age": 1
+},
+{
+  "sentence": "Während eines Spaziergangs im Wald fand Emma ein altes Fernrohr, das der Astronomin Caroline Herschel gehörte, und richtete es auf die Sterne, um den Himmel zu erforschen.",
+  "category": "Women in Science",
+  "age": 2
 }
 ]
