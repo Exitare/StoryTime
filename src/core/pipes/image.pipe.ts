@@ -29,9 +29,11 @@ export class ImagePipe implements PipeTransform {
                 return 'assets/categories/Science.png';
             case "Women in Science":
                 return 'assets/categories/WomenInScience.png';
+            case "Fantasy":
+                return 'assets/categories/Fantasy.png';
 
             default:
-                if(isDevMode())
+                if (isDevMode())
                     console.log('No image found for category: ' + category);
                 return 'assets/categories/Nature.png';
         }
