@@ -22,9 +22,10 @@
 
                     </ion-list-header>
                     <ion-item>
-                        <ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
+                        <ion-toggle [(ngModel)]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)">{{ 'NO_AGE_RESTRICTION' | translate }}</ion-toggle>
+                        <!--<ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
                                       labelPlacement="end">{{ 'NO_AGE_RESTRICTION' | translate }}
-                        </ion-checkbox>
+                        </ion-checkbox>-->
                     </ion-item>
                     <ion-item *ngIf="!ageRestrictionCheckbox">
 
