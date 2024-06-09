@@ -27,7 +27,7 @@ export class ImagePipe implements PipeTransform {
                 return 'assets/categories/OuterSpace.png';
             case "Science":
                 return 'assets/categories/Science.png';
-            case "Women in Science":
+            case "Women In Science":
                 return 'assets/categories/WomenInScience.png';
             case "Fantasy":
                 return 'assets/categories/Fantasy.png';
