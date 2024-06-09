@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.inventirayastudios.storytime',
-  appName: 'StoryTime',
+  appName: 'Paramithi',
   webDir: 'www',
   server: {
     androidScheme: 'https'
