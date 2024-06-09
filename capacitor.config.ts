@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.inventirayastudios.storytime',
+  appId: 'com.inventirayastudios.paramathi',
   appName: 'Paramithi',
   webDir: 'www',
   server: {
