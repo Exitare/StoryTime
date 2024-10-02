@@ -39,10 +39,10 @@ export class Tab3Page implements OnInit, OnDestroy {
             });
         });
 
-        this.translateService.onLangChange.subscribe((event) => {
+        this.translateService.onLangChange.subscribe(async (event) => {
             if (isDevMode())
                 console.log("Changed language to: " + event.lang);
-            this.ngOnInit();
+            await this.ngOnInit();
 
         });
 
@@ -82,7 +82,6 @@ export class Tab3Page implements OnInit, OnDestroy {
 
     async loadUserCategories() {
         this.userSelectedCategories = await this.settingsService.getCategories();
-        console.log(this.userSelectedCategories);
     }
 
     async loadUserLanguage() {
