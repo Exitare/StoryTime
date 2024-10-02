@@ -4,8 +4,8 @@ import {NavController} from "@ionic/angular";
 import {ISentence} from "../../../core/models";
 import {Subscription} from "rxjs";
 import {SentencesService} from "../../../core/services/sentence.service";
-
-
+import {TextToSpeech} from "@capacitor-community/text-to-speech";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -19,9 +19,11 @@ export class ExploreCategoryComponent implements OnInit {
     colors: string[] = [];
     category: string;
     sentencesGroupedByAge: { age: number, sentences: ISentence[] }[] = [];
+    language = 'en';
 
 
-    constructor(private route: ActivatedRoute, private navCtrl: NavController, private sentenceService: SentencesService) {
+    constructor(private route: ActivatedRoute, private navCtrl: NavController, private sentenceService: SentencesService,
+                private translateService: TranslateService) {
         // get router params
         this.category = this.route.snapshot.paramMap.get('categoryName') ?? '';
         if (!this.category) {
@@ -29,13 +31,16 @@ export class ExploreCategoryComponent implements OnInit {
             return;
         }
 
-
+        this.translateService.onLangChange.subscribe((langEvent) => {
+            this.language = langEvent.lang;
+        });
 
     }
 
     async ngOnInit() {
         await this.loadData();
         await this.groupByAge();
+        this.language = this.translateService.currentLang;
     }
 
     async loadData() {
@@ -54,13 +59,48 @@ export class ExploreCategoryComponent implements OnInit {
             const age = sentence.age;
             const index = this.sentencesGroupedByAge.findIndex((group) => group.age === age);
             if (index === -1) {
-                this.sentencesGroupedByAge.push({ age: age, sentences: [sentence] });
+                this.sentencesGroupedByAge.push({age: age, sentences: [sentence]});
             } else {
                 this.sentencesGroupedByAge[index].sentences.push(sentence);
             }
         }
         // sort ascending
         this.sentencesGroupedByAge.sort((a, b) => a.age - b.age);
+    }
+
+    async textToSpeech(age: number, sentence: number, event: any) {
+        event.stopPropagation();
+
+
+        if (!await TextToSpeech.isLanguageSupported({lang: this.language})) {
+            await TextToSpeech.speak({
+                text: "Sorry, the selected language is not supported by the text to speech engine.",
+                lang: 'en',
+                rate: 1.0,
+                pitch: 1.0,
+                volume: 1.0,
+                category: 'ambient',
+            });
+            return;
+        }
+
+        const selectedSentence: ISentence = this.sentencesGroupedByAge[age].sentences[sentence];
+
+        try {
+            // prevent other button clicks
+            await TextToSpeech.speak({
+                text: selectedSentence.sentence,
+                lang: this.language,
+                rate: 1.0,
+                pitch: 1.0,
+                volume: 1.0,
+                category: 'ambient',
+            });
+        } catch (e) {
+            console.error("Error while trying to speak", e);
+        }
+
+
     }
 
 }

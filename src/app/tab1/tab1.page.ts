@@ -42,7 +42,7 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.categories = categories;
         });
 
-        this.language = this.translateService.currentLang
+        this.language = this.translateService.currentLang;
     }
 
     ngOnDestroy() {

@@ -15,7 +15,7 @@
         <ion-row>
 
             <ion-col size="12" size-md="8" offset-md="2">
-                <ion-list *ngFor="let group of sentencesGroupedByAge" lines="none">
+                <ion-list *ngFor="let group of sentencesGroupedByAge; index as i" lines="none">
                     <!-- Iterate over all sentences but group them by age -->
                     <ion-list-header>
                         <ion-label><h1>{{ 'AGE' | translate }}: {{ group.age }}</h1></ion-label>
@@ -23,10 +23,19 @@
                         <ion-note class="ion-padding-end">{{ group.sentences.length }}</ion-note>
 
                     </ion-list-header>
-                    <ion-item *ngFor="let cSentence of group.sentences; let i = index">
+                    <ion-item *ngFor="let cSentence of group.sentences; let j = index">
                         <ion-card>
                             <ion-card-content>
-                                <p>{{ cSentence.sentence }}</p>
+                                <ion-grid>
+                                    <ion-row class="ion-align-items-center ion-justify-content-between">
+                                        <ion-col>
+                                            <p>{{ cSentence.sentence }}</p>
+                                        </ion-col>
+                                        <ion-col size="auto">
+                                            <ion-icon name="play-outline" (click)="textToSpeech(i,j,$event)" size="large" role="button"></ion-icon>
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
                             </ion-card-content>
                         </ion-card>
                     </ion-item>
