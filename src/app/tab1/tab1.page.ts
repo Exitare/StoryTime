@@ -33,6 +33,7 @@ export class Tab1Page implements OnInit, OnDestroy {
 
         this.translateService.onLangChange.subscribe((langEvent) => {
             this.language = langEvent.lang;
+            this.selectNewSentence();
         });
     }
 
