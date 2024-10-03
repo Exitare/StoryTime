@@ -9,6 +9,12 @@
 3. Run `npx cap open ios` to open the app in Xcode
 
 
+or 
+```ionic cap sync```
+
+## How to deploy/open the app in Android Studio
+```npx cap run android```
+
 ## Build icon
 npx @capacitor/assets generate --assetPath src/assets/
 
