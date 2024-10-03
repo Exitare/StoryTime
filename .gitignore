@@ -6,3 +6,7 @@ ios
 www
 package-lock.json
 android
+APKCert
+output.zip
+pepk.jar
+encryption_public_key.pem
