@@ -9,6 +9,7 @@ import {AppComponent} from './app.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -21,6 +22,7 @@ export function createTranslateLoader(http: HttpClient) {
         IonicModule.forRoot(),
         AppRoutingModule,
         HttpClientModule,
+        PdfViewerModule,
         TranslateModule.forRoot({
             defaultLanguage: 'en',
             loader: {

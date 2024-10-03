@@ -4,6 +4,7 @@ import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
 import {Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
+import {NavController} from "@ionic/angular";
 
 
 interface IAgeForm {
@@ -27,7 +28,7 @@ export class Tab3Page implements OnInit, OnDestroy {
 
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
-                private translateService: TranslateService, private ngZone: NgZone) {
+                private translateService: TranslateService, private navCtrl: NavController) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -138,5 +139,9 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.ageRestrictionCheckbox = false;
         await this.settingsService.saveNoAgeRestriction(false);
         this.age.enable();
+    }
+
+    toPrivacy(){
+        this.navCtrl.navigateForward('privacy');
     }
 }
