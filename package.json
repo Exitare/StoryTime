@@ -1,6 +1,6 @@
 {
   "name": "paramithi",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "InventiRayaStudios LLC",
   "homepage": "https://www.inventirayastudios.com",
   "scripts": {
@@ -30,9 +30,12 @@
     "@capacitor/keyboard": "5.0.8",
     "@capacitor/preferences": "^5.0.7",
     "@capacitor/status-bar": "5.0.7",
-    "@ionic/angular": "^7.0.0",
+    "@ionic/angular": "^8.3.2",
+    "@ionic/core": "^8.3.2",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "array-flat-polyfill": "^1.0.1",
+    "globalthis": "^1.0.4",
     "ionicons": "^7.0.0",
     "ng2-pdf-viewer": "^10.3.1",
     "rxjs": "~7.8.0",
@@ -68,5 +71,5 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.2.2"
   },
-  "description": "An InventiRayaStudios LLC project"
+  "description": "An InventiRayaStudios LLC app"
 }
