@@ -22,7 +22,7 @@
 
                     </ion-list-header>
                     <ion-item>
-                        <ion-toggle [(ngModel)]="ageRestrictionCheckbox"
+                        <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionCheckbox"
                                     (ionChange)="noAgeRestriction($event)">{{ 'NO_AGE_RESTRICTION' | translate }}
                         </ion-toggle>
                         <!--<ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
