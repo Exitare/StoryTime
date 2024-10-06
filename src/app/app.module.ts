@@ -6,7 +6,7 @@ import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {PdfViewerModule} from "ng2-pdf-viewer";
@@ -15,13 +15,10 @@ export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        HttpClientModule,
         PdfViewerModule,
         TranslateModule.forRoot({
             defaultLanguage: 'en',
@@ -30,12 +27,9 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })
-    ],
-    providers: [
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
-    ],
-    bootstrap: [AppComponent],
-})
+        })], providers: [
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }
