@@ -5,9 +5,29 @@
     "age": 6
   },
   {
+      "sentence": "In the middle of the dreamy blue sea of the Mediterranean was a little island. On that island lived a child who had everything except friends. One day, she decided to change that by setting off on a journey to find companionship beyond the shores of her island.",
+      "category": "Fairytale",
+      "age": 6
+  },
+  {
+      "sentence": "In the middle of the blue sea was a little island. On that island lived a child who had everything but friends. She wanted to change that and decided to look for friends, wondering who she might find...",
+      "category": "Fairytale",
+      "age": 3
+  },
+  {
+      "sentence": "The full moon rising was Luna's favorite time of the month. Every month, she made sure to find a cozy spot to watch it appear, glowing in shades of rose or soft orange. Luna wanted to share this special moment with everyone, so she started a tradition of...",
+      "category": "Fairytale",
+      "age": 6
+  },
+  {
     "sentence": "Once upon a time, in a forest where the trees whispered secrets, a small elf found a magical, glowing stone. The stone could grant any wish, but only under the moonlight. That night, the elf held the stone tightly, thinking hard about the greatest wish of all.",
     "category": "Fairytale",
     "age": 5
+  },
+  {
+      "sentence": "Jumping craters was Egon's favorite activity. He loved the brief moment of floating in the air when his body became weightless, and the deepest part of the crater passed beneath him. But one day, Egon jumped a little too high, and the planet's gravity wasn't strong enough to pull him back. He drifted off into space, with only the stars to guide him...",
+      "category": "Outer Space",
+      "age": 6
   },
   {
     "sentence": "Far away in the Land of the Everlasting Rainbow, a unicorn was born without a horn. Feeling out of place among the other unicorns, it embarked on a quest to find the legendary Horn of Destiny. Along the way, the unicorn made friends who believed in the beauty of being different.",
@@ -945,6 +965,11 @@
     "age": 6
   },
   {
+      "sentence": "Egon loved jumping over craters. He felt so happy when he floated in the air, and the ground went far below him. But one day, Egon jumped too high, and the planet couldn't pull him back down. He started drifting up into space, with the stars twinkling all around him...",
+      "category": "Outer Space",
+      "age": 4
+  },
+  {
     "sentence": "Beneath the blue waves, a sea turtle named Timmy embarked on a journey to find the Great Coral Reef. Along the way, he met sea creatures of all shapes and sizes, learning about their lives and the ocean they called home. Timmy's adventure taught him the importance of protecting the sea and all its inhabitants.",
     "category": "Deep Sea Life",
     "age": 7
@@ -1138,6 +1163,11 @@
     "sentence": "A daring lobster named Larry loved to explore shipwrecks, searching for lost treasures. On his latest adventure, Larry found an ancient compass that pointed to the heart of the ocean. Following the compass, Larry discovered a world of adventure and the true meaning of treasure.",
     "category": "Deep Sea Life",
     "age": 8
+  },
+  {
+      "sentence": "Deep down in the sea, it is very dark – no sunlight reaches that deep. Creatures that live there have adapted to the constant darkness. Sam the anglerfish is very proud of his personal lamp. However, he wonders what it would be like to swim higher and see the sunlight for once…",
+      "category": "Deep Sea Life",
+      "age": 5
   },
   {
     "sentence": "In a lush, green forest where the trees touched the sky, a small bird named Bella decided to build the highest nest. With help from her forest friends, Bella gathered twigs from the tallest trees. Her adventure taught her about teamwork and the beauty of her forest home.",
@@ -1473,6 +1503,11 @@
     "sentence": "In a land filled with dragons and magic, a young knight named Arthur set out on a quest to find the lost crown of the kingdom. Along the way, he made friends with a dragon who taught him the power of kindness. Together, they faced challenges and discovered the true meaning of bravery.",
     "category": "Adventure",
     "age": 6
+  },
+  {
+      "sentence": "There is a world shaped like a great tree. The gods live in the upper branches, humans make their homes in the middle, and the roots belong to the underworld. A squirrel named Ratatoskr is the only one who can travel through all parts of the tree, carrying messages between these worlds. One day, after waking from his long winter sleep, Ratatoskr realizes he has lost the messages he was meant to deliver for spring. With no time to waste, he sets off on a journey to find them...",
+      "category": "Adventure",
+      "age": 6
   },
   {
     "sentence": "Under the vast ocean, a little mermaid named Marina discovered a mysterious map leading to a hidden treasure. With her best friend, a seahorse named Sparkle, Marina embarked on an underwater adventure. They encountered friendly dolphins and tricky sea witches, learning the value of friendship and courage.",
@@ -2269,6 +2304,11 @@
     "category": "Black History",
     "age": 4
 },
+  {
+    "sentence": "Samira loves making music. She plays her drums and flute, making all sorts of sounds. One day, her father takes her to a small restaurant for dinner, where a live band is playing. The music is unlike anything Samira has heard before. The three Black musicians are perfectly in sync with their instruments. The drummer has a large, cloud-like hairstyle and plays with her eyes closed. That night, Samira discovered the magic of jazz and...",
+    "category": "Black History",
+    "age": 6
+  },
 {
     "sentence": "Marcus visited the museum with his class and saw an exhibit about African kings and queens, learning about their rich history and contributions to civilization.",
     "category": "Black History",
@@ -2370,9 +2410,24 @@
   "age": 3
 },
 {
+    "sentence": "Melody loves her dollhouse. She can spend hours playing with the little family and their pet dog. One night,while playing before bedtime, she imagines being their size and living in their home. That night, Melody has a fascinating dream...",
+    "category": "Fantasy",
+    "age": 5
+},
+{
+    "sentence": "Troy has autism, and he finds it hard to spend time with people outside his family. One day, his mom decides it might be a good idea to get a play companion for Troy, so they adopt a fluffy, playful dog named Russel. Troy and Russel instantly form a special bond. One afternoon, while they are playing together in the garden, another dog walks by with their owner. Russel and the new dog sniff each other through the fence to say hello, and to Troy's surprise, he realizes he can understand what they are saying...",
+    "category": "Fantasy",
+    "age": 6
+},
+{
   "sentence": "One morning, Lucy found a small, glittering door at the base of an old oak tree, which led to a fairy tea party.",
   "category": "Fantasy",
   "age": 4
+},
+{
+    "sentence": "Cleo is a quiet little girl who lives in a big, noisy city. Sometimes, she wishes she could hide away. One day, Cleo finds out that if she touches something and taps it three times, she can change colors and hide, just like an octopus...",
+    "category": "Fantasy",
+    "age": 4
 },
 {
   "sentence": "While walking through the Whispering Woods, Jake stumbled upon a dragon's egg that was about to hatch and needed a safe place to do so.",
@@ -2398,6 +2453,11 @@
   "sentence": "Beneath her bed, Lily found a secret note from a witch inviting her to learn magic at an ancient enchanted school hidden in the forest.",
   "category": "Fantasy",
   "age": 3
+},
+{
+    "sentence": "Arven was a regular girl, by day at least. However, she had inherited something special. On clear nights, when all the stars were out, her skin would reflect them and glitter in the most wonderful colors…",
+    "category": "Fantasy",
+    "age": 6
 },
 {
   "sentence": "While playing near the river, Oliver caught a sparkling fish that spoke in riddles and promised to grant him three wishes.",
