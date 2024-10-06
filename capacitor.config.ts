@@ -3,7 +3,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 const config: CapacitorConfig = {
   appId: 'com.inventirayastudios.paramathi',
   appName: 'Paramithi',
-  webDir: 'www/browser',
+  webDir: 'www',
   server: {
     androidScheme: 'https'
   }
