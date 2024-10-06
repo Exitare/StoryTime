@@ -79,7 +79,7 @@
                     </ion-list-header>
                     <ion-item>
                         <ion-toggle justify="space-between"
-                                    (ionChange)="scheduleNotification()">{{ 'NOTIFICATIONS' | translate }}
+                                    (ionChange)="setupDailyNotifications($event)">{{ 'NOTIFICATIONS' | translate }}
                         </ion-toggle>
                         <!--<ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
                                       labelPlacement="end">{{ 'NO_AGE_RESTRICTION' | translate }}

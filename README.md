@@ -18,6 +18,19 @@ or
 ## Build icon
 npx @capacitor/assets generate --assetPath src/assets/
 
+
+# Android
+
+Android Manifest:  
+```android/app/src/main/AndroidManifest.xml```
+
+# iOS
+
+Info.plist:  
+```ios/App/App/Info.plist```
+Privacy settings:  
+```ios/App/App/PrivacyInfo.plist```
+
 ## Libraries
 
 ### Preferences

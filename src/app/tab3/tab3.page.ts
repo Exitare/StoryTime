@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
-import {Subscription} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {NavController} from "@ionic/angular";
 import {LocalNotifications} from '@capacitor/local-notifications';
@@ -142,26 +142,79 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.age.enable();
     }
 
-    async scheduleNotification() {
+    async setupDailyNotifications($event: any) {
+
+        if (!$event.detail.checked) {
+            await this.cancelScheduledNotification();
+            return;
+        }
 
         if ((await LocalNotifications.requestPermissions()).display === 'granted') {
-            console.log('Notification permissions granted.');
-            await LocalNotifications.schedule({
+            if (isDevMode())
+                console.log('Notification permissions granted.');
+
+            forkJoin({
+                title: this.translateService.get('DAILY_STORY_REMINDER'),
+                body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
+            }).subscribe(async (translations: { title: string, body: string }) => {
+                // Destructure the translations object for readability
+                const {title, body} = translations;
+                await this.scheduleDailyNotifications(title, body);
+            });
+
+
+        } else {
+            console.log('Notification permissions denied.');
+        }
+    }
+
+    async scheduleDailyNotifications(title: string, body: string) {
+        const notificationId = Math.floor(Math.random() * 1000);
+
+        // Store the notification ID somewhere (local storage, database, etc.) if you need it later
+        localStorage.setItem('dailyNotificationId', notificationId.toString());
+
+        await LocalNotifications.schedule({
+            notifications: [
+                {
+                    title: title,
+                    body: body,
+                    id: notificationId, // Use the generated ID
+                    schedule: {
+                        repeats: true, // Ensure the notification repeats
+                        every: 'day',  // Repeat every day
+                        at: new Date(new Date().setHours(9, 0, 0)) // Schedule at a specific time (e.g., 9:00 AM daily)
+                    },
+                    sound: null!,
+                    attachments: null!,
+                    actionTypeId: "",
+                    extra: null
+                }
+            ]
+        });
+    }
+
+    // Method to cancel the scheduled notification
+    async cancelScheduledNotification() {
+        // Retrieve the stored notification ID
+        const notificationId = localStorage.getItem('dailyNotificationId');
+
+        if (notificationId) {
+            await LocalNotifications.cancel({
                 notifications: [
                     {
-                        title: "Test Notification",
-                        body: "This is a test notification!",
-                        id: 1,
-                        schedule: { at: new Date(Date.now() + 1000 * 5) }, // Schedule for 5 seconds later
-                        sound: null!,
-                        attachments: null!,
-                        actionTypeId: "",
-                        extra: null
+                        id: parseInt(notificationId, 10) // Use the stored notification ID to cancel the correct notification
                     }
                 ]
             });
+
+            // Optionally, clear the stored ID after cancellation
+            localStorage.removeItem('dailyNotificationId');
+            if (isDevMode())
+                console.log(`Notification with ID ${notificationId} canceled.`);
         } else {
-            console.log('Notification permissions denied.');
+            if (isDevMode())
+                console.log("No notification ID found.");
         }
     }
 
