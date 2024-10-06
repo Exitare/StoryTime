@@ -6,6 +6,7 @@ import {forkJoin, Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {NavController} from "@ionic/angular";
 import {LocalNotifications} from '@capacitor/local-notifications';
+import {Router} from "@angular/router";
 
 
 interface IAgeForm {
@@ -14,11 +15,11 @@ interface IAgeForm {
 
 
 @Component({
-    selector: 'app-tab3',
-    templateUrl: 'tab3.page.html',
-    styleUrls: ['tab3.page.scss']
+    selector: 'app-settings',
+    templateUrl: 'settings.page.html',
+    styleUrls: ['settings.page.scss']
 })
-export class Tab3Page implements OnInit, OnDestroy {
+export class SettingsPage implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
     ageForm: FormGroup<IAgeForm> = null!;
     userSelectedCategories: string[] = [];
@@ -29,7 +30,7 @@ export class Tab3Page implements OnInit, OnDestroy {
 
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
-                private translateService: TranslateService, private navCtrl: NavController) {
+                private translateService: TranslateService, private navCtrl: NavController, private router: Router  ) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -142,83 +143,13 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.age.enable();
     }
 
-    async setupDailyNotifications($event: any) {
 
-        if (!$event.detail.checked) {
-            await this.cancelScheduledNotification();
-            return;
-        }
-
-        if ((await LocalNotifications.requestPermissions()).display === 'granted') {
-            if (isDevMode())
-                console.log('Notification permissions granted.');
-
-            forkJoin({
-                title: this.translateService.get('DAILY_STORY_REMINDER'),
-                body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
-            }).subscribe(async (translations: { title: string, body: string }) => {
-                // Destructure the translations object for readability
-                const {title, body} = translations;
-                await this.scheduleDailyNotifications(title, body);
-            });
-
-
-        } else {
-            console.log('Notification permissions denied.');
-        }
-    }
-
-    async scheduleDailyNotifications(title: string, body: string) {
-        const notificationId = Math.floor(Math.random() * 1000);
-
-        // Store the notification ID somewhere (local storage, database, etc.) if you need it later
-        localStorage.setItem('dailyNotificationId', notificationId.toString());
-
-        await LocalNotifications.schedule({
-            notifications: [
-                {
-                    title: title,
-                    body: body,
-                    id: notificationId, // Use the generated ID
-                    schedule: {
-                        repeats: true, // Ensure the notification repeats
-                        every: 'day',  // Repeat every day
-                        at: new Date(new Date().setHours(9, 0, 0)) // Schedule at a specific time (e.g., 9:00 AM daily)
-                    },
-                    sound: null!,
-                    attachments: null!,
-                    actionTypeId: "",
-                    extra: null
-                }
-            ]
-        });
-    }
-
-    // Method to cancel the scheduled notification
-    async cancelScheduledNotification() {
-        // Retrieve the stored notification ID
-        const notificationId = localStorage.getItem('dailyNotificationId');
-
-        if (notificationId) {
-            await LocalNotifications.cancel({
-                notifications: [
-                    {
-                        id: parseInt(notificationId, 10) // Use the stored notification ID to cancel the correct notification
-                    }
-                ]
-            });
-
-            // Optionally, clear the stored ID after cancellation
-            localStorage.removeItem('dailyNotificationId');
-            if (isDevMode())
-                console.log(`Notification with ID ${notificationId} canceled.`);
-        } else {
-            if (isDevMode())
-                console.log("No notification ID found.");
-        }
-    }
 
     toPrivacy() {
         this.navCtrl.navigateForward('privacy');
+    }
+
+    openNotificationsMenu() {
+        this.navCtrl.navigateForward('tabs/settings/notifications');
     }
 }

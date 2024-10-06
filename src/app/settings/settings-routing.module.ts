@@ -1,0 +1,22 @@
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {SettingsPage} from './settings.page';
+import {NotificationsPage} from "./notifications/notifications.page";
+
+const routes: Routes = [
+    {
+        path: '',
+        component: SettingsPage,
+    },
+    {
+        path: 'notifications',
+        component: NotificationsPage
+    }
+];
+
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
+})
+export class SettingsPageRoutingModule {
+}
