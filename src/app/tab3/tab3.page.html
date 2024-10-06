@@ -75,11 +75,25 @@
                     </ion-item>
 
                     <ion-list-header>
+                        <ion-label>{{ "NOTICATIONS" | translate }}</ion-label>
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-toggle justify="space-between"
+                                    (ionChange)="scheduleNotification()">{{ 'NOTIFICATIONS' | translate }}
+                        </ion-toggle>
+                        <!--<ion-checkbox [checked]="ageRestrictionCheckbox" (ionChange)="noAgeRestriction($event)"
+                                      labelPlacement="end">{{ 'NO_AGE_RESTRICTION' | translate }}
+                        </ion-checkbox>-->
+                    </ion-item>
+
+                    <ion-list-header>
                         <ion-label>{{ "PRIVACY" | translate }}</ion-label>
                     </ion-list-header>
                     <ion-item [button]="true" (click)="toPrivacy()">
                         <ion-label>{{ "PRIVACY_POLICY" | translate }}</ion-label>
                     </ion-item>
+
+
                 </ion-list>
             </ion-col>
         </ion-row>

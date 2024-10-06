@@ -5,6 +5,7 @@ import {SentencesService} from "../../core/services/sentence.service";
 import {Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {NavController} from "@ionic/angular";
+import {LocalNotifications} from '@capacitor/local-notifications';
 
 
 interface IAgeForm {
@@ -141,7 +142,30 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.age.enable();
     }
 
-    toPrivacy(){
+    async scheduleNotification() {
+
+        if ((await LocalNotifications.requestPermissions()).display === 'granted') {
+            console.log('Notification permissions granted.');
+            await LocalNotifications.schedule({
+                notifications: [
+                    {
+                        title: "Test Notification",
+                        body: "This is a test notification!",
+                        id: 1,
+                        schedule: { at: new Date(Date.now() + 1000 * 5) }, // Schedule for 5 seconds later
+                        sound: null!,
+                        attachments: null!,
+                        actionTypeId: "",
+                        extra: null
+                    }
+                ]
+            });
+        } else {
+            console.log('Notification permissions denied.');
+        }
+    }
+
+    toPrivacy() {
         this.navCtrl.navigateForward('privacy');
     }
 }
