@@ -18,3 +18,7 @@ or
 ## Build icon
 npx @capacitor/assets generate --assetPath src/assets/
 
+## Libraroes
+
+### Preferences
+https://capacitorjs.com/docs/apis/preferences
