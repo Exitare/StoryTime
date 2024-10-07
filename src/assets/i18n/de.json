@@ -34,6 +34,10 @@
   "NO_AGE_RESTRICTION": "Keine Altersbeschränkung",
   "PRIVACY": "Datenschutz",
   "PRIVACY_POLICY": "Datenschutzrichtlinie",
-  "DAILY_STORY_REMINDER": "Paramithi Story Time",
-  "DAILY_STORY_REMINDER_BODY": "Deine tägliche Geschichte wartet auf dich!"
+  "LOCAL_NOTIFICATIONS": {
+    "SCHEDULED": "Geplante Benachrichtigungen",
+    "NOTIFICATIONS": "Benachrichtigungen",
+    "DAILY_STORY_REMINDER": "Paramithi Story Time",
+    "DAILY_STORY_REMINDER_BODY": "Deine tägliche Geschichte wartet auf dich!"
+  }
 }

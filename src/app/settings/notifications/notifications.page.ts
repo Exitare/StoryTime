@@ -130,8 +130,8 @@ export class NotificationsPage implements OnInit {
         localStorage.setItem('dailyNotificationTime', event.detail.value);
 
         forkJoin({
-            title: this.translateService.get('DAILY_STORY_REMINDER'),
-            body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
+            title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
+            body: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER_BODY')
         }).subscribe(async (translations: { title: string, body: string }) => {
             // Destructure the translations object for readability
             const {title, body} = translations;
@@ -142,5 +142,15 @@ export class NotificationsPage implements OnInit {
 
     async is24HourFormat() {
         return await DeviceTimeUtils.is24HourFormat();
+    }
+
+    formatTime(hour: number): string {
+        if (this.is24Hour) {
+            return hour.toString().padStart(2, '0') + ':00';
+        } else {
+            const suffix = hour >= 12 ? 'PM' : 'AM';
+            const adjustedHour = hour % 12 || 12; // Converts 0 to 12 for 12 AM and 12 PM
+            return `${adjustedHour} ${suffix}`;
+        }
     }
 }
