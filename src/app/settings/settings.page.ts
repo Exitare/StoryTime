@@ -2,9 +2,11 @@ import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {SettingsService} from "../../core/services/settings.service";
 import {SentencesService} from "../../core/services/sentence.service";
-import {Subscription} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {NavController} from "@ionic/angular";
+import {LocalNotifications} from '@capacitor/local-notifications';
+import {Router} from "@angular/router";
 
 
 interface IAgeForm {
@@ -13,11 +15,11 @@ interface IAgeForm {
 
 
 @Component({
-    selector: 'app-tab3',
-    templateUrl: 'tab3.page.html',
-    styleUrls: ['tab3.page.scss']
+    selector: 'app-settings',
+    templateUrl: 'settings.page.html',
+    styleUrls: ['settings.page.scss']
 })
-export class Tab3Page implements OnInit, OnDestroy {
+export class SettingsPage implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
     ageForm: FormGroup<IAgeForm> = null!;
     userSelectedCategories: string[] = [];
@@ -28,7 +30,7 @@ export class Tab3Page implements OnInit, OnDestroy {
 
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
-                private translateService: TranslateService, private navCtrl: NavController) {
+                private translateService: TranslateService, private navCtrl: NavController, private router: Router  ) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -141,7 +143,13 @@ export class Tab3Page implements OnInit, OnDestroy {
         this.age.enable();
     }
 
-    toPrivacy(){
+
+
+    toPrivacy() {
         this.navCtrl.navigateForward('privacy');
+    }
+
+    openNotificationsMenu() {
+        this.navCtrl.navigateForward('tabs/settings/notifications');
     }
 }

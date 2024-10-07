@@ -2,23 +2,23 @@ import {IonicModule} from '@ionic/angular';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {Tab3Page} from './tab3.page';
-
-import {Tab3PageRoutingModule} from './tab3-routing.module';
+import {SettingsPage} from './settings.page';
+import {SettingsPageRoutingModule} from './settings-routing.module';
 import {TranslateModule} from "@ngx-translate/core";
 import {PipeModule} from "../../core/pipes/pipe.module";
+import {NotificationsPage} from "./notifications/notifications.page";
 
 @NgModule({
     imports: [
         IonicModule,
         CommonModule,
         FormsModule,
-        Tab3PageRoutingModule,
+        SettingsPageRoutingModule,
         ReactiveFormsModule,
         TranslateModule,
         PipeModule
     ],
-    declarations: [Tab3Page]
+    declarations: [SettingsPage, NotificationsPage]
 })
-export class Tab3PageModule {
+export class SettingsPageModule {
 }

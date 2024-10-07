@@ -33,5 +33,11 @@
   },
   "NO_AGE_RESTRICTION": "No Age Restriction",
   "PRIVACY": "Privacy",
-  "PRIVACY_POLICY": "Privacy Policy"
+  "PRIVACY_POLICY": "Privacy Policy",
+  "LOCAL_NOTIFICATIONS": {
+    "SCHEDULED": "Scheduled Notifications",
+    "NOTIFICATIONS": "Notifications",
+    "DAILY_STORY_REMINDER": "Paramithi Story Time",
+    "DAILY_STORY_REMINDER_BODY": "Your daily story is waiting for you!"
+  }
 }

@@ -18,9 +18,12 @@
             <ion-col size="12" size-md="8" offset-md="2">
                 <ion-list lines="inset">
                     <ion-list-header>
-                        <ion-label>{{ 'AGE' | translate }}</ion-label>
+                        <ion-label>{{ 'PERSONAL' | translate }}</ion-label>
 
                     </ion-list-header>
+                    <ion-item [button]="true" (click)="openNotificationsMenu()">
+                        <ion-label>Notifications</ion-label>
+                    </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionCheckbox"
                                     (ionChange)="noAgeRestriction($event)">{{ 'NO_AGE_RESTRICTION' | translate }}
@@ -74,12 +77,17 @@
                                   name=''></ion-icon>
                     </ion-item>
 
+
+
+
                     <ion-list-header>
                         <ion-label>{{ "PRIVACY" | translate }}</ion-label>
                     </ion-list-header>
                     <ion-item [button]="true" (click)="toPrivacy()">
                         <ion-label>{{ "PRIVACY_POLICY" | translate }}</ion-label>
                     </ion-item>
+
+
                 </ion-list>
             </ion-col>
         </ion-row>

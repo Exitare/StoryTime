@@ -33,5 +33,11 @@
   },
   "NO_AGE_RESTRICTION": "Δεν υπἀρχει περιορισμός Ηλικίας",
   "PRIVACY": "Απορρήτου",
-  "PRIVACY_POLICY": "Πολιτική Απορρήτου"
+  "PRIVACY_POLICY": "Πολιτική Απορρήτου",
+  "LOCAL_NOTIFICATIONS": {
+    "SCHEDULED": "Προγραμματισμένες ειδοποιήσεις",
+    "NOTIFICATIONS": "Ειδοποιήσεις",
+    "DAILY_STORY_REMINDER": "Paramithi Story Time",
+    "DAILY_STORY_REMINDER_BODY": "Η καθημερινή σας ιστορία σας περιμένει!"
+  }
 }
