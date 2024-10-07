@@ -2,6 +2,7 @@ import {Component, isDevMode, OnInit} from '@angular/core';
 import {LocalNotifications} from "@capacitor/local-notifications";
 import {forkJoin} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
+import {DeviceTimeUtils} from "capacitor-24h-time";
 
 @Component({
     selector: 'app-notifications',
@@ -12,13 +13,14 @@ export class NotificationsPage implements OnInit {
 
     notificationActive = localStorage.getItem('dailyNotificationActive') === 'true';
     selectedSegment: string = '9';
-    is24Hour = this.is24HourFormat();
+    is24Hour = false;
 
     constructor(private translateService: TranslateService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.selectedSegment = localStorage.getItem('dailyNotificationTime') || '9';
+        this.is24Hour = await this.is24HourFormat();
     }
 
     async activateDailyNotifications($event: any) {
@@ -137,9 +139,8 @@ export class NotificationsPage implements OnInit {
         });
     }
 
-    is24HourFormat(): boolean {
-        const testTime = new Date().toLocaleTimeString();
-        // Check if the time string includes AM or PM
-        return !testTime.match(/AM|PM/);
+
+    async is24HourFormat() {
+        return await DeviceTimeUtils.is24HourFormat();
     }
 }
