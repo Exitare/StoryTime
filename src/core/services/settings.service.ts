@@ -121,7 +121,7 @@ export class SettingsService {
 
     async getDailyNotificationTime(): Promise<number> {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_TIME).then((time) => {
-            if(!time.value) {
+            if (!time.value) {
                 return 9;
             }
             return Number(time.value) ?? 9;
@@ -148,6 +148,9 @@ export class SettingsService {
 
     async getDailyNotificationId() {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_ID).then((id) => {
+            if (!id.value) {
+                return -1;
+            }
             return Number(id.value) ?? -1;
         });
     }
