@@ -22,7 +22,7 @@
 
                     </ion-list-header>
                     <ion-item [button]="true" (click)="openNotificationsMenu()">
-                        <ion-label>Notifications</ion-label>
+                        <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionCheckbox"
