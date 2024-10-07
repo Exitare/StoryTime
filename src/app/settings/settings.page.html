@@ -25,7 +25,7 @@
                         <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
                         <ion-note slot="end">{{ notificationTime }}</ion-note>
                     </ion-item>
-                    <ion-item [button]="true">
+                    <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
                                     (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
                         </ion-toggle>
