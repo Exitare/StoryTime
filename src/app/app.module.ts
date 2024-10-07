@@ -6,7 +6,7 @@ import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, provideHttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {PdfViewerModule} from "ng2-pdf-viewer";
@@ -21,7 +21,6 @@ export function createTranslateLoader(http: HttpClient) {
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        HttpClientModule,
         PdfViewerModule,
         TranslateModule.forRoot({
             defaultLanguage: 'en',
@@ -33,6 +32,7 @@ export function createTranslateLoader(http: HttpClient) {
         })
     ],
     providers: [
+        provideHttpClient(),
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent],

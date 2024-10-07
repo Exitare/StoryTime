@@ -30,7 +30,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
-                private translateService: TranslateService, private navCtrl: NavController, private router: Router  ) {
+                private translateService: TranslateService, private navCtrl: NavController ) {
         this.createForm().then((form) => {
             this.ageForm = form;
             this.ageForm.valueChanges.subscribe(async (value) => {
@@ -92,7 +92,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     }
 
     async loadUserAgeRestriction() {
-        this.ageRestrictionCheckbox = await this.settingsService.getNoAgeRestriction();
+        this.ageRestrictionCheckbox = await this.settingsService.getAgeRestriction();
     }
 
     async loadAvailableCategories() {
@@ -134,12 +134,12 @@ export class SettingsPage implements OnInit, OnDestroy {
         if (event.detail.checked) {
             this.age.disable();
             this.ageRestrictionCheckbox = true;
-            await this.settingsService.saveNoAgeRestriction(true);
+            await this.settingsService.saveAgeRestriction(true);
             return;
         }
 
         this.ageRestrictionCheckbox = false;
-        await this.settingsService.saveNoAgeRestriction(false);
+        await this.settingsService.saveAgeRestriction(false);
         this.age.enable();
     }
 

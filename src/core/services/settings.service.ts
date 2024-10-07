@@ -2,6 +2,19 @@ import {Injectable} from "@angular/core";
 import {Preferences} from '@capacitor/preferences';
 import {Subject} from "rxjs";
 
+
+export enum SettingsKeys {
+    AGE_RESTRICTION = 'age_restriction',
+    AGE = 'age',
+    CATEGORIES = 'categories',
+    LANGUAGE = 'language',
+    DAILY_NOTIFICATION_TIME = 'dailyNotificationTime',
+    DAILY_NOTIFICATION_ACTIVE = 'dailyNotificationActive',
+    DAILY_NOTIFICATION_ID = 'dailyNotificationId',
+    FIRST_START = 'firstStart',
+}
+
+
 @Injectable({
     providedIn: 'root'
 })
@@ -14,12 +27,17 @@ export class SettingsService {
 
     }
 
-    async saveNoAgeRestriction(value: boolean) {
-        await this.set('noAgeRestriction', JSON.stringify(value));
+    async initializeSettings(){
+        await this.saveAgeRestriction(false);
+        await this.saveLanguage('en');
     }
 
-    async getNoAgeRestriction() {
-        return await this.get('noAgeRestriction').then((noAgeRestriction) => {
+    async saveAgeRestriction(value: boolean) {
+        await this.set(SettingsKeys.AGE_RESTRICTION, JSON.stringify(value));
+    }
+
+    async getAgeRestriction() {
+        return await this.get(SettingsKeys.AGE_RESTRICTION).then((noAgeRestriction) => {
             if (noAgeRestriction.value) {
                 return JSON.parse(noAgeRestriction.value);
             }
@@ -28,46 +46,80 @@ export class SettingsService {
     }
 
     async saveLanguage(language: string) {
-        await this.set('language', language);
+        await this.set(SettingsKeys.LANGUAGE, language);
     }
 
     async getLanguage() {
-        return await this.get('language').then((language) => {
+        return await this.get(SettingsKeys.LANGUAGE).then((language) => {
             return language.value ?? 'en';
         });
     }
 
     async isFirstStart(): Promise<boolean> {
-        const result = await this.get('firstStart');
+        const result = await this.get(SettingsKeys.FIRST_START);
         return result.value === null;
     }
 
     async setFirstStart() {
-        await this.set('firstStart', 'false');
+        await this.set(SettingsKeys.FIRST_START, 'false');
     }
 
     async saveAge(age: number) {
-        await this.set('age', age);
+        await this.set(SettingsKeys.AGE, age);
         this.enteredAgeChanged$.next(age);
     }
 
     async getAge() {
-        return await this.get('age').then((age) => {
+        return await this.get(SettingsKeys.AGE).then((age) => {
             return Number(age.value) ?? 0;
         });
     }
 
     async saveCategories(categories: string[]) {
-        await this.set('categories', JSON.stringify(categories));
+        await this.set(SettingsKeys.CATEGORIES, JSON.stringify(categories));
         this.selectedCategoriesChanged$.next(categories);
     }
 
     async getCategories(): Promise<string[]> {
-        const result = await this.get('categories')
+        const result = await this.get(SettingsKeys.CATEGORIES)
         if (result.value) {
             return JSON.parse(result.value);
         }
         return [];
+    }
+
+    async saveDailyNotificationTime(time: string) {
+        await this.set(SettingsKeys.DAILY_NOTIFICATION_TIME, time);
+    }
+
+    async getDailyNotificationTime() {
+        return await this.get(SettingsKeys.DAILY_NOTIFICATION_TIME).then((time) => {
+            return time.value ?? '9';
+        });
+    }
+
+    async saveDailyNotificationActive(active: boolean) {
+        await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, active);
+    }
+
+    async getDailyNotificationActive() {
+        return await this.get(SettingsKeys.DAILY_NOTIFICATION_ACTIVE).then((active) => {
+            return Boolean(active.value === 'true') ?? false;
+        });
+    }
+
+    async saveDailyNotificationId(id: number) {
+        await this.set(SettingsKeys.DAILY_NOTIFICATION_ID, id);
+    }
+
+    async getDailyNotificationId() {
+        return await this.get(SettingsKeys.DAILY_NOTIFICATION_ID).then((id) => {
+            return Number(id.value) ?? -1;
+        });
+    }
+
+    async removeDailyNotificationId() {
+        localStorage.removeItem(SettingsKeys.DAILY_NOTIFICATION_ID);
     }
 
     private async set(key: string, value: any) {
@@ -77,7 +129,6 @@ export class SettingsService {
         });
     }
 
-// JSON "get" example
     async get(key: string) {
         return await Preferences.get({key: key});
     }

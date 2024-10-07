@@ -3,6 +3,7 @@ import {LocalNotifications} from "@capacitor/local-notifications";
 import {forkJoin} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {DeviceTimeUtils} from "capacitor-24h-time";
+import {SettingsService} from "../../../core/services/settings.service";
 
 @Component({
     selector: 'app-notifications',
@@ -11,15 +12,16 @@ import {DeviceTimeUtils} from "capacitor-24h-time";
 })
 export class NotificationsPage implements OnInit {
 
-    notificationActive = localStorage.getItem('dailyNotificationActive') === 'true';
+    notificationActive = false;
     selectedSegment: string = '9';
     is24Hour = false;
 
-    constructor(private translateService: TranslateService) {
+    constructor(private translateService: TranslateService, private settingsService: SettingsService) {
     }
 
     async ngOnInit() {
-        this.selectedSegment = localStorage.getItem('dailyNotificationTime') || '9';
+        this.selectedSegment = await this.settingsService.getDailyNotificationTime();
+        this.notificationActive = await this.settingsService.getDailyNotificationActive();
         this.is24Hour = await this.is24HourFormat();
     }
 
@@ -27,7 +29,7 @@ export class NotificationsPage implements OnInit {
 
         if (!$event.detail.checked) {
             await this.cancelScheduledNotification();
-            localStorage.setItem('dailyNotificationActive', 'false');
+            await this.settingsService.saveDailyNotificationActive(false);
             this.notificationActive = false;
             return;
         }
@@ -36,7 +38,7 @@ export class NotificationsPage implements OnInit {
             if (isDevMode())
                 console.log('Notification permissions granted.');
 
-            localStorage.setItem('dailyNotificationActive', 'true');
+            await this.settingsService.saveDailyNotificationActive(true);
             this.notificationActive = true
 
             forkJoin({
@@ -52,7 +54,8 @@ export class NotificationsPage implements OnInit {
         } else {
             if (isDevMode())
                 console.log('Notification permissions denied.');
-            localStorage.setItem('dailyNotificationActive', 'false');
+
+            await this.settingsService.saveDailyNotificationActive(false);
             this.notificationActive = false;
         }
     }
@@ -60,8 +63,8 @@ export class NotificationsPage implements OnInit {
     async scheduleDailyNotifications(title: string, body: string, hour: any) {
         const notificationId = Math.floor(Math.random() * 1000);
 
-        // Store the notification ID somewhere (local storage, database, etc.) if you need it later
-        localStorage.setItem('dailyNotificationId', notificationId.toString());
+        // Store the notification ID
+        await this.settingsService.saveDailyNotificationId(notificationId);
 
         const now = new Date();
         const scheduledTime = new Date();
@@ -98,25 +101,28 @@ export class NotificationsPage implements OnInit {
     // Method to cancel the scheduled notification
     async cancelScheduledNotification() {
         // Retrieve the stored notification ID
-        const notificationId = localStorage.getItem('dailyNotificationId');
+        const notificationId = await this.settingsService.getDailyNotificationId()
 
-        if (notificationId) {
-            await LocalNotifications.cancel({
-                notifications: [
-                    {
-                        id: parseInt(notificationId, 10) // Use the stored notification ID to cancel the correct notification
-                    }
-                ]
-            });
-
-            // Optionally, clear the stored ID after cancellation
-            localStorage.removeItem('dailyNotificationId');
-            if (isDevMode())
-                console.log(`Notification with ID ${notificationId} canceled.`);
-        } else {
+        if (notificationId === -1) {
             if (isDevMode())
                 console.log("No notification ID found.");
+            return;
         }
+
+
+        await LocalNotifications.cancel({
+            notifications: [
+                {
+                    id: notificationId // Use the stored notification ID to cancel the correct notification
+                }
+            ]
+        });
+
+        // Optionally, clear the stored ID after cancellation
+        await this.settingsService.removeDailyNotificationId();
+        if (isDevMode())
+            console.log(`Notification with ID ${notificationId} canceled.`);
+
     }
 
     async notificationTimeChanged(event: any) {
@@ -127,7 +133,8 @@ export class NotificationsPage implements OnInit {
         if (isDevMode())
             console.log('Notification time changed.');
 
-        localStorage.setItem('dailyNotificationTime', event.detail.value);
+        // Save the new notification time
+        await this.settingsService.saveDailyNotificationTime(event.detail.value);
 
         forkJoin({
             title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
