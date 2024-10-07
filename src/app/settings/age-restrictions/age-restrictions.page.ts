@@ -18,27 +18,18 @@ export class AgeRestrictionsPage implements OnInit {
     ageForm: FormGroup<IAgeForm> = null!;
     ageRestrictionToggler = false;
 
+
     constructor(private settingsService: SettingsService) {
-
-        this.createForm().then((form) => {
-            this.ageForm = form;
-            this.ageForm.valueChanges.subscribe(async (value) => {
-                if (this.ageForm.invalid) {
-                    return;
-                }
-
-                await this.settingsService.saveAgeRestrictionAge(value.age!);
-                this.settingsService.ageRestrictionAgeChanged$.next(value.age!);
-            });
-        });
     }
 
     async ngOnInit() {
-        await this.loadUserAgeRestriction();
+        const age: number = await this.loadUserAgeRestriction();
+        this.ageForm = await this.createForm(age);
+        await this.subscribeToFormChanges();
     }
 
-    async createForm(): Promise<FormGroup<IAgeForm>> {
-        const age: number = await this.settingsService.getAgeRestrictionAge();
+    async createForm(age: number): Promise<FormGroup<IAgeForm>> {
+
         return new FormGroup<IAgeForm>(<IAgeForm>{
             age: new FormControl<number>(age,
                 [
@@ -53,10 +44,20 @@ export class AgeRestrictionsPage implements OnInit {
         const active = await this.settingsService.isAgeRestrictionActive();
         if (active)
             this.ageRestrictionToggler = true;
+        return await this.settingsService.getAgeRestrictionAge();
+    }
+
+    async subscribeToFormChanges() {
+        this.ageForm.valueChanges.subscribe(async (value) => {
+            if (this.ageForm.invalid)
+                return;
+
+            await this.settingsService.saveAgeRestrictionAge(value.age!);
+        });
     }
 
     get age(): FormControl<number> {
-        if (this.ageRestrictionToggler)
+        if (this.ageRestrictionToggler && this.ageForm)
             return this.ageForm.get('age') as FormControl<number>;
         return new FormControl<number>(0) as FormControl<number>;
     }

@@ -17,9 +17,9 @@
                 <ion-note color="medium">{{ 'AGE_RESTRICTIONS.EXPLANATION' | translate }}</ion-note>
             </ion-toggle>
         </ion-item>
-        <ion-item *ngIf="ageRestrictionToggler">
+        <ion-item *ngIf="ageRestrictionToggler && ageForm">
             <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
-                <ion-input type="number" formControlName="age" label-placement="stacked"
+                <ion-input type="number" formControlName="age" label-placement="stacked" [clearOnEdit]="true"
                            placeholder="{{'AGE' | translate}}"></ion-input>
 
                 <!-- Error messages -->

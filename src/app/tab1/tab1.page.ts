@@ -32,6 +32,14 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.selectNewSentence();
         }));
 
+        this.subscriptions$.push(this.settingsService.ageRestrictionActiveChanged$.subscribe(async (active: boolean) => {
+            if (!active)
+                this.userAge = 0;
+            else {
+                await this.loadSettings();
+            }
+        }));
+
         this.translateService.onLangChange.subscribe((langEvent) => {
             this.language = langEvent.lang;
             this.selectNewSentence();
@@ -57,7 +65,9 @@ export class Tab1Page implements OnInit, OnDestroy {
     }
 
     async loadSettings() {
-        this.userAge = await this.settingsService.getAgeRestrictionAge();
+        if (await this.settingsService.isAgeRestrictionActive())
+            this.userAge = await this.settingsService.getAgeRestrictionAge();
+
         this.userCategories = await this.settingsService.getCategories();
         this.selectNewSentence();
     }
