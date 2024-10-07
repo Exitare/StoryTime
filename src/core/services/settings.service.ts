@@ -94,7 +94,7 @@ export class SettingsService {
     }
 
     async saveAgeRestrictionAge(age: number) {
-        await this.set(SettingsKeys.AGE_RESTRICTIONS_AGE, age);
+        await this.set(SettingsKeys.AGE_RESTRICTIONS_AGE, JSON.stringify(age));
         this.ageRestrictionAgeChanged$.next(age);
     }
 
@@ -103,7 +103,7 @@ export class SettingsService {
             if(!age.value) {
                 return 0;
             }
-            return Number(age.value) ?? 0;
+            return Number(JSON.parse(age.value)) ?? 0;
         });
     }
 

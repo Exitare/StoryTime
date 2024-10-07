@@ -29,7 +29,6 @@ export class AgeRestrictionsPage implements OnInit {
     }
 
     async createForm(age: number): Promise<FormGroup<IAgeForm>> {
-
         return new FormGroup<IAgeForm>(<IAgeForm>{
             age: new FormControl<number>(age,
                 [
@@ -57,9 +56,7 @@ export class AgeRestrictionsPage implements OnInit {
     }
 
     get age(): FormControl<number> {
-        if (this.ageRestrictionToggler && this.ageForm)
-            return this.ageForm.get('age') as FormControl<number>;
-        return new FormControl<number>(0) as FormControl<number>;
+        return this.ageForm.get('age') as FormControl<number>;
     }
 
     async toggleAgeRestriction(event: any) {
