@@ -15,6 +15,7 @@ export class NotificationsPage implements OnInit {
     notificationActive = false;
     selectedSegment: number = 9;
     is24Hour = false;
+    protected readonly isDevMode = isDevMode();
 
     constructor(private translateService: TranslateService, private settingsService: SettingsService) {
     }
@@ -65,7 +66,10 @@ export class NotificationsPage implements OnInit {
     }
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
-        const notificationId = Math.floor(Math.random() * 1000);
+        let notificationId = Math.floor(Math.random() * 1000);
+        // add 84600 to the front to avoid conflicts with other notifications
+        notificationId = parseInt('84600' + notificationId.toString());
+
 
         // Store the notification ID
         await this.settingsService.saveDailyNotificationId(notificationId);
@@ -112,6 +116,26 @@ export class NotificationsPage implements OnInit {
                 console.log("No notification ID found.");
             return;
         }
+
+        //Get a list of pending notifications.
+        const pending = await LocalNotifications.getPending();
+        pending.notifications.forEach((notification) => {
+            // check if the notification id starts with 84600
+            if (notification.id.toString().startsWith('84600')) {
+
+                // Cancel the notification
+                LocalNotifications.cancel({
+                    notifications: [
+                        {
+                            id: notification.id
+                        }
+                    ]
+                });
+
+                if (isDevMode())
+                    console.log(`Found & canceled notification with ID ${notification.id}.`);
+            }
+        });
 
 
         await LocalNotifications.cancel({
@@ -166,4 +190,27 @@ export class NotificationsPage implements OnInit {
             return `${adjustedHour} ${suffix}`;
         }
     }
+
+    async resetNotifications() {
+        //Get a list of pending notifications.
+        const pending = await LocalNotifications.getPending();
+        pending.notifications.forEach((notification) => {
+            // check if the notification id starts with 84600
+            // Cancel the notification
+            LocalNotifications.cancel({
+                notifications: [
+                    {
+                        id: notification.id
+                    }
+                ]
+            });
+
+            if (isDevMode())
+                console.log(`Found & canceled notification with ID ${notification.id}.`);
+
+        });
+
+    }
+
+
 }
