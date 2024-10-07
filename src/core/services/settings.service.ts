@@ -37,10 +37,10 @@ export class SettingsService {
         await this.activateTextToSpeech(true);
     }
 
-    async updateSettings(){
+    async updateSettings() {
         // check if text to speech is present in the local storage
         const textToSpeech = await this.get(SettingsKeys.TEXT_TO_SPEECH);
-        if(!textToSpeech.value){
+        if (!textToSpeech.value) {
             await this.activateTextToSpeech(true);
         }
     }
@@ -121,22 +121,24 @@ export class SettingsService {
 
     async getDailyNotificationTime(): Promise<number> {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_TIME).then((time) => {
+            if(!time.value) {
+                return 9;
+            }
             return Number(time.value) ?? 9;
         });
     }
 
     async saveDailyNotificationActive(active: boolean) {
         // convert bool to string
-        const activeString = active ? 'true' : 'false';
-        await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, activeString);
+        await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, JSON.stringify(active));
     }
 
     async getDailyNotificationActive() {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_ACTIVE).then((active) => {
-            console.log(active);
-            console.log(active.value);
-            console.log(Boolean(active.value === 'true'));
-            return Boolean(active.value === 'true');
+            if (active.value) {
+                return JSON.parse(active.value);
+            }
+            return false;
         });
     }
 
