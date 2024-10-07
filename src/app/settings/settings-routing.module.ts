@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {SettingsPage} from './settings.page';
 import {NotificationsPage} from "./notifications/notifications.page";
+import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
 
 const routes: Routes = [
     {
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'notifications',
         component: NotificationsPage
+    },
+    {
+        path: 'age-restrictions',
+        component: AgeRestrictionsPage,
     }
 ];
 

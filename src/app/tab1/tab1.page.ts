@@ -27,7 +27,7 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.selectNewSentence();
         }));
 
-        this.subscriptions$.push(this.settingsService.enteredAgeChanged$.subscribe(async (age: number) => {
+        this.subscriptions$.push(this.settingsService.ageRestrictionAgeChanged$.subscribe(async (age: number) => {
             this.userAge = age;
             this.selectNewSentence();
         }));
@@ -57,7 +57,7 @@ export class Tab1Page implements OnInit, OnDestroy {
     }
 
     async loadSettings() {
-        this.userAge = await this.settingsService.getAge();
+        this.userAge = await this.settingsService.getAgeRestrictionAge();
         this.userCategories = await this.settingsService.getCategories();
         this.selectNewSentence();
     }

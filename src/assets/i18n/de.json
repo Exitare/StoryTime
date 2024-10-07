@@ -31,7 +31,11 @@
     "MAX_ERROR": "Das Höchstalter ist 99",
     "REQUIRED_ERROR": "Alter ist erforderlich"
   },
-  "AGE_RESTRICTION": "Altersbeschränkung",
+  "AGE_RESTRICTIONS": {
+    "BASE": "Altersbeschränkungen",
+    "EXPLANATION": "Stories werden gefilter für das Alter +-1 Jahr"
+
+  },
   "PRIVACY": "Datenschutz",
   "PRIVACY_POLICY": "Datenschutzrichtlinie",
   "LOCAL_NOTIFICATIONS": {
@@ -40,5 +44,6 @@
     "DAILY_STORY_REMINDER": "Paramithi Story Time",
     "DAILY_STORY_REMINDER_BODY": "Deine tägliche Geschichte wartet auf dich!"
   },
-  "TEXT_TO_SPEECH": "Text to Speech"
+  "TEXT_TO_SPEECH": "Text to Speech",
+  "PERSONAL": "Persönlich"
 }

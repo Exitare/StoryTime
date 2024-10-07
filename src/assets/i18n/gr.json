@@ -31,7 +31,10 @@
     "MAX_ERROR": "Η μἐγιστη Ηλικἰα είναι 99",
     "REQUIRED_ERROR": "Πρἐπει να δηλώσετε την Ηλικἰα του παιδιοὐ σας"
   },
-  "AGE_RESTRICTION": "Περιορισμός Ηλικίας",
+  "AGE_RESTRICTIONS": {
+    "BASE": "Περιορισμοί Ηλικίας",
+    "EXPLANATION": "Οι ιστορίες φιλτράρονται για ηλικία +-1 έτος"
+  },
   "PRIVACY": "Απορρήτου",
   "PRIVACY_POLICY": "Πολιτική Απορρήτου",
   "LOCAL_NOTIFICATIONS": {
@@ -40,5 +43,6 @@
     "DAILY_STORY_REMINDER": "Paramithi Story Time",
     "DAILY_STORY_REMINDER_BODY": "Η καθημερινή σας ιστορία σας περιμένει!"
   },
-  "TEXT_TO_SPEECH": "Κείμενο σε ομιλία"
+  "TEXT_TO_SPEECH": "Κείμενο σε ομιλία",
+  "PERSONAL": "Προσωπικό"
 }

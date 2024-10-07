@@ -10,11 +10,6 @@ import {Router} from "@angular/router";
 import {DeviceTimeUtils} from "capacitor-24h-time";
 
 
-interface IAgeForm {
-    age: FormControl<number>;
-}
-
-
 @Component({
     selector: 'app-settings',
     templateUrl: 'settings.page.html',
@@ -22,12 +17,11 @@ interface IAgeForm {
 })
 export class SettingsPage implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
-    ageForm: FormGroup<IAgeForm> = null!;
     userSelectedCategories: string[] = [];
     availableCategories: string[] = [];
     availableLanguages: string[] = ['en', 'de', 'gr'];
     userSelectedLanguage: string = 'en';
-    ageRestrictionCheckbox = false;
+    ageRestrictionLabel: string = '';
     textToSpeechToggler = false;
     notificationTime: string = '';
     is24Hour = false;
@@ -35,16 +29,7 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
                 private translateService: TranslateService, private navCtrl: NavController) {
-        this.createForm().then((form) => {
-            this.ageForm = form;
-            this.ageForm.valueChanges.subscribe(async (value) => {
-                if (this.ageForm.invalid) {
-                    return;
-                }
 
-                await this.settingsService.saveAge(value.age!);
-            });
-        });
 
         this.translateService.onLangChange.subscribe(async (event) => {
             if (isDevMode())
@@ -61,6 +46,15 @@ export class SettingsPage implements OnInit, OnDestroy {
             if (!active) {
                 this.notificationTime = '';
             }
+        }));
+
+        this.subscriptions$.push(this.settingsService.ageRestrictionAgeChanged$.subscribe(async (age: number) => {
+            this.ageRestrictionLabel = age.toString();
+        }));
+
+        this.subscriptions$.push(this.settingsService.ageRestrictionActiveChanged$.subscribe(async (active: boolean) => {
+            console.log("Age restriction active: " + active);
+            await this.loadUserAgeRestriction();
         }));
     }
 
@@ -86,23 +80,6 @@ export class SettingsPage implements OnInit, OnDestroy {
         }
     }
 
-    async createForm(): Promise<FormGroup<IAgeForm>> {
-        const age = await this.settingsService.getAge();
-        return new FormGroup<IAgeForm>(<IAgeForm>{
-            age: new FormControl<number>(age,
-                [
-                    Validators.required,
-                    Validators.min(1),
-                    Validators.max(99)
-                ])
-        });
-    }
-
-    get age(): FormControl<number> {
-        if (!this.ageRestrictionCheckbox)
-            return this.ageForm.get('age') as FormControl<number>;
-        return new FormControl<number>(0) as FormControl<number>;
-    }
 
     async loadUserCategories() {
         this.userSelectedCategories = await this.settingsService.getCategories();
@@ -113,7 +90,11 @@ export class SettingsPage implements OnInit, OnDestroy {
     }
 
     async loadUserAgeRestriction() {
-        this.ageRestrictionCheckbox = await this.settingsService.getAgeRestriction();
+        if (await this.settingsService.isAgeRestrictionActive())
+            this.ageRestrictionLabel = (await this.settingsService.getAgeRestrictionAge()).toString();
+        else
+            this.ageRestrictionLabel = '';
+
     }
 
     async loadAvailableCategories() {
@@ -151,7 +132,7 @@ export class SettingsPage implements OnInit, OnDestroy {
         this.translateService.use(language);
     }
 
-    async toggleTextToSpeech(event: any){
+    async toggleTextToSpeech(event: any) {
         if (event.detail.checked) {
             await this.settingsService.activateTextToSpeech(true);
             return;
@@ -161,26 +142,16 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     }
 
-    async toggleAgeRestriction(event: any) {
-        if (event.detail.checked) {
-            this.age.disable();
-            this.ageRestrictionCheckbox = true;
-            await this.settingsService.saveAgeRestriction(true);
-            return;
-        }
-
-        this.ageRestrictionCheckbox = false;
-        await this.settingsService.saveAgeRestriction(false);
-        this.age.enable();
-    }
-
-
     toPrivacy() {
         this.navCtrl.navigateForward('privacy');
     }
 
     openNotificationsMenu() {
         this.navCtrl.navigateForward('tabs/settings/notifications');
+    }
+
+    openAgeMenu() {
+        this.navCtrl.navigateForward('tabs/settings/age-restrictions');
     }
 
     formatTime(hour: number): string {

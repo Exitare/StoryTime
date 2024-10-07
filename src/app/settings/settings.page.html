@@ -25,35 +25,16 @@
                         <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
                         <ion-note slot="end">{{ notificationTime }}</ion-note>
                     </ion-item>
+                    <ion-item [button]="true" (click)="openAgeMenu()">
+                        <ion-label>{{ "AGE_RESTRICTIONS.BASE" | translate }}</ion-label>
+                        <ion-note slot="end">{{ ageRestrictionLabel }}</ion-note>
+                    </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
                                     (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
                         </ion-toggle>
                     </ion-item>
-                    <ion-item>
-                        <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionCheckbox"
-                                    (ionChange)="toggleAgeRestriction($event)">{{ 'AGE_RESTRICTION' | translate }}
-                        </ion-toggle>
-                    </ion-item>
-                    <ion-item *ngIf="ageRestrictionCheckbox">
 
-                        <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
-                            <ion-input type="number" formControlName="age" label-placement="stacked"
-                                       label=""
-                                       placeholder="{{'AGE' | translate}}"></ion-input>
-
-                            <!-- Error messages -->
-                            <ion-text color="danger"
-                                      *ngIf="age?.invalid && (age?.dirty || age?.touched)">
-                                <p class="ion-padding-start">
-                                    <small *ngIf="age?.errors?.['required']"> {{ 'AGE_FORM.REQUIRED_ERROR' | translate }} </small>
-                                    <small *ngIf="age?.errors?.['min']">{{ 'AGE_FORM.MIN_ERROR' | translate }} </small>
-                                    <small *ngIf="age?.errors?.['max']"> {{ 'AGE_FORM.MAX_ERROR' | translate }} </small>
-                                </p>
-                            </ion-text>
-
-                        </form>
-                    </ion-item>
 
                     <ion-list-header>
                         <ion-label>{{ "LANGUAGE" | translate }}</ion-label>

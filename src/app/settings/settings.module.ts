@@ -7,6 +7,7 @@ import {SettingsPageRoutingModule} from './settings-routing.module';
 import {TranslateModule} from "@ngx-translate/core";
 import {PipeModule} from "../../core/pipes/pipe.module";
 import {NotificationsPage} from "./notifications/notifications.page";
+import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
 
 @NgModule({
     imports: [
@@ -18,7 +19,7 @@ import {NotificationsPage} from "./notifications/notifications.page";
         TranslateModule,
         PipeModule
     ],
-    declarations: [SettingsPage, NotificationsPage]
+    declarations: [SettingsPage, NotificationsPage, AgeRestrictionsPage]
 })
 export class SettingsPageModule {
 }

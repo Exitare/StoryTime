@@ -4,8 +4,8 @@ import {Subject} from "rxjs";
 
 
 export enum SettingsKeys {
-    AGE_RESTRICTION = 'age_restriction',
-    AGE = 'age',
+    AGE_RESTRICTIONS_ACTIVE = 'age_restriction_active',
+    AGE_RESTRICTIONS_AGE = 'age',
     CATEGORIES = 'categories',
     LANGUAGE = 'language',
     DAILY_NOTIFICATION_TIME = 'dailyNotificationTime',
@@ -22,17 +22,18 @@ export enum SettingsKeys {
 export class SettingsService {
 
     selectedCategoriesChanged$: Subject<string[]> = new Subject<string[]>();
-    enteredAgeChanged$: Subject<number> = new Subject<number>();
     scheduleDailyNotificationTimeChanged$: Subject<number> = new Subject<number>();
     scheduleDailyNotificationActiveChanged$: Subject<boolean> = new Subject<boolean>();
     textToSpeechChanged$: Subject<boolean> = new Subject<boolean>();
+    ageRestrictionActiveChanged$: Subject<boolean> = new Subject<boolean>();
+    ageRestrictionAgeChanged$: Subject<number> = new Subject<number>();
 
     constructor() {
 
     }
 
     async initializeSettings() {
-        await this.saveAgeRestriction(false);
+        await this.activateAgeRestrictions(false);
         await this.saveLanguage('en');
         await this.activateTextToSpeech(true);
     }
@@ -59,12 +60,13 @@ export class SettingsService {
         });
     }
 
-    async saveAgeRestriction(value: boolean) {
-        await this.set(SettingsKeys.AGE_RESTRICTION, JSON.stringify(value));
+    async activateAgeRestrictions(value: boolean) {
+        await this.set(SettingsKeys.AGE_RESTRICTIONS_ACTIVE, JSON.stringify(value));
+        this.ageRestrictionActiveChanged$.next(value);
     }
 
-    async getAgeRestriction() {
-        return await this.get(SettingsKeys.AGE_RESTRICTION).then((noAgeRestriction) => {
+    async isAgeRestrictionActive(): Promise<boolean> {
+        return await this.get(SettingsKeys.AGE_RESTRICTIONS_ACTIVE).then((noAgeRestriction) => {
             if (noAgeRestriction.value) {
                 return JSON.parse(noAgeRestriction.value);
             }
@@ -91,13 +93,16 @@ export class SettingsService {
         await this.set(SettingsKeys.FIRST_START, 'false');
     }
 
-    async saveAge(age: number) {
-        await this.set(SettingsKeys.AGE, age);
-        this.enteredAgeChanged$.next(age);
+    async saveAgeRestrictionAge(age: number) {
+        await this.set(SettingsKeys.AGE_RESTRICTIONS_AGE, age);
+        this.ageRestrictionAgeChanged$.next(age);
     }
 
-    async getAge() {
-        return await this.get(SettingsKeys.AGE).then((age) => {
+    async getAgeRestrictionAge() {
+        return await this.get(SettingsKeys.AGE_RESTRICTIONS_AGE).then((age) => {
+            if(!age.value) {
+                return 0;
+            }
             return Number(age.value) ?? 0;
         });
     }

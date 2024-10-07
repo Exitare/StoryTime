@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>{{ 'AGE_RESTRICTIONS.BASE' | translate }}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button default-href="tabs/settings"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+    <ion-list [inset]="true">
+        <ion-item>
+            <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionToggler"
+                        (ionChange)="toggleAgeRestriction($event)">
+                <ion-label>{{ 'AGE_RESTRICTIONS.BASE' | translate }}</ion-label>
+                <ion-note color="medium">{{ 'AGE_RESTRICTIONS.EXPLANATION' | translate }}</ion-note>
+            </ion-toggle>
+        </ion-item>
+        <ion-item *ngIf="ageRestrictionToggler">
+            <form [formGroup]="ageForm" #formAge="ngForm" *ngIf="ageForm">
+                <ion-input type="number" formControlName="age" label-placement="stacked"
+                           placeholder="{{'AGE' | translate}}"></ion-input>
+
+                <!-- Error messages -->
+                <ion-text color="danger"
+                          *ngIf="age?.invalid && (age?.dirty || age?.touched)">
+                    <p class="ion-padding-start">
+                        <small *ngIf="age?.errors?.['required']"> {{ 'AGE_FORM.REQUIRED_ERROR' | translate }} </small>
+                        <small *ngIf="age?.errors?.['min']">{{ 'AGE_FORM.MIN_ERROR' | translate }} </small>
+                        <small *ngIf="age?.errors?.['max']"> {{ 'AGE_FORM.MAX_ERROR' | translate }} </small>
+                    </p>
+                </ion-text>
+
+            </form>
+        </ion-item>
+    </ion-list>
+</ion-content>
