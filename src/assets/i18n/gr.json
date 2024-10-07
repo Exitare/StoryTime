@@ -31,7 +31,7 @@
     "MAX_ERROR": "Η μἐγιστη Ηλικἰα είναι 99",
     "REQUIRED_ERROR": "Πρἐπει να δηλώσετε την Ηλικἰα του παιδιοὐ σας"
   },
-  "NO_AGE_RESTRICTION": "Δεν υπἀρχει περιορισμός Ηλικίας",
+  "AGE_RESTRICTION": "Περιορισμός Ηλικίας",
   "PRIVACY": "Απορρήτου",
   "PRIVACY_POLICY": "Πολιτική Απορρήτου",
   "LOCAL_NOTIFICATIONS": {

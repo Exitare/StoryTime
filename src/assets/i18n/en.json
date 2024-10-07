@@ -31,7 +31,7 @@
     "MAX_ERROR": "The maximum age is 100",
     "REQUIRED_ERROR": "Age is required"
   },
-  "NO_AGE_RESTRICTION": "No Age Restriction",
+  "AGE_RESTRICTION": "Age Restriction",
   "PRIVACY": "Privacy",
   "PRIVACY_POLICY": "Privacy Policy",
   "LOCAL_NOTIFICATIONS": {

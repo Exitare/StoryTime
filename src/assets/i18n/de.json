@@ -31,7 +31,7 @@
     "MAX_ERROR": "Das Höchstalter ist 99",
     "REQUIRED_ERROR": "Alter ist erforderlich"
   },
-  "NO_AGE_RESTRICTION": "Keine Altersbeschränkung",
+  "AGE_RESTRICTION": "Altersbeschränkung",
   "PRIVACY": "Datenschutz",
   "PRIVACY_POLICY": "Datenschutzrichtlinie",
   "LOCAL_NOTIFICATIONS": {
