@@ -12,6 +12,7 @@ export enum SettingsKeys {
     DAILY_NOTIFICATION_ACTIVE = 'dailyNotificationActive',
     DAILY_NOTIFICATION_ID = 'dailyNotificationId',
     FIRST_START = 'firstStart',
+    TEXT_TO_SPEECH = 'textToSpeech'
 }
 
 
@@ -24,6 +25,7 @@ export class SettingsService {
     enteredAgeChanged$: Subject<number> = new Subject<number>();
     scheduleDailyNotificationTimeChanged$: Subject<number> = new Subject<number>();
     scheduleDailyNotificationActiveChanged$: Subject<boolean> = new Subject<boolean>();
+    textToSpeechChanged$: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
 
@@ -32,6 +34,29 @@ export class SettingsService {
     async initializeSettings() {
         await this.saveAgeRestriction(false);
         await this.saveLanguage('en');
+        await this.activateTextToSpeech(true);
+    }
+
+    async updateSettings(){
+        // check if text to speech is present in the local storage
+        const textToSpeech = await this.get(SettingsKeys.TEXT_TO_SPEECH);
+        if(!textToSpeech.value){
+            await this.activateTextToSpeech(true);
+        }
+    }
+
+    async activateTextToSpeech(active: boolean) {
+        this.textToSpeechChanged$.next(active);
+        await this.set(SettingsKeys.TEXT_TO_SPEECH, JSON.stringify(active));
+    }
+
+    async getTextToSpeech() {
+        return await this.get(SettingsKeys.TEXT_TO_SPEECH).then((textToSpeech) => {
+            if (textToSpeech.value) {
+                return JSON.parse(textToSpeech.value);
+            }
+            return false;
+        });
     }
 
     async saveAgeRestriction(value: boolean) {

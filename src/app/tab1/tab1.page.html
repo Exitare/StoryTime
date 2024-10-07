@@ -26,7 +26,7 @@
                             <ion-col>
                                 <ion-card-title>{{ 'CATEGORIES.' + selectedSentence.category | uppercase | replaceCharacter : ' ' | translate }}</ion-card-title>
                             </ion-col>
-                            <ion-col size="auto">
+                            <ion-col size="auto" *ngIf="textToSpeechActive">
                                 <ion-icon name="play-outline" (click)="textToSpeech($event)" size="large"
                                           role="button"></ion-icon>
                             </ion-col>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {NavController} from "@ionic/angular";
 import {ISentence} from "../../../core/models";
@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {SentencesService} from "../../../core/services/sentence.service";
 import {TextToSpeech} from "@capacitor-community/text-to-speech";
 import {TranslateService} from "@ngx-translate/core";
+import {SettingsService} from "../../../core/services/settings.service";
 
 
 @Component({
@@ -13,17 +14,18 @@ import {TranslateService} from "@ngx-translate/core";
     templateUrl: './explore-category.component.html',
     styleUrls: ['./explore-category.component.scss'],
 })
-export class ExploreCategoryComponent implements OnInit {
+export class ExploreCategoryComponent implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
     sentences: ISentence[] = [];
     colors: string[] = [];
     category: string;
     sentencesGroupedByAge: { age: number, sentences: ISentence[] }[] = [];
     language = 'en';
+    textToSpeechActive = false;
 
 
     constructor(private route: ActivatedRoute, private navCtrl: NavController, private sentenceService: SentencesService,
-                private translateService: TranslateService) {
+                private translateService: TranslateService, private settingsService: SettingsService) {
         // get router params
         this.category = this.route.snapshot.paramMap.get('categoryName') ?? '';
         if (!this.category) {
@@ -35,12 +37,21 @@ export class ExploreCategoryComponent implements OnInit {
             this.language = langEvent.lang;
         });
 
+        this.subscriptions$.push(this.settingsService.textToSpeechChanged$.subscribe(async (active: boolean) => {
+            this.textToSpeechActive = active;
+        }));
+
     }
 
     async ngOnInit() {
         await this.loadData();
         await this.groupByAge();
         this.language = this.translateService.currentLang;
+        this.textToSpeechActive = await this.settingsService.getTextToSpeech();
+    }
+
+    async ngOnDestroy() {
+        this.subscriptions$.forEach(x => x.unsubscribe());
     }
 
     async loadData() {

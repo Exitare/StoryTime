@@ -18,6 +18,7 @@ export class Tab1Page implements OnInit, OnDestroy {
     categories: string[] = [];
     userCategories: string[] = [];
     language: string = 'en';
+    textToSpeechActive: boolean = false;
 
     constructor(private sentenceService: SentencesService, private settingsService: SettingsService,
                 private translateService: TranslateService) {
@@ -35,9 +36,14 @@ export class Tab1Page implements OnInit, OnDestroy {
             this.language = langEvent.lang;
             this.selectNewSentence();
         });
+
+        this.subscriptions$.push(this.settingsService.textToSpeechChanged$.subscribe(async (active: boolean) => {
+            this.textToSpeechActive = active;
+        }));
     }
 
     async ngOnInit() {
+        this.textToSpeechActive = await this.settingsService.getTextToSpeech();
         await this.loadSettings();
         this.sentenceService.loadAvailableCategories().subscribe((categories) => {
             this.categories = categories;

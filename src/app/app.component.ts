@@ -24,12 +24,13 @@ export class AppComponent implements OnDestroy, OnInit {
 
     async ngOnInit() {
         if (await this.settingsService.isFirstStart()) {
-            await this.settingsService.saveLanguage('en');
+            await this.settingsService.initializeSettings();
             this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe(async (categories) => {
                 await this.settingsService.saveCategories(categories);
                 await this.settingsService.setFirstStart();
             }));
         } else {
+            await this.settingsService.updateSettings();
             const language = await this.settingsService.getLanguage();
             this.translate.use(language);
         }

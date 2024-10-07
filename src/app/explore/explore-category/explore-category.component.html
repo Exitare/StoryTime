@@ -31,7 +31,7 @@
                                         <ion-col>
                                             <p>{{ cSentence.sentence }}</p>
                                         </ion-col>
-                                        <ion-col size="auto">
+                                        <ion-col size="auto" *ngIf="textToSpeechActive">
                                             <ion-icon name="play-outline" (click)="textToSpeech(i,j,$event)" size="large" role="button"></ion-icon>
                                         </ion-col>
                                     </ion-row>

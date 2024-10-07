@@ -28,6 +28,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     availableLanguages: string[] = ['en', 'de', 'gr'];
     userSelectedLanguage: string = 'en';
     ageRestrictionCheckbox = false;
+    textToSpeechToggler = false;
     notificationTime: string = '';
     is24Hour = false;
 
@@ -70,6 +71,7 @@ export class SettingsPage implements OnInit, OnDestroy {
         await this.loadUserLanguage();
         await this.loadUserAgeRestriction();
         await this.loadNotificationTime();
+        this.textToSpeechToggler = await this.settingsService.getTextToSpeech();
     }
 
 
@@ -149,7 +151,17 @@ export class SettingsPage implements OnInit, OnDestroy {
         this.translateService.use(language);
     }
 
-    async noAgeRestriction(event: any) {
+    async toggleTextToSpeech(event: any){
+        if (event.detail.checked) {
+            await this.settingsService.activateTextToSpeech(true);
+            return;
+        }
+        await this.settingsService.activateTextToSpeech(false);
+
+
+    }
+
+    async toggleAgeRestriction(event: any) {
         if (event.detail.checked) {
             this.age.disable();
             this.ageRestrictionCheckbox = true;

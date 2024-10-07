@@ -23,11 +23,16 @@
                     </ion-list-header>
                     <ion-item [button]="true" (click)="openNotificationsMenu()">
                         <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
-                        <ion-note slot="end">{{notificationTime}}</ion-note>
+                        <ion-note slot="end">{{ notificationTime }}</ion-note>
+                    </ion-item>
+                    <ion-item [button]="true">
+                        <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
+                                    (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
+                        </ion-toggle>
                     </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="ageRestrictionCheckbox"
-                                    (ionChange)="noAgeRestriction($event)">{{ 'AGE_RESTRICTION' | translate }}
+                                    (ionChange)="toggleAgeRestriction($event)">{{ 'AGE_RESTRICTION' | translate }}
                         </ion-toggle>
                     </ion-item>
                     <ion-item *ngIf="ageRestrictionCheckbox">
@@ -74,8 +79,6 @@
                         <ion-icon slot="end" *ngIf="!userSelectedCategories.includes(category)"
                                   name=''></ion-icon>
                     </ion-item>
-
-
 
 
                     <ion-list-header>

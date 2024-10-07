@@ -39,5 +39,6 @@
     "NOTIFICATIONS": "Benachrichtigungen",
     "DAILY_STORY_REMINDER": "Paramithi Story Time",
     "DAILY_STORY_REMINDER_BODY": "Deine tägliche Geschichte wartet auf dich!"
-  }
+  },
+  "TEXT_TO_SPEECH": "Text to Speech"
 }
