@@ -22,12 +22,14 @@ export class SettingsService {
 
     selectedCategoriesChanged$: Subject<string[]> = new Subject<string[]>();
     enteredAgeChanged$: Subject<number> = new Subject<number>();
+    scheduleDailyNotificationTimeChanged$: Subject<number> = new Subject<number>();
+    scheduleDailyNotificationActiveChanged$: Subject<boolean> = new Subject<boolean>();
 
     constructor() {
 
     }
 
-    async initializeSettings(){
+    async initializeSettings() {
         await this.saveAgeRestriction(false);
         await this.saveLanguage('en');
     }
@@ -88,23 +90,28 @@ export class SettingsService {
         return [];
     }
 
-    async saveDailyNotificationTime(time: string) {
+    async saveDailyNotificationTime(time: number) {
         await this.set(SettingsKeys.DAILY_NOTIFICATION_TIME, time);
     }
 
-    async getDailyNotificationTime() {
+    async getDailyNotificationTime(): Promise<number> {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_TIME).then((time) => {
-            return time.value ?? '9';
+            return Number(time.value) ?? 9;
         });
     }
 
     async saveDailyNotificationActive(active: boolean) {
-        await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, active);
+        // convert bool to string
+        const activeString = active ? 'true' : 'false';
+        await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, activeString);
     }
 
     async getDailyNotificationActive() {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_ACTIVE).then((active) => {
-            return Boolean(active.value === 'true') ?? false;
+            console.log(active);
+            console.log(active.value);
+            console.log(Boolean(active.value === 'true'));
+            return Boolean(active.value === 'true');
         });
     }
 

@@ -13,7 +13,7 @@ import {SettingsService} from "../../../core/services/settings.service";
 export class NotificationsPage implements OnInit {
 
     notificationActive = false;
-    selectedSegment: string = '9';
+    selectedSegment: number = 9;
     is24Hour = false;
 
     constructor(private translateService: TranslateService, private settingsService: SettingsService) {
@@ -31,6 +31,7 @@ export class NotificationsPage implements OnInit {
             await this.cancelScheduledNotification();
             await this.settingsService.saveDailyNotificationActive(false);
             this.notificationActive = false;
+            this.settingsService.scheduleDailyNotificationActiveChanged$.next(false);
             return;
         }
 
@@ -39,6 +40,8 @@ export class NotificationsPage implements OnInit {
                 console.log('Notification permissions granted.');
 
             await this.settingsService.saveDailyNotificationActive(true);
+            this.settingsService.scheduleDailyNotificationActiveChanged$.next(true);
+            this.settingsService.scheduleDailyNotificationTimeChanged$.next(this.selectedSegment);
             this.notificationActive = true
 
             forkJoin({
@@ -56,11 +59,12 @@ export class NotificationsPage implements OnInit {
                 console.log('Notification permissions denied.');
 
             await this.settingsService.saveDailyNotificationActive(false);
+
             this.notificationActive = false;
         }
     }
 
-    async scheduleDailyNotifications(title: string, body: string, hour: any) {
+    async scheduleDailyNotifications(title: string, body: string, hour: number) {
         const notificationId = Math.floor(Math.random() * 1000);
 
         // Store the notification ID
@@ -135,6 +139,8 @@ export class NotificationsPage implements OnInit {
 
         // Save the new notification time
         await this.settingsService.saveDailyNotificationTime(event.detail.value);
+
+        this.settingsService.scheduleDailyNotificationTimeChanged$.next(event.detail.value);
 
         forkJoin({
             title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
