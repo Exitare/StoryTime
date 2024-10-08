@@ -8,21 +8,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-grid>
-        <ion-row>
-            <ion-col size="12" size-md="8" offset-md="2">
-                <ion-list>
-                    <ion-item *ngFor="let language of availableLanguages" (click)="userLanguageChanged(language)">
-                        <ion-label>{{ 'LANGUAGES.' + language | uppercase | translate }}</ion-label>
-                        <ion-icon slot="end" *ngIf="userSelectedLanguage.includes(language)"
-                                  name='checkmark'></ion-icon>
-                        <ion-icon slot="end" *ngIf="!userSelectedLanguage.includes(language)"
-                                  name=''></ion-icon>
+    <ion-list [inset]="true">
+        <ion-item *ngFor="let language of availableLanguages" (click)="userLanguageChanged(language)">
+            <ion-label>{{ 'LANGUAGES.' + language | uppercase | translate }}</ion-label>
+            <ion-icon slot="end" *ngIf="userSelectedLanguage.includes(language)"
+                      name='checkmark'></ion-icon>
+            <ion-icon slot="end" *ngIf="!userSelectedLanguage.includes(language)"
+                      name=''></ion-icon>
 
-                    </ion-item>
+        </ion-item>
 
-                </ion-list>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+    </ion-list>
 </ion-content>

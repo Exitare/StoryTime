@@ -13,48 +13,46 @@
         </ion-toolbar>
     </ion-header>
 
-    <ion-grid>
-        <ion-row>
-            <ion-col size="12" size-md="8" offset-md="2">
-                <ion-list lines="inset">
-                    <ion-list-header>
-                        <ion-label>{{ 'PERSONAL' | translate }}</ion-label>
 
-                    </ion-list-header>
-                    <ion-item [button]="true" (click)="openNotificationsMenu()">
-                        <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
-                        <ion-note slot="end">{{ notificationTime }}</ion-note>
-                    </ion-item>
-                    <ion-item [button]="true" (click)="openAgeMenu()">
-                        <ion-label>{{ "AGE_RESTRICTIONS.BASE" | translate }}</ion-label>
-                        <ion-note slot="end">{{ ageRestrictionLabel }}</ion-note>
-                    </ion-item>
-                    <ion-item [button]="true" (click)="openLanguageMenu()">
-                        <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
-                        <ion-note slot="end">{{ userSelectedLanguage | languageId }}</ion-note>
-                    </ion-item>
-                    <ion-item [button]="true" (click)="openCategoryMenu()">
-                        <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
-                        <ion-note slot="end">{{ userSelectedCategories.length }}</ion-note>
-                    </ion-item>
-                    <ion-item>
-                        <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
-                                    (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
-                        </ion-toggle>
-                    </ion-item>
+    <ion-col size="12" size-md="8" offset-md="2">
+        <ion-list lines="inset">
+            <ion-list-header>
+                <ion-label>{{ 'PERSONAL' | translate }}</ion-label>
 
-
-                    <ion-list-header>
-                        <ion-label>{{ "PRIVACY" | translate }}</ion-label>
-                    </ion-list-header>
-                    <ion-item [button]="true" (click)="toPrivacy()">
-                        <ion-label>{{ "PRIVACY_POLICY" | translate }}</ion-label>
-                    </ion-item>
+            </ion-list-header>
+            <ion-item [button]="true" (click)="openNotificationsMenu()">
+                <ion-label>{{ "LOCAL_NOTIFICATIONS.NOTIFICATIONS" | translate }}</ion-label>
+                <ion-note slot="end">{{ notificationTime }}</ion-note>
+            </ion-item>
+            <ion-item [button]="true" (click)="openAgeMenu()">
+                <ion-label>{{ "AGE_RESTRICTIONS.BASE" | translate }}</ion-label>
+                <ion-note slot="end">{{ ageRestrictionLabel }}</ion-note>
+            </ion-item>
+            <ion-item [button]="true" (click)="openLanguageMenu()">
+                <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
+                <ion-note slot="end">{{ userSelectedLanguage | languageId }}</ion-note>
+            </ion-item>
+            <ion-item [button]="true" (click)="openCategoryMenu()">
+                <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
+                <ion-note slot="end">{{ userSelectedCategories.length }}</ion-note>
+            </ion-item>
+            <ion-item>
+                <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
+                            (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
+                </ion-toggle>
+            </ion-item>
 
 
-                </ion-list>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+            <ion-list-header>
+                <ion-label>{{ "PRIVACY" | translate }}</ion-label>
+            </ion-list-header>
+            <ion-item [button]="true" (click)="toPrivacy()">
+                <ion-label>{{ "PRIVACY_POLICY" | translate }}</ion-label>
+            </ion-item>
+
+
+        </ion-list>
+    </ion-col>
+
 
 </ion-content>
