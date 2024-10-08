@@ -18,7 +18,6 @@ import {DeviceTimeUtils} from "capacitor-24h-time";
 export class SettingsPage implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
     userSelectedCategories: string[] = [];
-    availableCategories: string[] = [];
     userSelectedLanguage: string = 'en';
     ageRestrictionLabel: string = '';
     textToSpeechToggler = false;
@@ -26,9 +25,12 @@ export class SettingsPage implements OnInit, OnDestroy {
     is24Hour = false;
 
 
-    constructor(private settingsService: SettingsService, private sentenceService: SentencesService, private changeDetector: ChangeDetectorRef,
+    constructor(private settingsService: SettingsService,
                 private translateService: TranslateService, private navCtrl: NavController) {
 
+        this.subscriptions$.push(this.settingsService.selectedCategoriesChanged$.subscribe(async (categories: string[]) => {
+            this.userSelectedCategories = categories;
+        }));
 
         this.translateService.onLangChange.subscribe(async (event) => {
             if (isDevMode())
@@ -59,7 +61,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.is24Hour = await DeviceTimeUtils.is24HourFormat();
-        await this.loadAvailableCategories();
         await this.loadUserCategories();
         await this.loadUserLanguage();
         await this.loadUserAgeRestriction();
@@ -96,34 +97,6 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     }
 
-    async loadAvailableCategories() {
-        this.subscriptions$.push(this.sentenceService.loadAvailableCategories().subscribe((categories) => {
-            this.availableCategories = categories;
-            // sort the categories alphabetically
-            this.availableCategories.sort();
-        }));
-    }
-
-    async resetCategories() {
-        this.userSelectedCategories = this.availableCategories;
-        await this.settingsService.saveCategories(this.userSelectedCategories);
-    }
-
-    async selectCategory(category: string) {
-        // add category to the list
-        this.userSelectedCategories.push(category);
-        await this.settingsService.saveCategories(this.userSelectedCategories);
-        if (isDevMode())
-            console.log(this.userSelectedCategories)
-        this.changeDetector.detectChanges();
-    }
-
-    async deselectCategory(category: string) {
-        // remove category from the list
-        this.userSelectedCategories = this.userSelectedCategories.filter((c) => c !== category);
-        await this.settingsService.saveCategories(this.userSelectedCategories);
-        this.changeDetector.detectChanges();
-    }
 
     async toggleTextToSpeech(event: any) {
         if (event.detail.checked) {
@@ -149,6 +122,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     openLanguageMenu() {
         this.navCtrl.navigateForward('tabs/settings/language-selection');
+    }
+
+    openCategoryMenu() {
+        this.navCtrl.navigateForward('tabs/settings/category-selection');
     }
 
     formatTime(hour: number): string {

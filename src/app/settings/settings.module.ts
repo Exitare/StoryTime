@@ -9,6 +9,7 @@ import {PipeModule} from "../../core/pipes/pipe.module";
 import {NotificationsPage} from "./notifications/notifications.page";
 import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
 import {LanguageSelectionPage} from "./language-selection/language-selection.page";
+import {CategorySelectionPage} from "./category-selection/category-selection.page";
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import {LanguageSelectionPage} from "./language-selection/language-selection.pag
         SettingsPage,
         NotificationsPage,
         AgeRestrictionsPage,
-        LanguageSelectionPage
+        LanguageSelectionPage,
+        CategorySelectionPage
     ]
 })
 export class SettingsPageModule {

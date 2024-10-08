@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>{{ "CATEGORIES.BASE" | translate }}</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button default-href="tabs/settings"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-grid *ngIf="!loading">
+        <ion-row>
+            <ion-col size="12" size-md="8" offset-md="2">
+                <ion-list>
+                    <ion-list-header>
+                        <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
+                        <ion-button (click)="resetCategories()">Reset</ion-button>
+                    </ion-list-header>
+
+                    <ion-item *ngFor="let category of availableCategories"
+                              (click)="!userSelectedCategories.includes(category) ? selectCategory(category) : deselectCategory(category)">
+                        <ion-label>{{ 'CATEGORIES.' + category | uppercase | replaceCharacter : ' ' | translate }}</ion-label>
+                        <ion-icon slot="end" *ngIf="userSelectedCategories.includes(category)"
+                                  name='checkmark'></ion-icon>
+                        <ion-icon slot="end" *ngIf="!userSelectedCategories.includes(category)"
+                                  name=''></ion-icon>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

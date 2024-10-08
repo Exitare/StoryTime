@@ -33,23 +33,14 @@
                         <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
                         <ion-note slot="end">{{ userSelectedLanguage | languageId }}</ion-note>
                     </ion-item>
+                    <ion-item [button]="true" (click)="openCategoryMenu()">
+                        <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
+                        <ion-note slot="end">{{ userSelectedCategories.length }}</ion-note>
+                    </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
                                     (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
                         </ion-toggle>
-                    </ion-item>
-
-                    <ion-list-header>
-                        <ion-label>{{ "CATEGORIES.BASE" | translate }}</ion-label>
-                        <ion-button (click)="resetCategories()">Reset</ion-button>
-                    </ion-list-header>
-                    <ion-item *ngFor="let category of availableCategories"
-                              (click)="!userSelectedCategories.includes(category) ? selectCategory(category) : deselectCategory(category)">
-                        <ion-label>{{ 'CATEGORIES.' + category | uppercase | replaceCharacter : ' ' | translate }}</ion-label>
-                        <ion-icon slot="end" *ngIf="userSelectedCategories.includes(category)"
-                                  name='checkmark'></ion-icon>
-                        <ion-icon slot="end" *ngIf="!userSelectedCategories.includes(category)"
-                                  name=''></ion-icon>
                     </ion-item>
 
 
