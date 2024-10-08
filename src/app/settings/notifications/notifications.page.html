@@ -18,7 +18,7 @@
                         </ion-toggle>
                     </ion-item>
                     <ion-item *ngIf="notificationActive">
-                        <ion-segment value="{{selectedSegment}}" (ionChange)="notificationTimeChanged($event)">
+                        <ion-segment value="{{selectedSegment}}" (ionChange)="notificationTimeChanged($event)" [scrollable]="true">
                             <ion-segment-button value="9">
                                 <ion-label>{{ formatTime(9) }}</ion-label>
                             </ion-segment-button>
@@ -31,13 +31,16 @@
                             <ion-segment-button value="18">
                                 <ion-label>{{ formatTime(18) }}</ion-label>
                             </ion-segment-button>
+                            <ion-segment-button value="21">
+                                <ion-label>{{ formatTime(21) }}</ion-label>
+                            </ion-segment-button>
                         </ion-segment>
                     </ion-item>
                 </ion-list>
             </ion-col>
         </ion-row>
-        <!--<ion-row>
+        <ion-row>
             <ion-button (click)="resetNotifications()">Reset</ion-button>
-        </ion-row> -->
+        </ion-row>
     </ion-grid>
 </ion-content>

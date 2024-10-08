@@ -10,7 +10,6 @@ export enum SettingsKeys {
     LANGUAGE = 'language',
     DAILY_NOTIFICATION_TIME = 'dailyNotificationTime',
     DAILY_NOTIFICATION_ACTIVE = 'dailyNotificationActive',
-    DAILY_NOTIFICATION_ID = 'dailyNotificationId',
     FIRST_START = 'firstStart',
     TEXT_TO_SPEECH = 'textToSpeech'
 }
@@ -145,23 +144,6 @@ export class SettingsService {
             }
             return false;
         });
-    }
-
-    async saveDailyNotificationId(id: number) {
-        await this.set(SettingsKeys.DAILY_NOTIFICATION_ID, id);
-    }
-
-    async getDailyNotificationId() {
-        return await this.get(SettingsKeys.DAILY_NOTIFICATION_ID).then((id) => {
-            if (!id.value) {
-                return -1;
-            }
-            return Number(id.value) ?? -1;
-        });
-    }
-
-    async removeDailyNotificationId() {
-        localStorage.removeItem(SettingsKeys.DAILY_NOTIFICATION_ID);
     }
 
     private async set(key: string, value: any) {

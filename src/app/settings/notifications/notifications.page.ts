@@ -5,6 +5,14 @@ import {TranslateService} from "@ngx-translate/core";
 import {DeviceTimeUtils} from "capacitor-24h-time";
 import {SettingsService} from "../../../core/services/settings.service";
 
+// Define a constant notification ID to be reused throughout
+const NOTIFICATION_ID = 84600999;
+
+interface INotificationContent {
+    title: string;
+    body: string;
+}
+
 @Component({
     selector: 'app-notifications',
     templateUrl: './notifications.page.html',
@@ -18,6 +26,14 @@ export class NotificationsPage implements OnInit {
     protected readonly isDevMode = isDevMode();
 
     constructor(private translateService: TranslateService, private settingsService: SettingsService) {
+
+        this.translateService.onLangChange.subscribe(async (event) => {
+            if (isDevMode())
+                console.log("Re-scheduling notification after language change.");
+            // cancel the current notification and wait for completion
+            const notificationContent: INotificationContent = await this.loadNotificationContent();
+            await this.scheduleDailyNotifications(notificationContent.title, notificationContent.body, this.selectedSegment);
+        });
     }
 
     async ngOnInit() {
@@ -43,36 +59,23 @@ export class NotificationsPage implements OnInit {
             await this.settingsService.saveDailyNotificationActive(true);
             this.settingsService.scheduleDailyNotificationActiveChanged$.next(true);
             this.settingsService.scheduleDailyNotificationTimeChanged$.next(this.selectedSegment);
-            this.notificationActive = true
-
-            forkJoin({
-                title: this.translateService.get('DAILY_STORY_REMINDER'),
-                body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
-            }).subscribe(async (translations: { title: string, body: string }) => {
-                // Destructure the translations object for readability
-                const {title, body} = translations;
-                await this.scheduleDailyNotifications(title, body, 9);
-            });
-
+            this.notificationActive = true;
+            const notificationContent: INotificationContent = await this.loadNotificationContent();
+            await this.scheduleDailyNotifications(notificationContent.title, notificationContent.body, this.selectedSegment);
 
         } else {
             if (isDevMode())
                 console.log('Notification permissions denied.');
 
             await this.settingsService.saveDailyNotificationActive(false);
-
             this.notificationActive = false;
         }
     }
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
-        let notificationId = Math.floor(Math.random() * 1000);
-        // add 84600 to the front to avoid conflicts with other notifications
-        notificationId = parseInt('84600' + notificationId.toString());
-
-
-        // Store the notification ID
-        await this.settingsService.saveDailyNotificationId(notificationId);
+        console.log("Schedule daily notifications");
+        // Cancel any pending notifications before scheduling a new one
+        await this.cancelScheduledNotification();
 
         const now = new Date();
         const scheduledTime = new Date();
@@ -81,9 +84,8 @@ export class NotificationsPage implements OnInit {
         scheduledTime.setHours(hour, 0, 0, 0);
 
         // If the scheduled time is before the current time, schedule it for the next day
-        if (scheduledTime <= now) {
+        if (scheduledTime <= now)
             scheduledTime.setDate(scheduledTime.getDate() + 1); // Move to the next day
-        }
 
         // Schedule the notification
         await LocalNotifications.schedule({
@@ -91,7 +93,7 @@ export class NotificationsPage implements OnInit {
                 {
                     title: title,
                     body: body,
-                    id: notificationId,
+                    id: NOTIFICATION_ID,  // Reuse the constant notification ID
                     schedule: {
                         repeats: true, // Repeat the notification
                         every: 'day',  // Repeat daily
@@ -104,78 +106,50 @@ export class NotificationsPage implements OnInit {
                 }
             ]
         });
+
+        if (isDevMode())
+            console.log(`Notification scheduled at ${scheduledTime}.`);
     }
 
     // Method to cancel the scheduled notification
     async cancelScheduledNotification() {
-        // Retrieve the stored notification ID
-        const notificationId = await this.settingsService.getDailyNotificationId()
-
-        if (notificationId === -1) {
-            if (isDevMode())
-                console.log("No notification ID found.");
-            return;
-        }
-
-        //Get a list of pending notifications.
         const pending = await LocalNotifications.getPending();
-        pending.notifications.forEach((notification) => {
-            // check if the notification id starts with 84600
-            if (notification.id.toString().startsWith('84600')) {
 
-                // Cancel the notification
-                LocalNotifications.cancel({
-                    notifications: [
-                        {
-                            id: notification.id
-                        }
-                    ]
-                });
-
-                if (isDevMode())
-                    console.log(`Found & canceled notification with ID ${notification.id}.`);
-            }
-        });
-
-
-        await LocalNotifications.cancel({
-            notifications: [
-                {
-                    id: notificationId // Use the stored notification ID to cancel the correct notification
-                }
-            ]
-        });
-
-        // Optionally, clear the stored ID after cancellation
-        await this.settingsService.removeDailyNotificationId();
-        if (isDevMode())
-            console.log(`Notification with ID ${notificationId} canceled.`);
-
+        // Check if any pending notifications match the NOTIFICATION_ID
+        if (pending.notifications.some(notification => notification.id === NOTIFICATION_ID)) {
+            await LocalNotifications.cancel({
+                notifications: [
+                    {
+                        id: NOTIFICATION_ID
+                    }
+                ]
+            });
+            if (isDevMode())
+                console.log(`Notification with ID ${NOTIFICATION_ID} canceled.`);
+        }
     }
 
     async notificationTimeChanged(event: any) {
-        // Cancel the current notification
+        // Cancel the current notification and wait for completion
         await this.cancelScheduledNotification();
-
 
         if (isDevMode())
             console.log('Notification time changed.');
 
         // Save the new notification time
         await this.settingsService.saveDailyNotificationTime(event.detail.value);
-
         this.settingsService.scheduleDailyNotificationTimeChanged$.next(event.detail.value);
 
         forkJoin({
             title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
             body: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER_BODY')
         }).subscribe(async (translations: { title: string, body: string }) => {
-            // Destructure the translations object for readability
             const {title, body} = translations;
+
+            // Ensure that the previous notification is canceled before scheduling a new one
             await this.scheduleDailyNotifications(title, body, event.detail.value);
         });
     }
-
 
     async is24HourFormat() {
         return await DeviceTimeUtils.is24HourFormat();
@@ -191,26 +165,33 @@ export class NotificationsPage implements OnInit {
         }
     }
 
+    async loadNotificationContent(): Promise<INotificationContent> {
+        return new Promise((resolve) => {
+            forkJoin({
+                title: this.translateService.get('DAILY_STORY_REMINDER'),
+                body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
+            }).subscribe(async (translations: { title: string, body: string }) => {
+                const {title, body} = translations;
+                resolve({title, body});
+                return;
+            });
+        });
+    }
+
     async resetNotifications() {
-        //Get a list of pending notifications.
-        const pending = await LocalNotifications.getPending();
-        pending.notifications.forEach((notification) => {
-            // check if the notification id starts with 84600
-            // Cancel the notification
-            LocalNotifications.cancel({
+        // Cancel all notifications for debug purposes
+        for (const notification of (await LocalNotifications.getPending()).notifications) {
+            await LocalNotifications.cancel({
                 notifications: [
                     {
                         id: notification.id
                     }
                 ]
             });
-
             if (isDevMode())
                 console.log(`Found & canceled notification with ID ${notification.id}.`);
+        }
 
-        });
 
     }
-
-
 }
