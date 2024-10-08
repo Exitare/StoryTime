@@ -107,8 +107,12 @@ export class NotificationsPage implements OnInit {
             ]
         });
 
-        if (isDevMode())
+        if (isDevMode()){
             console.log(`Notification scheduled at ${scheduledTime}.`);
+            console.log(`Title: ${title}`);
+            console.log(`Body: ${body}`);
+        }
+
     }
 
     // Method to cancel the scheduled notification
@@ -140,15 +144,11 @@ export class NotificationsPage implements OnInit {
         await this.settingsService.saveDailyNotificationTime(event.detail.value);
         this.settingsService.scheduleDailyNotificationTimeChanged$.next(event.detail.value);
 
-        forkJoin({
-            title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
-            body: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER_BODY')
-        }).subscribe(async (translations: { title: string, body: string }) => {
-            const {title, body} = translations;
+        // Schedule the new notification
+        const notificationContent: INotificationContent = await this.loadNotificationContent();
+        await this.scheduleDailyNotifications(notificationContent.title, notificationContent.body, event.detail.value);
 
-            // Ensure that the previous notification is canceled before scheduling a new one
-            await this.scheduleDailyNotifications(title, body, event.detail.value);
-        });
+
     }
 
     async is24HourFormat() {
@@ -168,12 +168,11 @@ export class NotificationsPage implements OnInit {
     async loadNotificationContent(): Promise<INotificationContent> {
         return new Promise((resolve) => {
             forkJoin({
-                title: this.translateService.get('DAILY_STORY_REMINDER'),
-                body: this.translateService.get('DAILY_STORY_REMINDER_BODY')
+                title: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER'),
+                body: this.translateService.get('LOCAL_NOTIFICATIONS.DAILY_STORY_REMINDER_BODY')
             }).subscribe(async (translations: { title: string, body: string }) => {
                 const {title, body} = translations;
                 resolve({title, body});
-                return;
             });
         });
     }
