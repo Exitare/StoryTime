@@ -29,23 +29,14 @@
                         <ion-label>{{ "AGE_RESTRICTIONS.BASE" | translate }}</ion-label>
                         <ion-note slot="end">{{ ageRestrictionLabel }}</ion-note>
                     </ion-item>
+                    <ion-item [button]="true" (click)="openLanguageMenu()">
+                        <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
+                        <ion-note slot="end">{{ userSelectedLanguage | languageId }}</ion-note>
+                    </ion-item>
                     <ion-item>
                         <ion-toggle justify="space-between" [(ngModel)]="textToSpeechToggler"
                                     (ionChange)="toggleTextToSpeech($event)">{{ 'TEXT_TO_SPEECH' | translate }}
                         </ion-toggle>
-                    </ion-item>
-
-
-                    <ion-list-header>
-                        <ion-label>{{ "LANGUAGE" | translate }}</ion-label>
-                    </ion-list-header>
-                    <ion-item *ngFor="let language of availableLanguages" (click)="userLanguageChanged(language)">
-                        <ion-label>{{ 'LANGUAGES.' + language | uppercase | translate }}</ion-label>
-                        <ion-icon slot="end" *ngIf="userSelectedLanguage.includes(language)"
-                                  name='checkmark'></ion-icon>
-                        <ion-icon slot="end" *ngIf="!userSelectedLanguage.includes(language)"
-                                  name=''></ion-icon>
-
                     </ion-item>
 
                     <ion-list-header>

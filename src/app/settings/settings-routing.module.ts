@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {SettingsPage} from './settings.page';
 import {NotificationsPage} from "./notifications/notifications.page";
 import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
+import {LanguageSelectionPage} from "./language-selection/language-selection.page";
 
 const routes: Routes = [
     {
@@ -16,6 +17,10 @@ const routes: Routes = [
     {
         path: 'age-restrictions',
         component: AgeRestrictionsPage,
+    },
+    {
+        path: 'language-selection',
+        component: LanguageSelectionPage,
     }
 ];
 

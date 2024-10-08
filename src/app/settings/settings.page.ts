@@ -19,7 +19,6 @@ export class SettingsPage implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];
     userSelectedCategories: string[] = [];
     availableCategories: string[] = [];
-    availableLanguages: string[] = ['en', 'de', 'gr'];
     userSelectedLanguage: string = 'en';
     ageRestrictionLabel: string = '';
     textToSpeechToggler = false;
@@ -126,12 +125,6 @@ export class SettingsPage implements OnInit, OnDestroy {
         this.changeDetector.detectChanges();
     }
 
-    async userLanguageChanged(language: string) {
-        await this.settingsService.saveLanguage(language);
-        this.userSelectedLanguage = language;
-        this.translateService.use(language);
-    }
-
     async toggleTextToSpeech(event: any) {
         if (event.detail.checked) {
             await this.settingsService.activateTextToSpeech(true);
@@ -152,6 +145,10 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     openAgeMenu() {
         this.navCtrl.navigateForward('tabs/settings/age-restrictions');
+    }
+
+    openLanguageMenu() {
+        this.navCtrl.navigateForward('tabs/settings/language-selection');
     }
 
     formatTime(hour: number): string {

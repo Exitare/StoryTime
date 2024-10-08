@@ -8,6 +8,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {PipeModule} from "../../core/pipes/pipe.module";
 import {NotificationsPage} from "./notifications/notifications.page";
 import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
+import {LanguageSelectionPage} from "./language-selection/language-selection.page";
 
 @NgModule({
     imports: [
@@ -19,7 +20,12 @@ import {AgeRestrictionsPage} from "./age-restrictions/age-restrictions.page";
         TranslateModule,
         PipeModule
     ],
-    declarations: [SettingsPage, NotificationsPage, AgeRestrictionsPage]
+    declarations: [
+        SettingsPage,
+        NotificationsPage,
+        AgeRestrictionsPage,
+        LanguageSelectionPage
+    ]
 })
 export class SettingsPageModule {
 }
