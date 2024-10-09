@@ -1,0 +1,11 @@
+.centered-segment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;  /* Ensure the segment takes the full width of its parent */
+}
+
+.centered-segment ion-segment-button {
+  flex: 1 0 auto;  /* Ensures each button stays properly spaced */
+  text-align: center;  /* Centers the text inside the buttons */
+}

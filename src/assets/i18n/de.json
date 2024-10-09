@@ -33,7 +33,7 @@
   },
   "AGE_RESTRICTIONS": {
     "BASE": "Altersbeschränkungen",
-    "EXPLANATION": "Stories werden gefilter für das Alter +-1 Jahr"
+    "EXPLANATION": "Stories werden nach Alter ±1 Jahr gefiltert"
 
   },
   "PRIVACY": "Datenschutz",

@@ -15,8 +15,8 @@
             </ion-toggle>
         </ion-item>
         <ion-item *ngIf="notificationActive">
-            <ion-segment value="{{selectedSegment}}" (ionChange)="notificationTimeChanged($event)" [scrollable]="true"
-                         class="centered-segment">
+            <ion-segment value="{{selectedSegment}}" (ionChange)="notificationTimeChanged($event)" [scrollable]="true" class="centered-segment">
+
                 <ion-segment-button value="9">
                     <ion-label>{{ formatTime(9) }}</ion-label>
                 </ion-segment-button>
