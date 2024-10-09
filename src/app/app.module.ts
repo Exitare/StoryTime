@@ -10,6 +10,7 @@ import {HttpClient, provideHttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import {NotificationService, SentencesService, SettingsService} from "../core/services";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,8 +33,12 @@ export function createTranslateLoader(http: HttpClient) {
         })
     ],
     providers: [
+        NotificationService,
+        SettingsService,
+        SentencesService,
         provideHttpClient(),
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+
     ],
     bootstrap: [AppComponent],
 })

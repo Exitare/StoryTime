@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {SettingsService} from "../core/services/settings.service";
-import {SentencesService} from "../core/services/sentence.service";
 import {Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
+import {NotificationService, SentencesService, SettingsService} from "../core/services";
 
 @Component({
     selector: 'app-root',
@@ -13,7 +12,7 @@ export class AppComponent implements OnDestroy, OnInit {
     subscriptions$: Subscription[] = [];
 
     constructor(private settingsService: SettingsService, private sentenceService: SentencesService,
-                private translate: TranslateService) {
+                private translate: TranslateService, private notificationService: NotificationService) {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('en');
 

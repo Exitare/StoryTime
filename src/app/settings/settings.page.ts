@@ -1,13 +1,10 @@
-import {ChangeDetectorRef, Component, isDevMode, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {SettingsService} from "../../core/services/settings.service";
-import {SentencesService} from "../../core/services/sentence.service";
-import {forkJoin, Subscription} from "rxjs";
+import {Component, isDevMode, OnDestroy, OnInit} from '@angular/core';
+import {debounceTime, distinct, pipe, Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
 import {NavController} from "@ionic/angular";
-import {LocalNotifications} from '@capacitor/local-notifications';
-import {Router} from "@angular/router";
+import {LocalNotifications, PendingLocalNotificationSchema} from '@capacitor/local-notifications';
 import {DeviceTimeUtils} from "capacitor-24h-time";
+import {DAILY_NOTIFICATION_ID, INotificationChange, NotificationService, SettingsService} from "../../core/services";
 
 
 @Component({
@@ -23,28 +20,37 @@ export class SettingsPage implements OnInit, OnDestroy {
     textToSpeechToggler = false;
     notificationTime: string = '';
     is24Hour = false;
-
+    isDebugModeActive = false;
+    debugModeCounter: number = 0;
+    pendingNotifications: PendingLocalNotificationSchema[] = [];
 
     constructor(private settingsService: SettingsService,
-                private translateService: TranslateService, private navCtrl: NavController) {
+                private translateService: TranslateService, private navCtrl: NavController,
+                private notificationsService: NotificationService) {
 
         this.subscriptions$.push(this.settingsService.selectedCategoriesChanged$.subscribe(async (categories: string[]) => {
             this.userSelectedCategories = categories;
         }));
 
-        this.translateService.onLangChange.subscribe(async (event) => {
-            if (isDevMode())
-                console.log("Changed language to: " + event.lang);
-            await this.ngOnInit();
+        this.translateService.onLangChange
+            .pipe(
+                distinct() // Ensure the event is distinct
+            )
+            .subscribe(async (event) => {
+                if (isDevMode()) {
+                    console.log("Changed language to: " + event.lang);
+                }
+                await this.ngOnInit();
+            });
 
-        });
 
-        this.subscriptions$.push(this.settingsService.scheduleDailyNotificationTimeChanged$.subscribe(async (time: number) => {
-            this.notificationTime = this.formatTime(time);
+        this.subscriptions$.push(this.settingsService.scheduleDailyNotificationTimeChanged$.subscribe(async (data: INotificationChange) => {
+            this.notificationTime = this.formatTime(data.time);
+
         }));
 
-        this.subscriptions$.push(this.settingsService.scheduleDailyNotificationActiveChanged$.subscribe(async (active: boolean) => {
-            if (!active) {
+        this.subscriptions$.push(this.settingsService.scheduleDailyNotificationActiveChanged$.subscribe(async (data: INotificationChange) => {
+            if (!data.active) {
                 this.notificationTime = '';
             }
         }));
@@ -54,18 +60,35 @@ export class SettingsPage implements OnInit, OnDestroy {
         }));
 
         this.subscriptions$.push(this.settingsService.ageRestrictionActiveChanged$.subscribe(async (active: boolean) => {
-            console.log("Age restriction active: " + active);
             await this.loadUserAgeRestriction();
         }));
+
+        this.notificationsService.notificationCountUpdated$.subscribe(async (count: number) => {
+            await this.loadNotificationInformation();
+        });
     }
 
     async ngOnInit() {
+        this.isDebugModeActive = await this.settingsService.isDebugModeActive();
         this.is24Hour = await DeviceTimeUtils.is24HourFormat();
         await this.loadUserCategories();
         await this.loadUserLanguage();
         await this.loadUserAgeRestriction();
         await this.loadNotificationTime();
         this.textToSpeechToggler = await this.settingsService.getTextToSpeech();
+        await this.loadNotificationInformation();
+    }
+
+
+    async loadNotificationInformation() {
+        this.pendingNotifications = [];
+        const notifications = await LocalNotifications.getPending();
+        // find all notification with the Daily Notification ID
+        for (let i = 0; i < notifications.notifications.length; i++) {
+            if (notifications.notifications[i].id === DAILY_NOTIFICATION_ID) {
+                this.pendingNotifications.push(notifications.notifications[i]);
+            }
+        }
     }
 
 
@@ -136,5 +159,18 @@ export class SettingsPage implements OnInit, OnDestroy {
             const adjustedHour = hour % 12 || 12; // Converts 0 to 12 for 12 AM and 12 PM
             return `${adjustedHour} ${suffix}`;
         }
+    }
+
+    async activateDebugMode() {
+        this.debugModeCounter++;
+        if (this.debugModeCounter >= 10) {
+            await this.settingsService.activeDebugMode(true);
+            this.isDebugModeActive = true;
+        }
+    }
+
+    async disableDebugMode(){
+        await this.settingsService.activeDebugMode(false);
+        this.isDebugModeActive = false;
     }
 }

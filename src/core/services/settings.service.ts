@@ -11,9 +11,14 @@ export enum SettingsKeys {
     DAILY_NOTIFICATION_TIME = 'dailyNotificationTime',
     DAILY_NOTIFICATION_ACTIVE = 'dailyNotificationActive',
     FIRST_START = 'firstStart',
-    TEXT_TO_SPEECH = 'textToSpeech'
+    TEXT_TO_SPEECH = 'textToSpeech',
+    DEBUG_MODE_ACTIVE = 'debugModeActive'
 }
 
+export interface INotificationChange {
+    active: boolean;
+    time: number;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -21,8 +26,8 @@ export enum SettingsKeys {
 export class SettingsService {
 
     selectedCategoriesChanged$: Subject<string[]> = new Subject<string[]>();
-    scheduleDailyNotificationTimeChanged$: Subject<number> = new Subject<number>();
-    scheduleDailyNotificationActiveChanged$: Subject<boolean> = new Subject<boolean>();
+    scheduleDailyNotificationTimeChanged$: Subject<INotificationChange> = new Subject<INotificationChange>();
+    scheduleDailyNotificationActiveChanged$: Subject<INotificationChange> = new Subject<INotificationChange>();
     textToSpeechChanged$: Subject<boolean> = new Subject<boolean>();
     ageRestrictionActiveChanged$: Subject<boolean> = new Subject<boolean>();
     ageRestrictionAgeChanged$: Subject<number> = new Subject<number>();
@@ -99,7 +104,7 @@ export class SettingsService {
 
     async getAgeRestrictionAge() {
         return await this.get(SettingsKeys.AGE_RESTRICTIONS_AGE).then((age) => {
-            if(!age.value) {
+            if (!age.value) {
                 return 0;
             }
             return Number(JSON.parse(age.value)) ?? 0;
@@ -119,8 +124,9 @@ export class SettingsService {
         return [];
     }
 
-    async saveDailyNotificationTime(time: number) {
+    async saveDailyNotificationTime(active: boolean, time: number) {
         await this.set(SettingsKeys.DAILY_NOTIFICATION_TIME, time);
+        this.scheduleDailyNotificationTimeChanged$.next({active: active, time: time});
     }
 
     async getDailyNotificationTime(): Promise<number> {
@@ -132,13 +138,28 @@ export class SettingsService {
         });
     }
 
-    async saveDailyNotificationActive(active: boolean) {
+    async saveDailyNotificationActive(active: boolean, time: number) {
         // convert bool to string
         await this.set(SettingsKeys.DAILY_NOTIFICATION_ACTIVE, JSON.stringify(active));
+        this.scheduleDailyNotificationTimeChanged$.next({active: active, time: time});
+        this.scheduleDailyNotificationActiveChanged$.next({active: active, time: time});
     }
 
     async getDailyNotificationActive() {
         return await this.get(SettingsKeys.DAILY_NOTIFICATION_ACTIVE).then((active) => {
+            if (active.value) {
+                return JSON.parse(active.value);
+            }
+            return false;
+        });
+    }
+
+    async activeDebugMode(active: boolean) {
+        await this.set(SettingsKeys.DEBUG_MODE_ACTIVE, JSON.stringify(active));
+    }
+
+    async isDebugModeActive() {
+        return await this.get(SettingsKeys.DEBUG_MODE_ACTIVE).then((active) => {
             if (active.value) {
                 return JSON.parse(active.value);
             }
