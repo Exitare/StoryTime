@@ -69,11 +69,13 @@ export class NotificationsPage implements OnInit {
 
             await this.settingsService.saveDailyNotificationActive(false);
             this.notificationActive = false;
+            await this.cancelScheduledNotification();
         }
     }
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
-        console.log("Schedule daily notifications");
+        if (isDevMode())
+            console.log("Schedule daily notifications");
         // Cancel any pending notifications before scheduling a new one
         await this.cancelScheduledNotification();
 
@@ -87,31 +89,24 @@ export class NotificationsPage implements OnInit {
         if (scheduledTime <= now)
             scheduledTime.setDate(scheduledTime.getDate() + 1); // Move to the next day
 
-        // Schedule the notification
         await LocalNotifications.schedule({
             notifications: [
                 {
                     title: title,
                     body: body,
-                    id: NOTIFICATION_ID,  // Reuse the constant notification ID
+                    id: NOTIFICATION_ID,  // Ensure a unique ID
                     schedule: {
-                        repeats: true, // Repeat the notification
-                        every: 'day',  // Repeat daily
-                        at: scheduledTime // Use the adjusted time
+                        at: scheduledTime,  // Schedule at the defined time
+                        repeats: true,      // Repeat notification
+                        every: 'day'     // Repeat every day
                     },
-                    sound: null!,
-                    attachments: null!,
-                    actionTypeId: "",
-                    extra: null
+                    sound: null!,           // Optional: No sound
+                    attachments: null!,     // Optional: No attachments
+                    actionTypeId: "",       // Optional: No action type
+                    extra: null             // Optional: No extra data
                 }
             ]
         });
-
-        if (isDevMode()){
-            console.log(`Notification scheduled at ${scheduledTime}.`);
-            console.log(`Title: ${title}`);
-            console.log(`Body: ${body}`);
-        }
 
     }
 
@@ -128,8 +123,10 @@ export class NotificationsPage implements OnInit {
                     }
                 ]
             });
-            if (isDevMode())
+            if (isDevMode()) {
                 console.log(`Notification with ID ${NOTIFICATION_ID} canceled.`);
+            }
+
         }
     }
 
@@ -139,6 +136,12 @@ export class NotificationsPage implements OnInit {
 
         if (isDevMode())
             console.log('Notification time changed.');
+
+        if ((await LocalNotifications.requestPermissions()).display !== 'granted') {
+            if (isDevMode())
+                console.log('Notification permissions denied.');
+            return;
+        }
 
         // Save the new notification time
         await this.settingsService.saveDailyNotificationTime(event.detail.value);
@@ -175,22 +178,5 @@ export class NotificationsPage implements OnInit {
                 resolve({title, body});
             });
         });
-    }
-
-    async resetNotifications() {
-        // Cancel all notifications for debug purposes
-        for (const notification of (await LocalNotifications.getPending()).notifications) {
-            await LocalNotifications.cancel({
-                notifications: [
-                    {
-                        id: notification.id
-                    }
-                ]
-            });
-            if (isDevMode())
-                console.log(`Found & canceled notification with ID ${notification.id}.`);
-        }
-
-
     }
 }
