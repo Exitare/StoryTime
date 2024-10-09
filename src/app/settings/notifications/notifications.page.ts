@@ -73,7 +73,6 @@ export class NotificationsPage implements OnInit {
     }
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
-        console.log("Schedule daily notifications");
         // Cancel any pending notifications before scheduling a new one
         await this.cancelScheduledNotification();
 
@@ -175,22 +174,5 @@ export class NotificationsPage implements OnInit {
                 resolve({title, body});
             });
         });
-    }
-
-    async resetNotifications() {
-        // Cancel all notifications for debug purposes
-        for (const notification of (await LocalNotifications.getPending()).notifications) {
-            await LocalNotifications.cancel({
-                notifications: [
-                    {
-                        id: notification.id
-                    }
-                ]
-            });
-            if (isDevMode())
-                console.log(`Found & canceled notification with ID ${notification.id}.`);
-        }
-
-
     }
 }
