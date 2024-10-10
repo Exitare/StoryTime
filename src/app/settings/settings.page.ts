@@ -70,12 +70,12 @@ export class SettingsPage implements OnInit, OnDestroy {
 
     async ngOnInit() {
         this.isDebugModeActive = await this.settingsService.isDebugModeActive();
+        this.textToSpeechToggler = await this.settingsService.getTextToSpeech();
         this.is24Hour = await DeviceTimeUtils.is24HourFormat();
-        await this.loadUserCategories();
         await this.loadUserLanguage();
+        await this.loadUserCategories();
         await this.loadUserAgeRestriction();
         await this.loadNotificationTime();
-        this.textToSpeechToggler = await this.settingsService.getTextToSpeech();
         await this.loadNotificationInformation();
     }
 
@@ -169,8 +169,15 @@ export class SettingsPage implements OnInit, OnDestroy {
         }
     }
 
-    async disableDebugMode(){
+    async disableDebugMode() {
         await this.settingsService.activeDebugMode(false);
         this.isDebugModeActive = false;
+    }
+
+    async clearPendingNotifications() {
+        let pending = await LocalNotifications.getPending();
+        await LocalNotifications.cancel({notifications: pending.notifications});
+        pending = await LocalNotifications.getPending();
+        this.pendingNotifications = pending.notifications;
     }
 }

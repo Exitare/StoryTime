@@ -19,17 +19,7 @@ export class NotificationsPage implements OnInit {
     is24Hour = false;
     protected readonly isDevMode = isDevMode();
 
-    constructor(private translateService: TranslateService, private settingsService: SettingsService) {
-
-        this.translateService.onLangChange.subscribe(async (event) => {
-            if (isDevMode())
-                console.log("Re-scheduling notification after language change.");
-            // cancel the current notification and wait for completion
-            this.settingsService.scheduleDailyNotificationTimeChanged$.next({
-                active: this.notificationActive,
-                time: this.selectedSegment
-            });
-        });
+    constructor(private settingsService: SettingsService) {
     }
 
     async ngOnInit() {

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 
@@ -14,6 +14,11 @@ import {NotificationService, SentencesService, SettingsService} from "../core/se
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+// Function to initialize the service
+export function initializeNotificationService(notificationService: NotificationService) {
+    return () => notificationService.initialize();
 }
 
 @NgModule({
@@ -33,9 +38,12 @@ export function createTranslateLoader(http: HttpClient) {
         })
     ],
     providers: [
-        NotificationService,
-        SettingsService,
-        SentencesService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeNotificationService,
+            deps: [NotificationService],  // Ensure the service is available here
+            multi: true,
+        },
         provideHttpClient(),
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
 

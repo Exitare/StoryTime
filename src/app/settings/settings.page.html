@@ -50,14 +50,15 @@
             </ion-list-header>
             <ion-item *ngIf="isDebugModeActive">
                 <ion-label>Pending Daily Notifications: {{ pendingNotifications.length }}</ion-label>
+                <ion-button (click)="clearPendingNotifications()">Clear</ion-button>
             </ion-item>
-            <ng-container *ngIf="isDebugModeActive"></ng-container>
-            <ion-item *ngFor="let notification of pendingNotifications">
-
-                <ion-label>Next Daily
-                    Notifications: {{ notification | json }}
-                </ion-label>
-            </ion-item>
+            <ng-container *ngIf="isDebugModeActive">
+                <ion-item *ngFor="let notification of pendingNotifications">
+                    <ion-label>Next Daily
+                        Notifications: {{ notification | json }}
+                    </ion-label>
+                </ion-item>
+            </ng-container>
         </ion-list>
     </ion-col>
 

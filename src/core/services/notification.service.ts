@@ -1,5 +1,5 @@
 // Define a constant notification ID to be reused throughout
-import {Injectable} from "@angular/core";
+import {Injectable, isDevMode} from "@angular/core";
 import {LocalNotifications} from "@capacitor/local-notifications";
 import {distinct, forkJoin, Subject, Subscription} from "rxjs";
 import {TranslateService} from "@ngx-translate/core";
@@ -17,12 +17,25 @@ export interface INotificationContent {
     providedIn: 'root'
 })
 export class NotificationService {
+    private isInitialized = false; // Add a flag for initialization check
     subscriptions$: Subscription[] = [];
     notificationCountUpdated$: Subject<number> = new Subject<number>();
 
 
     constructor(private translateService: TranslateService,
                 private settingsService: SettingsService) {
+
+        console.log("NotificationService initialized");
+
+
+    }
+
+    async initialize() {
+        if (this.isInitialized) {
+            console.log("NotificationService already initialized");
+            return;
+        }
+        this.isInitialized = true;
         this.subscriptions$.push(this.settingsService.scheduleDailyNotificationTimeChanged$
             .pipe(distinct())
             .subscribe(async (data: INotificationChange) => {
@@ -46,7 +59,24 @@ export class NotificationService {
                     await this.cancelDailyScheduledNotification();
                 }
             }));
+
+        this.translateService.onLangChange
+            .pipe(distinct())
+            .subscribe(async (event) => {
+                if (isDevMode())
+                    console.log("Re-scheduling notification after language change.");
+
+                const notificationActive: boolean = await this.settingsService.getDailyNotificationActive();
+                const notificationTime: number = await this.settingsService.getDailyNotificationTime();
+
+                // cancel the current notification and wait for completion
+                this.settingsService.scheduleDailyNotificationTimeChanged$.next({
+                    active: notificationActive,
+                    time: notificationTime
+                });
+            });
     }
+
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
         console.log("Scheduling daily notification at " + hour + " o'clock.");
@@ -54,11 +84,12 @@ export class NotificationService {
         const scheduledTime = new Date();
 
         // Set the time for the notification
-        scheduledTime.setHours(hour, 0, 0, 0);
+        //scheduledTime.setHours(hour, 0, 0, 0);
 
         // If the scheduled time is before the current time, schedule it for the next day
-        if (scheduledTime <= now)
-            scheduledTime.setDate(scheduledTime.getDate() + 1); // Move to the next day
+        //if (scheduledTime <= now)
+        //    scheduledTime.setDate(scheduledTime.getDate() + 1); // Move to the next day
+
 
         await LocalNotifications.schedule({
             notifications: [
@@ -67,9 +98,9 @@ export class NotificationService {
                     body: body,
                     id: DAILY_NOTIFICATION_ID,  // Ensure a unique ID
                     schedule: {
-                        at: scheduledTime,  // Schedule at the defined time
                         repeats: true,      // Repeat notification
-                        every: 'day'     // Repeat every day
+                        every: 'day',       // Repeat every day
+                        on: {hour: hour, minute: 0}  // Schedule at 9:00 AM every day
                     },
                     sound: null!,           // Optional: No sound
                     attachments: null!,     // Optional: No attachments
