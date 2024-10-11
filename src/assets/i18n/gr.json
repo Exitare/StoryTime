@@ -44,5 +44,8 @@
     "DAILY_STORY_REMINDER_BODY": "Η καθημερινή σας ιστορία σας περιμένει!"
   },
   "TEXT_TO_SPEECH": "Κείμενο σε ομιλία",
-  "PERSONAL": "Προσωπικό"
+  "PERSONAL": "Προσωπικό",
+  "BUTTONS": {
+    "BACK": "Πίσω"
+  }
 }

@@ -4,7 +4,7 @@
             {{ 'CATEGORIES.' + category | uppercase | replaceCharacter: ' ' | translate }}
         </ion-title>
         <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
+            <ion-back-button text="{{ 'BUTTONS.BACK' | translate }}" default-href="tabs/explore"></ion-back-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>

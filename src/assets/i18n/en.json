@@ -44,5 +44,8 @@
     "DAILY_STORY_REMINDER_BODY": "Your daily story is waiting for you!"
   },
   "TEXT_TO_SPEECH": "Text to Speech",
-  "PERSONAL": "Personal"
+  "PERSONAL": "Personal",
+  "BUTTONS": {
+    "BACK": "Back"
+  }
 }
