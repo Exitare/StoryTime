@@ -79,17 +79,8 @@ export class NotificationService {
 
 
     async scheduleDailyNotifications(title: string, body: string, hour: number) {
-        console.log("Scheduling daily notification at " + hour + " o'clock.");
-        const now = new Date();
-        const scheduledTime = new Date();
-
-        // Set the time for the notification
-        //scheduledTime.setHours(hour, 0, 0, 0);
-
-        // If the scheduled time is before the current time, schedule it for the next day
-        //if (scheduledTime <= now)
-        //    scheduledTime.setDate(scheduledTime.getDate() + 1); // Move to the next day
-
+        if(isDevMode())
+            console.log("Scheduling daily notification at " + hour + " o'clock.");
 
         await LocalNotifications.schedule({
             notifications: [
@@ -99,8 +90,7 @@ export class NotificationService {
                     id: DAILY_NOTIFICATION_ID,  // Ensure a unique ID
                     schedule: {
                         repeats: true,      // Repeat notification
-                        every: 'day',       // Repeat every day
-                        on: {hour: hour, minute: 0}  // Schedule at 9:00 AM every day
+                        on: {hour: hour, minute: 0}  // Schedule at hour every day
                     },
                     sound: null!,           // Optional: No sound
                     attachments: null!,     // Optional: No attachments
